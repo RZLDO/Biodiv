@@ -2,6 +2,7 @@ import 'package:biodiv/BloC/login/login_bloc.dart';
 import 'package:biodiv/model/login_model.dart';
 import 'package:biodiv/repository/auth_repository.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
+import 'package:biodiv/ui/register/register_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_button.dart';
 import 'package:biodiv/utils/custom_textfield.dart';
@@ -96,6 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         });
                   }),
+              const SizedBox(
+                height: 20,
+              ),
               RichText(
                 text: TextSpan(children: <TextSpan>[
                   const TextSpan(
@@ -104,7 +108,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextSpan(
                       text: "Register Here!",
                       style: ReusableTextStyle.basicMainColorBold,
-                      recognizer: TapGestureRecognizer()..onTap = () {})
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegisterScreen()));
+                        })
                 ]),
               )
             ],
