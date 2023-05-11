@@ -1,5 +1,5 @@
 class LoginResponse {
-  final String error;
+  final bool error;
   final String message;
   LoginResult? loginResult;
 
@@ -7,7 +7,7 @@ class LoginResponse {
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
-      error: json['error'] ?? "true",
+      error: json['error'] ?? true,
       message: json['message'] ?? "",
       loginResult: json.containsKey('loginResult')
           ? LoginResult.fromJson(json['loginResult'])
