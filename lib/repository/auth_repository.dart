@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:biodiv/model/login_model.dart';
 import 'package:biodiv/model/register_model.dart';
+import 'package:biodiv/repository/user_preferences.dart';
 import 'package:http/http.dart' as http;
 
 var _baseUrl = "http://192.168.43.225:5000/api";
@@ -16,6 +17,11 @@ class AuthRepository {
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         final loginResponse = LoginResponse.fromJson(json);
+        if (loginResponse.loginResult != null) {
+          LoginResult? result = loginResponse.loginResult;
+          UserPreferences.saveUserPreferences(
+              result!.userId, result.username, result.userLevel, result.token);
+        }
         return loginResponse;
       } else {
         final json = jsonDecode(response.body);

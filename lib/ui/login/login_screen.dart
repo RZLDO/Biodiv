@@ -1,5 +1,4 @@
 import 'package:biodiv/BloC/login/login_bloc.dart';
-import 'package:biodiv/model/login_model.dart';
 import 'package:biodiv/repository/auth_repository.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/register/register_screen.dart';
@@ -9,9 +8,8 @@ import 'package:biodiv/utils/custom_textfield.dart';
 import 'package:biodiv/utils/validation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/text_style.dart';
 
@@ -23,8 +21,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final AuthRepository repository = AuthRepository();
   final LoginBloc _loginBloc = LoginBloc(authRepository: AuthRepository());

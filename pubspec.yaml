@@ -40,6 +40,9 @@ dependencies:
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
+  shared_preferences: ^2.0.18
+  shared_preferences_android: ^2.1.4
+  shared_preferences_foundation: ^2.2.2
 
 dev_dependencies:
   flutter_test:
