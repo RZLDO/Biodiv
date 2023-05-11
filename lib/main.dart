@@ -1,5 +1,8 @@
+import 'package:biodiv/BloC/login/login_bloc.dart';
+import 'package:biodiv/repository/auth_repository.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +19,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LoginScreen());
+        home: const LoginScreen());
   }
 }
