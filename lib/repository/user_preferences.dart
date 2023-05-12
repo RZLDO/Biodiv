@@ -7,11 +7,11 @@ class UserPreferences {
     await preferences.setInt('id', id);
     await preferences.setString('name', name);
     if (level == 1) {
-      await preferences.setString('level', "Admin BKSDA");
+      await preferences.setString('level', "BKSDA");
     } else if (level == 2) {
       await preferences.setString('level', "LSM");
     } else {
-      await preferences.setString('level', 'Masyarakat');
+      await preferences.setString('level', 'MASYARAKAT');
     }
     await preferences.setString('token', token);
   }

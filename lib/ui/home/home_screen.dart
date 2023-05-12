@@ -1,5 +1,6 @@
 import 'package:biodiv/BloC/home/home_bloc.dart';
 import 'package:biodiv/repository/home_repository.dart';
+import 'package:biodiv/repository/user_preferences.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/utils/text_style.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -218,6 +219,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     IconButton(
                                         onPressed: () {
+                                          UserPreferences
+                                              .deleteUserPreferences();
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
@@ -250,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: ReusableTextStyle.title,
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                                 Expanded(
                                   child: ListView.builder(
@@ -263,6 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .size
                                                   .width *
                                               0.3,
+                                          height: 50,
                                           margin: const EdgeInsets.only(
                                               right: 20, bottom: 5),
                                           decoration: BoxDecoration(
