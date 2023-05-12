@@ -4,14 +4,12 @@ import 'package:biodiv/model/login_model.dart';
 import 'package:biodiv/model/register_model.dart';
 import 'package:biodiv/repository/user_preferences.dart';
 import 'package:http/http.dart' as http;
-
-var _baseUrl = "http://192.168.43.225:5000/api";
+import 'package:biodiv/utils/constant.dart';
 
 class AuthRepository {
-  var client = http.Client();
   Future<LoginResponse> login(String username, String password) async {
     try {
-      var url = Uri.parse('$_baseUrl/login');
+      var url = Uri.parse('$baseUrl/login');
       http.Response response = await http
           .post(url, body: {'username': username, 'password': password});
       if (response.statusCode == 200) {
@@ -41,7 +39,7 @@ class AuthRepository {
   Future<RegisterResponse> register(
       String name, String address, String username, String password) async {
     try {
-      final url = Uri.parse('$_baseUrl/register');
+      final url = Uri.parse('$baseUrl/register');
       http.Response response = await http.post(url, body: {
         'name': name,
         'address': address,

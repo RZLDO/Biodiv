@@ -4,8 +4,15 @@ class UserPreferences {
   static saveUserPreferences(
       int id, String name, int level, String token) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setInt('id', id);
     await preferences.setString('name', name);
-    await preferences.setInt('level', level);
+    if (level == 1) {
+      await preferences.setString('level', "Admin BKSDA");
+    } else if (level == 2) {
+      await preferences.setString('level', "LSM");
+    } else {
+      await preferences.setString('level', 'Masyarakat');
+    }
     await preferences.setString('token', token);
   }
 

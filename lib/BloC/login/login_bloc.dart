@@ -15,7 +15,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       LoginButtonPressed event, Emitter<LoginState> emit) async {
     final loginResponse =
         await authRepository.login(event.username, event.password);
-    print(loginResponse.message);
     if (loginResponse.error == true) {
       emit(LoginFailure(errorMessage: loginResponse.message));
     } else {
