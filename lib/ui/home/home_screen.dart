@@ -2,8 +2,10 @@ import 'package:biodiv/BloC/home/home_bloc.dart';
 import 'package:biodiv/repository/home_repository.dart';
 import 'package:biodiv/repository/user_preferences.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
+import 'package:biodiv/utils/chart.dart';
 import 'package:biodiv/utils/text_style.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +19,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<PieChartSectionData> showingSections =
+      List<PieChartSectionData>.empty(growable: true);
+
+  int touchedIndex = -1;
   final List<String> _taksonomiItems = [
     'class',
     'ordo',
     'famili',
     'genus',
     'spesies'
+  ];
+  final List<Color> colors = [
+    AppColor.mainColor,
+    AppColor.secondaryColor,
+    AppColor.thirdColor,
+    Colors.blueGrey,
+    Colors.blue,
   ];
   late HomeBloc _homeBloc;
   @override
@@ -322,7 +335,41 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: ReusableTextStyle.title,
                         ),
                       ),
-                      const Center(),
+                      const SizedBox(
+                        height: 70,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: ShowPieChart(itemList: state.taksonData),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Indicator(
+                                    color: colors[0],
+                                    text: _taksonomiItems[0].toString()),
+                                Indicator(
+                                    color: colors[1],
+                                    text: _taksonomiItems[1].toString()),
+                                Indicator(
+                                    color: colors[2],
+                                    text: _taksonomiItems[2].toString()),
+                                Indicator(
+                                    color: colors[3],
+                                    text: _taksonomiItems[3].toString()),
+                                Indicator(
+                                    color: colors[4],
+                                    text: _taksonomiItems[4].toString()),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 );
@@ -334,5 +381,37 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           )),
     ));
+  }
+}
+
+class Indicator extends StatelessWidget {
+  final Color color;
+  final String text;
+  const Indicator({super.key, required this.color, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              color: color,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            text,
+            style: ReusableTextStyle.basic,
+          ),
+        ],
+      ),
+    );
   }
 }

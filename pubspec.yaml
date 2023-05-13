@@ -43,6 +43,7 @@ dependencies:
   shared_preferences: ^2.0.18
   shared_preferences_android: ^2.1.4
   shared_preferences_foundation: ^2.2.2
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   flutter_test:
