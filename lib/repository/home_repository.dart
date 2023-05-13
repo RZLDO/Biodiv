@@ -10,7 +10,6 @@ class HomeRepository {
     try {
       var url = Uri.parse('$baseUrl/totalData');
       http.Response response = await http.get(url);
-      print(response.body);
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         print(json);

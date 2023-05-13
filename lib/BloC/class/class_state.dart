@@ -1,0 +1,28 @@
+part of 'class_bloc.dart';
+
+abstract class ClassState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class ClassInitial extends ClassState {}
+
+class ClassLoading extends ClassState {}
+
+class GetDataSuccess extends ClassState {
+  final GetDataClass getDataClass;
+
+  GetDataSuccess({required this.getDataClass});
+
+  @override
+  List<Object?> get props => [getDataClass];
+}
+
+class Failure extends ClassState {
+  final String errorMessage;
+
+  Failure({required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}

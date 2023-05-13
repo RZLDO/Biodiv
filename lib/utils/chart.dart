@@ -54,7 +54,7 @@ class _ShowPieChartState extends State<ShowPieChart> {
       AppColor.secondaryColor,
       AppColor.thirdColor,
       Colors.blueGrey,
-      Colors.blue,
+      Colors.lightGreen,
     ];
     return colors[index % colors.length];
   }

@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     AppColor.secondaryColor,
     AppColor.thirdColor,
     Colors.blueGrey,
-    Colors.blue,
+    Colors.lightGreen,
   ];
   late HomeBloc _homeBloc;
   @override
