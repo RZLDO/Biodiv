@@ -10,12 +10,12 @@ class ClassInitial extends ClassState {}
 class ClassLoading extends ClassState {}
 
 class GetDataSuccess extends ClassState {
-  final GetDataClass getDataClass;
+  final List<ClassData> dataClass;
 
-  GetDataSuccess({required this.getDataClass});
+  GetDataSuccess({required this.dataClass});
 
   @override
-  List<Object?> get props => [getDataClass];
+  List<Object?> get props => [dataClass];
 }
 
 class Failure extends ClassState {

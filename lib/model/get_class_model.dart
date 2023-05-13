@@ -1,7 +1,7 @@
 class GetDataClass {
   final bool error;
   final String message;
-  final List<ClassData>? data;
+  final List<ClassData> data;
 
   GetDataClass({
     required this.error,
