@@ -1,6 +1,7 @@
 import 'package:biodiv/BloC/home/home_bloc.dart';
 import 'package:biodiv/repository/home_repository.dart';
 import 'package:biodiv/repository/user_preferences.dart';
+import 'package:biodiv/ui/class%20page/class_page.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/utils/chart.dart';
 import 'package:biodiv/utils/text_style.dart';
@@ -297,7 +298,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: InkWell(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                              onTap: () {},
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const ClassScreen()));
+                                              },
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
