@@ -20,9 +20,7 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
     if (response.error == true) {
       emit(Failure(errorMessage: response.message));
     } else {
-      if (response.data != null) {
-        emit(GetDataSuccess(dataClass: response.data));
-      }
+      emit(GetDataSuccess(dataClass: response.data));
     }
   }
 }

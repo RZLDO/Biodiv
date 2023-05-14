@@ -7,6 +7,7 @@ import 'package:biodiv/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../utils/card_view.dart';
 import '../../utils/custom_app_bar.dart';
 
 class ClassScreen extends StatefulWidget {
@@ -53,10 +54,12 @@ class _ClassScreenState extends State<ClassScreen> {
                         if (index % 2 == 0 && index + 1 < data.length) {
                           dataAnimal = data[index];
                           dataAnimalDua = data[index + 1];
+                        } else if (data.length > 2) {
+                          if (index == data.length - 1) {
+                            dataAnimal = data[index];
+                          }
                         }
-                        if (index == data.length - 1) {
-                          dataAnimal = data[index];
-                        }
+
                         return Row(
                           children: [
                             if (dataAnimal != null)
@@ -86,65 +89,6 @@ class _ClassScreenState extends State<ClassScreen> {
               },
             ),
           ),
-        ));
-  }
-}
-
-class CustomCard extends StatelessWidget {
-  final String namaUmum;
-  final String namaLatin;
-  final String image;
-  const CustomCard(
-      {super.key,
-      required this.namaUmum,
-      required this.namaLatin,
-      required this.image});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        elevation: 4.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(image),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(8.0),
-                ),
-              ),
-            ),
-            Column(
-              children: [
-                const SizedBox(height: 8.0),
-                Text(
-                  namaUmum,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                Text(
-                  namaLatin,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-              ],
-            ),
-          ],
         ));
   }
 }

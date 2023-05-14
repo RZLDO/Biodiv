@@ -3,6 +3,7 @@ import 'package:biodiv/repository/home_repository.dart';
 import 'package:biodiv/repository/user_preferences.dart';
 import 'package:biodiv/ui/class%20page/class_page.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
+import 'package:biodiv/ui/ordo%20page/ordo.dart';
 import 'package:biodiv/utils/chart.dart';
 import 'package:biodiv/utils/text_style.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Colors.blueGrey,
     Colors.lightGreen,
   ];
+  final List listNavigation = [const ClassScreen(), const OrdoScreen()];
   late HomeBloc _homeBloc;
   @override
   void initState() {
@@ -303,7 +305,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const ClassScreen()));
+                                                            listNavigation[
+                                                                index]));
                                               },
                                               child: Padding(
                                                 padding:
