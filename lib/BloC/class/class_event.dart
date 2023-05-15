@@ -27,7 +27,7 @@ class PostDataClass extends ClassEvent {
 }
 
 class GetDetailClass extends ClassEvent {
-  final int idClass;
+  final String idClass;
   GetDetailClass({required this.idClass});
 
   @override

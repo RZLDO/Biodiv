@@ -1,12 +1,13 @@
 import 'package:biodiv/BloC/class/class_bloc.dart';
-import 'package:biodiv/model/get_class_model.dart';
 import 'package:biodiv/repository/class_repository.dart';
 import 'package:biodiv/ui/class%20page/add_data_class.dart';
+import 'package:biodiv/ui/class%20page/class_detail_page.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/Class Model/get_class_model.dart';
 import '../../utils/card_view.dart';
 import '../../utils/custom_app_bar.dart';
 
@@ -65,7 +66,7 @@ class _ClassScreenState extends State<ClassScreen> {
                         if (index % 2 == 0 && index + 1 < data.length) {
                           dataAnimal = data[index];
                           dataAnimalDua = data[index + 1];
-                        } else if (data.length > 2) {
+                        } else if (data.length == 2) {
                           if (index == data.length - 1) {
                             dataAnimal = data[index];
                           }
@@ -74,18 +75,38 @@ class _ClassScreenState extends State<ClassScreen> {
                           children: [
                             if (dataAnimal != null)
                               Expanded(
-                                  child: CustomCard(
-                                      namaUmum: dataAnimal.namaUmum,
-                                      namaLatin: dataAnimal.namaLatin,
-                                      image:
-                                          "$baseUrl/image/${dataAnimal.gambar}")),
+                                  child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DetailClass(
+                                              idClass: dataAnimal!.idClass
+                                                  .toString())));
+                                },
+                                child: CustomCard(
+                                    namaUmum: dataAnimal.namaUmum,
+                                    namaLatin: dataAnimal.namaLatin,
+                                    image:
+                                        "$baseUrl/image/${dataAnimal.gambar}"),
+                              )),
                             if (dataAnimalDua != null)
                               Expanded(
-                                  child: CustomCard(
-                                      namaUmum: dataAnimalDua.namaUmum,
-                                      namaLatin: dataAnimalDua.namaLatin,
-                                      image:
-                                          "$baseUrl/image/${dataAnimalDua.gambar}"))
+                                  child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DetailClass(
+                                              idClass: dataAnimalDua!.idClass
+                                                  .toString())));
+                                },
+                                child: CustomCard(
+                                    namaUmum: dataAnimalDua.namaUmum,
+                                    namaLatin: dataAnimalDua.namaLatin,
+                                    image:
+                                        "$baseUrl/image/${dataAnimalDua.gambar}"),
+                              ))
                           ],
                         );
                       });

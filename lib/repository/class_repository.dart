@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:biodiv/model/detail_class_model.dart';
-import 'package:biodiv/model/get_class_model.dart';
-import 'package:biodiv/model/get_ordo_model.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+
+import '../model/Class Model/detail_class_model.dart';
+import '../model/Class Model/get_class_model.dart';
 
 class ClassRepository {
   Future<GetDataClass> getDataClass() async {
@@ -81,10 +81,10 @@ class ClassRepository {
     }
   }
 
-  Future<DetailResponse> getDetailClass(int id) async {
+  Future<DetailResponse> getDetailClass(String id) async {
     try {
-      final url = Uri.parse('$baseUrl/class/{$id}');
-      http.Response response = await http.post(url);
+      final url = Uri.parse('$baseUrl/class/$id');
+      http.Response response = await http.get(url);
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
         final response = DetailResponse.fromJson(json);
