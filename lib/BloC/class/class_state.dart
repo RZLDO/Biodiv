@@ -34,3 +34,11 @@ class AddDataSuccess extends ClassState {
   @override
   List<Object?> get props => [postDataClass];
 }
+
+class DetailSuccess extends ClassState {
+  final DetailResponse detail;
+  DetailSuccess({required this.detail});
+
+  @override
+  List<Object?> get props => [detail];
+}

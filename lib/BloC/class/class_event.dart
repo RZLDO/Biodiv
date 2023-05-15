@@ -25,3 +25,11 @@ class PostDataClass extends ClassEvent {
   List<Object?> get props =>
       [latinName, commonName, characteristics, description, image];
 }
+
+class GetDetailClass extends ClassEvent {
+  final int idClass;
+  GetDetailClass({required this.idClass});
+
+  @override
+  List<Object?> get props => [idClass];
+}

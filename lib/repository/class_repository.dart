@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:biodiv/model/detail_class_model.dart';
 import 'package:biodiv/model/get_class_model.dart';
 import 'package:biodiv/model/get_ordo_model.dart';
 import 'package:biodiv/utils/constant.dart';
@@ -77,6 +78,25 @@ class ClassRepository {
     } catch (error) {
       var result = AddClassDataModel(error: true, message: error.toString());
       return result;
+    }
+  }
+
+  Future<DetailResponse> getDetailClass(int id) async {
+    try {
+      final url = Uri.parse('$baseUrl/class/{$id}');
+      http.Response response = await http.post(url);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final response = DetailResponse.fromJson(json);
+        return response;
+      } else {
+        final response = DetailResponse.fromJson(json);
+        return response;
+      }
+    } catch (error) {
+      final response =
+          DetailResponse(error: true, message: error.toString(), data: null);
+      return response;
     }
   }
 }
