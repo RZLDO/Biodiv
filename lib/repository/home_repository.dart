@@ -19,7 +19,6 @@ class HomeRepository {
         return data;
       }
     } catch (error) {
-      print("catch error : " + error.toString());
       final errorResponse =
           TotalDataResponse(error: true, message: error.toString(), data: null);
       return errorResponse;

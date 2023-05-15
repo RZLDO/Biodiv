@@ -10,7 +10,6 @@ class OrdoRepository {
       final uri = Uri.parse('$baseUrl/ordo');
       http.Response response = await http.get(uri);
       final json = jsonDecode(response.body);
-      print(json);
       if (response.statusCode == 200) {
         final response = OrdoResponse.fromJson(json);
         return response;

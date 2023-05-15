@@ -2,7 +2,6 @@ import 'package:biodiv/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:biodiv/model/register_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'register_state.dart';
 part 'register_event.dart';

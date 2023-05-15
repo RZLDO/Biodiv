@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'colors.dart';
 
@@ -18,13 +15,13 @@ class _ShowPieChartState extends State<ShowPieChart> {
   int touchedIndex = -1;
 
   List<PieChartSectionData> showingSections() {
-    final List<String> _taksonomiItems = [
-      'class',
-      'ordo',
-      'famili',
-      'genus',
-      'spesies'
-    ];
+    // final List<String> _taksonomiItems = [
+    //   'class',
+    //   'ordo',
+    //   'famili',
+    //   'genus',
+    //   'spesies'
+    // ];
 
     return List.generate(widget.itemList.length, (i) {
       final isTouched = i == touchedIndex;
@@ -47,8 +44,6 @@ class _ShowPieChartState extends State<ShowPieChart> {
   }
 
   Color getColor(int index) {
-    // Assign different colors based on index or any other condition
-    // Here's an example using a list of predefined colors
     final List<Color> colors = [
       AppColor.mainColor,
       AppColor.secondaryColor,

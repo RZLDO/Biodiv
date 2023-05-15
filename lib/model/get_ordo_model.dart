@@ -54,3 +54,13 @@ class OrdoData {
     );
   }
 }
+
+class AddOrdoData {
+  final bool error;
+  final String message;
+  AddOrdoData({required this.error, required this.message});
+
+  factory AddOrdoData.fromJson(Map<String, dynamic> json) {
+    return AddOrdoData(error: json['error'], message: json['message']);
+  }
+}

@@ -26,3 +26,11 @@ class Failure extends ClassState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class AddDataSuccess extends ClassState {
+  final AddClassDataModel postDataClass;
+  AddDataSuccess({required this.postDataClass});
+
+  @override
+  List<Object?> get props => [postDataClass];
+}

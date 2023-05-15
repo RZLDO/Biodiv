@@ -54,3 +54,13 @@ class ClassData {
     );
   }
 }
+
+class AddClassDataModel {
+  final bool error;
+  final String message;
+  AddClassDataModel({required this.error, required this.message});
+
+  factory AddClassDataModel.fromJson(Map<String, dynamic> json) {
+    return AddClassDataModel(error: json['error'], message: json['message']);
+  }
+}

@@ -1,7 +1,7 @@
 import 'package:biodiv/BloC/class/class_bloc.dart';
-import 'package:biodiv/BloC/home/home_bloc.dart';
 import 'package:biodiv/model/get_class_model.dart';
 import 'package:biodiv/repository/class_repository.dart';
+import 'package:biodiv/ui/class%20page/add_data_class.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +29,17 @@ class _ClassScreenState extends State<ClassScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColor.secondaryColor,
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddDataClass()));
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: AppColor.backgroundColor,
         appBar: const CustomAppBar(text: "TEXT"),
         body: BlocProvider(
@@ -59,7 +70,6 @@ class _ClassScreenState extends State<ClassScreen> {
                             dataAnimal = data[index];
                           }
                         }
-
                         return Row(
                           children: [
                             if (dataAnimal != null)
