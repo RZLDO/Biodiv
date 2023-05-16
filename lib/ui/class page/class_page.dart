@@ -42,7 +42,7 @@ class _ClassScreenState extends State<ClassScreen> {
           ),
         ),
         backgroundColor: AppColor.backgroundColor,
-        appBar: const CustomAppBar(text: "TEXT"),
+        appBar: const CustomAppBar(text: ""),
         body: BlocProvider(
           create: (context) => _classBloc,
           child: Padding(

@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:biodiv/repository/class_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../model/Class Model/detail_class_model.dart';
@@ -23,7 +20,6 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
   Future<void> getDetailClassData(
       GetDetailClass event, Emitter<ClassState> emit) async {
     final response = await repository.getDetailClass(event.idClass.toString());
-    print(response.message);
     if (response.error == true) {
       emit(Failure(errorMessage: response.message));
     } else {

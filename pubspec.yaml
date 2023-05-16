@@ -46,6 +46,8 @@ dependencies:
   fl_chart: ^0.62.0
   image_picker: ^0.8.7+5
   path_provider: ^2.0.15
+  google_fonts: ^4.0.4
+  readmore: ^2.2.0
 
 dev_dependencies:
   flutter_test:

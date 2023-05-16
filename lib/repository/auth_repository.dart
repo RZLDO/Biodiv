@@ -10,10 +10,8 @@ class AuthRepository {
   Future<LoginResponse> login(String username, String password) async {
     try {
       var url = Uri.parse('$baseUrl/login');
-      print("repository");
       http.Response response = await http
           .post(url, body: {'username': username, 'password': password});
-      print(response);
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         final loginResponse = LoginResponse.fromJson(json);

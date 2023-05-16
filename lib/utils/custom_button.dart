@@ -40,3 +40,48 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+class CustomButtonExtended extends StatelessWidget {
+  final Function() onTap;
+  String? text;
+  final double width;
+  IconData? icon;
+  bool setText;
+  Color? color;
+  CustomButtonExtended(
+      {super.key,
+      this.text,
+      required this.onTap,
+      required this.width,
+      this.icon,
+      this.color,
+      required this.setText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 45,
+      decoration: BoxDecoration(
+          color: color ?? AppColor.mainColor,
+          borderRadius: BorderRadius.circular(10)),
+      child: Material(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: onTap,
+          splashColor: AppColor.secondaryColor,
+          child: Center(
+              // ignore: unnecessary_null_comparison
+              child: setText
+                  ? Icon(icon)
+                  : Text(
+                      text.toString(),
+                      style: ReusableTextStyle.buttonTextStyle,
+                    )),
+        ),
+      ),
+    );
+  }
+}
