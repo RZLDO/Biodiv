@@ -33,3 +33,11 @@ class GetDetailClass extends ClassEvent {
   @override
   List<Object?> get props => [idClass];
 }
+
+class DeleteClass extends ClassEvent {
+  final int idClass;
+  DeleteClass({required this.idClass});
+
+  @override
+  List<Object?> get props => [idClass];
+}

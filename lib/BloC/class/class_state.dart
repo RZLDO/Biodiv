@@ -42,3 +42,10 @@ class DetailSuccess extends ClassState {
   @override
   List<Object?> get props => [detail];
 }
+
+class DeleteSuccess extends ClassState {
+  final String response;
+  DeleteSuccess({required this.response});
+  @override
+  List<Object?> get props => [response];
+}

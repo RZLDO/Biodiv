@@ -48,7 +48,7 @@ dependencies:
   path_provider: ^2.0.15
   google_fonts: ^4.0.4
   readmore: ^2.2.0
-
+  awesome_dialog: ^3.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

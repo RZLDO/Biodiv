@@ -99,4 +99,15 @@ class ClassRepository {
       return response;
     }
   }
+
+  Future<String> deleteClassRepository(int id) async {
+    try {
+      final url = Uri.parse('$baseUrl/class/$id');
+      http.Response response = await http.delete(url);
+      final json = jsonDecode(response.body);
+      return json;
+    } catch (error) {
+      return "an error Occured $error";
+    }
+  }
 }

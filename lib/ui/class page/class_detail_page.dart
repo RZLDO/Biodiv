@@ -1,11 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/class/class_bloc.dart';
 import 'package:biodiv/model/Class%20Model/detail_class_model.dart';
 import 'package:biodiv/repository/class_repository.dart';
+import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:biodiv/utils/custom_button.dart';
-import 'package:biodiv/utils/text_style.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -148,7 +148,44 @@ class _DetailClassState extends State<DetailClass> {
                                 CustomButtonExtended(
                                     color: AppColor.redColorAccent,
                                     icon: Icons.delete,
-                                    onTap: () {},
+                                    onTap: () {
+                                      AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.warning,
+                                              autoDismiss: false,
+                                              onDismissCallback: (type) {
+                                                Navigator.pop(context);
+                                              },
+                                              btnOkOnPress: () {
+                                                _classBloc.add(DeleteClass(
+                                                    idClass: data.idClass));
+                                                AwesomeDialog(
+                                                        context: context,
+                                                        autoDismiss: false,
+                                                        onDismissCallback:
+                                                            (type) {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        dialogType:
+                                                            DialogType.success,
+                                                        btnOkOnPress: () {
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const HomeScreen()));
+                                                        },
+                                                        title:
+                                                            "Data Berhasil di hapus")
+                                                    .show();
+                                              },
+                                              btnCancelOnPress: () {},
+                                              title:
+                                                  "Are you sure to delete this data?")
+                                          .show();
+                                    },
                                     width: MediaQuery.of(context).size.width *
                                         0.15,
                                     setText: true),
@@ -216,7 +253,7 @@ class _ReadMoreCustomState extends State<ReadMoreCustom> {
   Widget build(BuildContext context) {
     return ReadMoreText(
       widget.text,
-      trimLines: 2,
+      trimLines: 3,
       trimMode: TrimMode.Line,
       trimCollapsedText: '  Show more',
       trimExpandedText: '   Show less',

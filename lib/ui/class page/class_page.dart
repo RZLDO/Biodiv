@@ -66,9 +66,9 @@ class _ClassScreenState extends State<ClassScreen> {
                         if (index % 2 == 0 && index + 1 < data.length) {
                           dataAnimal = data[index];
                           dataAnimalDua = data[index + 1];
-                        } else if (data.length == 2) {
-                          if (index == data.length - 1) {
-                            dataAnimal = data[index];
+                        } else if (data.length >= 2) {
+                          if (index == data.length - 2) {
+                            dataAnimal = data[index + 1];
                           }
                         }
                         return Row(

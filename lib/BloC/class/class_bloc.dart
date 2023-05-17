@@ -14,6 +14,7 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
     on<GetDataClassEvent>(getData);
     on<PostDataClass>(postData);
     on<GetDetailClass>(getDetailClassData);
+    on<DeleteClass>(deleteClassData);
   }
 
   final ClassRepository repository;
@@ -49,5 +50,11 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
     } else {
       emit(GetDataSuccess(dataClass: response.data));
     }
+  }
+
+  Future<void> deleteClassData(
+      DeleteClass event, Emitter<ClassState> emit) async {
+    final result = await repository.deleteClassRepository(event.idClass);
+    emit(DeleteSuccess(response: result));
   }
 }
