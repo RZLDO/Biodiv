@@ -49,3 +49,12 @@ class DeleteSuccess extends ClassState {
   @override
   List<Object?> get props => [response];
 }
+
+class EditSuccess extends ClassState {
+  final UpdateDataClass response;
+
+  EditSuccess({required this.response});
+
+  @override
+  List<Object?> get props => [response];
+}

@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:biodiv/model/Class%20Model/update_data_class.dart';
 import 'package:biodiv/repository/class_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../model/Class Model/detail_class_model.dart';
@@ -15,9 +19,26 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
     on<PostDataClass>(postData);
     on<GetDetailClass>(getDetailClassData);
     on<DeleteClass>(deleteClassData);
+    on<EditClass>(editData);
   }
 
   final ClassRepository repository;
+  Future<void> editData(EditClass event, Emitter<ClassState> emit) async {
+    final result = await repository.editClassData(
+        event.idClass,
+        event.latinName,
+        event.commonName,
+        event.characteristics,
+        event.description,
+        event.image);
+    print(result.message);
+    if (result.error == true) {
+      emit(Failure(errorMessage: result.message));
+    } else {
+      emit(EditSuccess(response: result));
+    }
+  }
+
   Future<void> getDetailClassData(
       GetDetailClass event, Emitter<ClassState> emit) async {
     final response = await repository.getDetailClass(event.idClass.toString());

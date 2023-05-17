@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/class/class_bloc.dart';
 import 'package:biodiv/model/Class%20Model/detail_class_model.dart';
 import 'package:biodiv/repository/class_repository.dart';
+import 'package:biodiv/ui/class%20page/add_data_class.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
@@ -140,7 +141,21 @@ class _DetailClassState extends State<DetailClass> {
                                 ),
                                 CustomButtonExtended(
                                     text: "Edit Data",
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddDataClass(
+                                                    idClass: data.idClass,
+                                                    latin: data.namaLatin,
+                                                    common: data.namaUmum,
+                                                    chara: data.ciriCiri,
+                                                    desc: data.keterangan,
+                                                    image: data.gambar,
+                                                    isEdit: true,
+                                                  )));
+                                    },
                                     width: MediaQuery.of(context).size.width *
                                         0.65,
                                     setText: false),

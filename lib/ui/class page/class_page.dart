@@ -33,8 +33,12 @@ class _ClassScreenState extends State<ClassScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.secondaryColor,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddDataClass()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddDataClass(
+                          isEdit: false,
+                        )));
           },
           child: const Icon(
             Icons.add,

@@ -41,3 +41,23 @@ class DeleteClass extends ClassEvent {
   @override
   List<Object?> get props => [idClass];
 }
+
+class EditClass extends ClassEvent {
+  final String idClass;
+  final String commonName;
+  final String latinName;
+  final String characteristics;
+  final String description;
+  final XFile? image;
+  EditClass(
+      {required this.idClass,
+      required this.commonName,
+      required this.latinName,
+      required this.characteristics,
+      required this.description,
+      required this.image});
+
+  @override
+  List<Object?> get props =>
+      [idClass, commonName, latinName, characteristics, description];
+}

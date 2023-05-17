@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:biodiv/model/Class%20Model/update_data_class.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -77,6 +78,56 @@ class ClassRepository {
       }
     } catch (error) {
       var result = AddClassDataModel(error: true, message: error.toString());
+      return result;
+    }
+  }
+
+  Future<UpdateDataClass> editClassData(
+    String idClass,
+    String latinName,
+    String commonName,
+    String characteristics,
+    String description,
+    XFile? image,
+  ) async {
+    try {
+      final url = Uri.parse('$baseUrl/class');
+      var request = http.MultipartRequest('PUT', url);
+      request.fields['id_class'] = idClass.toString();
+      request.fields['nama_latin'] = latinName;
+      request.fields['nama_umum'] = commonName;
+      request.fields['ciri_ciri'] = characteristics;
+      request.fields['keterangan'] = description;
+      if (image != null) {
+        var imageFile = File(image.path);
+        var imageField =
+            await http.MultipartFile.fromPath('image', imageFile.path);
+        request.files.add(imageField);
+      }
+
+      // Send the request
+      var response = await request.send();
+
+      // Get the response body
+      var responseBody = await response.stream.bytesToString();
+
+      // Convert the response body from JSON to a Map<String, dynamic>
+      var json = jsonDecode(responseBody);
+
+      // Check the response status
+      if (response.statusCode == 200) {
+        // Image uploaded successfully
+        var result = UpdateDataClass.fromJson(json);
+        print(result.message);
+        return result;
+      } else {
+        // Failed to upload image
+        var result = UpdateDataClass.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      var result = UpdateDataClass(error: true, message: error.toString());
+      print("error" + result.message);
       return result;
     }
   }
