@@ -64,3 +64,13 @@ class AddOrdoData {
     return AddOrdoData(error: json['error'], message: json['message']);
   }
 }
+
+class DeleteOrdoModel {
+  final bool error;
+  final String message;
+  DeleteOrdoModel({required this.error, required this.message});
+
+  factory DeleteOrdoModel.fromJson(Map<String, dynamic> json) {
+    return DeleteOrdoModel(error: json['error'], message: json['message']);
+  }
+}

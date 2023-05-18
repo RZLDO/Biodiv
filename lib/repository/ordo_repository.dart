@@ -74,17 +74,28 @@ class OrdoRepository {
 
       if (response.statusCode == 200) {
         final json = jsonDecode(responseBody);
-        print(json);
         final result = AddOrdoData.fromJson(json);
         return result;
       } else {
         final json = jsonDecode(responseBody);
-        print(json);
         final result = AddOrdoData.fromJson(json);
         return result;
       }
     } catch (error) {
       final result = AddOrdoData(error: true, message: error.toString());
+      return result;
+    }
+  }
+
+  Future<DeleteOrdoModel> deleteOrdo(int idOrdo) async {
+    try {
+      final url = Uri.parse('$baseUrl/ordo/$idOrdo');
+      http.Response response = await http.delete(url);
+      final json = jsonDecode(response.body);
+      final result = DeleteOrdoModel.fromJson(json);
+      return result;
+    } catch (error) {
+      final result = DeleteOrdoModel(error: true, message: error.toString());
       return result;
     }
   }

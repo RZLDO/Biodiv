@@ -1,6 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
+import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -148,7 +150,50 @@ class _OrdoDetailState extends State<OrdoDetail> {
                                 CustomButtonExtended(
                                     color: AppColor.redColorAccent,
                                     icon: Icons.delete,
-                                    onTap: () {},
+                                    onTap: () {
+                                      AwesomeDialog(
+                                              context: context,
+                                              title: "Delete Data",
+                                              desc:
+                                                  "Are you sure delete the data?",
+                                              dialogType: DialogType.warning,
+                                              autoDismiss: false,
+                                              onDismissCallback: (type) {
+                                                Navigator.pop(context);
+                                              },
+                                              btnOkOnPress: () {
+                                                _ordoBloc.add(DeleteOrdoEvent(
+                                                    idOrdo: data.idOrdo));
+                                                if (state
+                                                    is DeleteOrdoStateSuccess) {
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    title: "Delete Data",
+                                                    desc: "Delete Data Success",
+                                                    dialogType:
+                                                        DialogType.success,
+                                                    autoDismiss: false,
+                                                    onDismissCallback: (type) {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    btnOkOnPress: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const HomeScreen()));
+                                                    },
+                                                  ).show();
+                                                }
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const HomeScreen()));
+                                              },
+                                              btnCancelOnPress: () {})
+                                          .show();
+                                    },
                                     width: MediaQuery.of(context).size.width *
                                         0.15,
                                     setText: true),

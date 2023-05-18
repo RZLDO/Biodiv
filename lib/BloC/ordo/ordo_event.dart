@@ -35,3 +35,11 @@ class AddOrdoEvent extends OrdoEvent {
   List<Object?> get props =>
       [idClass, latinName, commonName, character, description];
 }
+
+class DeleteOrdoEvent extends OrdoEvent {
+  final int idOrdo;
+  DeleteOrdoEvent({required this.idOrdo});
+
+  @override
+  List<Object?> get props => [idOrdo];
+}

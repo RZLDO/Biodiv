@@ -39,3 +39,11 @@ class AddOrdoSuccess extends OrdoState {
   @override
   List<Object?> get props => [response];
 }
+
+class DeleteOrdoStateSuccess extends OrdoState {
+  final DeleteOrdoModel response;
+  DeleteOrdoStateSuccess({required this.response});
+
+  @override
+  List<Object?> get props => [response];
+}
