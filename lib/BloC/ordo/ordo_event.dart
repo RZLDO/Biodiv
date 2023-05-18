@@ -14,3 +14,24 @@ class GetDetailOrdoEvent extends OrdoEvent {
   @override
   List<Object?> get props => [idOrdo];
 }
+
+class AddOrdoEvent extends OrdoEvent {
+  final int idClass;
+  final String latinName;
+  final String commonName;
+  final String character;
+  final String description;
+  final XFile? image;
+
+  AddOrdoEvent(
+      {required this.idClass,
+      required this.latinName,
+      required this.commonName,
+      required this.character,
+      required this.description,
+      required this.image});
+
+  @override
+  List<Object?> get props =>
+      [idClass, latinName, commonName, character, description];
+}

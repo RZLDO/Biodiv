@@ -17,9 +17,9 @@ class Success extends OrdoState {
   List<Object?> get props => [response];
 }
 
-class Failure extends OrdoState {
+class FailureOrdo extends OrdoState {
   final String errorMessage;
-  Failure({required this.errorMessage});
+  FailureOrdo({required this.errorMessage});
 
   @override
   List<Object?> get props => [errorMessage];
@@ -28,6 +28,14 @@ class Failure extends OrdoState {
 class DetailStateSuccess extends OrdoState {
   final DetailOrdoModel response;
   DetailStateSuccess({required this.response});
+  @override
+  List<Object?> get props => [response];
+}
+
+class AddOrdoSuccess extends OrdoState {
+  final AddOrdoData response;
+  AddOrdoSuccess({required this.response});
+
   @override
   List<Object?> get props => [response];
 }

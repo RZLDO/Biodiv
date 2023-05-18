@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/class/class_bloc.dart';
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
-import 'package:biodiv/model/Class%20Model/get_class_model.dart';
 import 'package:biodiv/repository/class_repository.dart';
 import 'package:biodiv/repository/image_repository.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
 import 'package:biodiv/ui/class%20page/add_data_class.dart';
+import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:biodiv/utils/custom_button.dart';
@@ -35,11 +36,13 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
   final GlobalKey<FormState> _key = GlobalKey();
   XFile? _imagePicker;
   late ClassBloc _classBloc;
+  late OrdoBloc _ordoBloc;
   int? id;
   @override
   void initState() {
     super.initState();
     _classBloc = ClassBloc(repository: ClassRepository());
+    _ordoBloc = OrdoBloc(repository: OrdoRepository());
     _classBloc.add(GetIdClass());
   }
 
@@ -51,8 +54,7 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
       appBar: const CustomAppBar(text: ""),
       body: MultiProvider(
         providers: [
-          Provider<OrdoBloc>(
-              create: (context) => OrdoBloc(repository: OrdoRepository())),
+          Provider<OrdoBloc>(create: (context) => _ordoBloc),
           Provider<ClassBloc>(create: (context) => _classBloc),
         ],
         child: SingleChildScrollView(
@@ -73,7 +75,7 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 50,
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
@@ -190,10 +192,60 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                               ),
                             ],
                           )),
-                      CustomButton(
-                          text: "Add Ordo Data",
-                          onTap: () {
-                            if (_key.currentState!.validate()) {}
+                      BlocBuilder<OrdoBloc, OrdoState>(
+                          bloc: _ordoBloc,
+                          builder: (context, state) {
+                            return CustomButton(
+                                text: "Add Ordo Data",
+                                onTap: () {
+                                  if (_key.currentState!.validate()) {
+                                    _ordoBloc.add(AddOrdoEvent(
+                                        idClass: id!.toInt(),
+                                        latinName: latinName.text,
+                                        commonName: commonName.text,
+                                        character: characteristics.text,
+                                        description: description.text,
+                                        image: _imagePicker));
+
+                                    if (state is AddOrdoSuccess) {
+                                      AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.success,
+                                          autoDismiss: false,
+                                          title: "Add Ordo Data",
+                                          body: const Text(
+                                            "Please wait admin to verification your data",
+                                          ),
+                                          onDismissCallback: (type) =>
+                                              Navigator.pop(context),
+                                          btnOkOnPress: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const HomeScreen()));
+                                          }).show();
+                                    } else if (state is FailureOrdo) {
+                                      AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.success,
+                                          autoDismiss: false,
+                                          title: "Add Ordo Data",
+                                          body: Text(
+                                            state.errorMessage.toString(),
+                                          ),
+                                          onDismissCallback: (type) =>
+                                              Navigator.pop(context),
+                                          btnOkOnPress: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const HomeScreen()));
+                                          }).show();
+                                    }
+                                  }
+                                });
                           })
                     ],
                   ),
