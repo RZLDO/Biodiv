@@ -1,6 +1,8 @@
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/model/get_ordo_model.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
+import 'package:biodiv/ui/ordo%20page/add_ordo.dart';
+import 'package:biodiv/ui/ordo%20page/ordo_detail.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -30,14 +32,17 @@ class _OrdoScreenState extends State<OrdoScreen> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.secondaryColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddOrdoScreen()));
+          },
           child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
         ),
         backgroundColor: AppColor.backgroundColor,
-        appBar: const CustomAppBar(text: "text"),
+        appBar: const CustomAppBar(text: ""),
         body: BlocProvider(
             create: (context) => ordoBloc,
             child: BlocBuilder<OrdoBloc, OrdoState>(
@@ -68,18 +73,37 @@ class _OrdoScreenState extends State<OrdoScreen> {
                             children: [
                               if (dataAnimal != null)
                                 Expanded(
-                                    child: CustomCard(
-                                        namaUmum: dataAnimal.namaUmum,
-                                        namaLatin: dataAnimal.namaLatin,
-                                        image:
-                                            "$baseUrl/image/${dataAnimal.gambar}")),
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => OrdoDetail(
+                                                idOrdo: dataAnimal!.idOrdo)));
+                                  },
+                                  child: CustomCard(
+                                      namaUmum: dataAnimal.namaUmum,
+                                      namaLatin: dataAnimal.namaLatin,
+                                      image:
+                                          "$baseUrl/image/${dataAnimal.gambar}"),
+                                )),
                               if (dataAnimalDua != null)
                                 Expanded(
-                                    child: CustomCard(
-                                        namaUmum: dataAnimalDua.namaUmum,
-                                        namaLatin: dataAnimalDua.namaLatin,
-                                        image:
-                                            "$baseUrl/image/${dataAnimalDua.gambar}"))
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => OrdoDetail(
+                                                idOrdo:
+                                                    dataAnimalDua!.idOrdo)));
+                                  },
+                                  child: CustomCard(
+                                      namaUmum: dataAnimalDua.namaUmum,
+                                      namaLatin: dataAnimalDua.namaLatin,
+                                      image:
+                                          "$baseUrl/image/${dataAnimalDua.gambar}"),
+                                ))
                             ],
                           );
                         });

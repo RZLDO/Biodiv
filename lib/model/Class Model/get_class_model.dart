@@ -64,3 +64,13 @@ class AddClassDataModel {
     return AddClassDataModel(error: json['error'], message: json['message']);
   }
 }
+
+class DataClassID {
+  final int idClass;
+  final String latinName;
+
+  DataClassID({
+    required this.idClass,
+    required this.latinName,
+  });
+}

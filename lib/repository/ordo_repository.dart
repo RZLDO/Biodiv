@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:biodiv/model/get_ordo_model.dart';
+import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,6 +22,22 @@ class OrdoRepository {
       final response =
           OrdoResponse(error: true, message: error.toString(), data: []);
       return response;
+    }
+  }
+
+  Future<DetailOrdoModel> getDetailOrdo(int idOrdo) async {
+    try {
+      final url = Uri.parse('$baseUrl/ordo/$idOrdo');
+
+      http.Response response = await http.get(url);
+      final json = jsonDecode(response.body);
+      final result = DetailOrdoModel.fromJson(json);
+      return result;
+    } catch (error) {
+      final result =
+          DetailOrdoModel(error: true, message: error.toString(), data: null);
+
+      return result;
     }
   }
 }

@@ -61,3 +61,5 @@ class EditClass extends ClassEvent {
   List<Object?> get props =>
       [idClass, commonName, latinName, characteristics, description];
 }
+
+class GetIdClass extends ClassEvent {}

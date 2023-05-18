@@ -6,3 +6,11 @@ abstract class OrdoEvent extends Equatable {
 }
 
 class GetOrdoData extends OrdoEvent {}
+
+class GetDetailOrdoEvent extends OrdoEvent {
+  final int idOrdo;
+  GetDetailOrdoEvent({required this.idOrdo});
+
+  @override
+  List<Object?> get props => [idOrdo];
+}

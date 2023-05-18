@@ -24,7 +24,7 @@ class OrdoResponse {
 }
 
 class OrdoData {
-  final int idClass;
+  final int idOrdo;
   final String namaLatin;
   final String namaUmum;
   final String ciriCiri;
@@ -33,7 +33,7 @@ class OrdoData {
   final String verifikasi;
 
   OrdoData({
-    required this.idClass,
+    required this.idOrdo,
     required this.namaLatin,
     required this.namaUmum,
     required this.ciriCiri,
@@ -44,7 +44,7 @@ class OrdoData {
 
   factory OrdoData.fromJson(Map<String, dynamic> json) {
     return OrdoData(
-      idClass: json['id_class'],
+      idOrdo: json['id_ordo'],
       namaLatin: json['nama_latin'],
       namaUmum: json['nama_umum'],
       ciriCiri: json['ciri_ciri'],

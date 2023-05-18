@@ -53,7 +53,9 @@ class _AddDataClassState extends State<AddDataClass> {
     commonName = TextEditingController(text: widget.common);
     characteristics = TextEditingController(text: widget.chara);
     description = TextEditingController(text: widget.desc);
-    getImageFileFromNetwork(widget.image.toString());
+    if (widget.isEdit) {
+      getImageFileFromNetwork(widget.image.toString());
+    }
     super.initState();
   }
 

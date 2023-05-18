@@ -24,3 +24,10 @@ class Failure extends OrdoState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class DetailStateSuccess extends OrdoState {
+  final DetailOrdoModel response;
+  DetailStateSuccess({required this.response});
+  @override
+  List<Object?> get props => [response];
+}

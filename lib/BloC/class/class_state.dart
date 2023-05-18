@@ -58,3 +58,13 @@ class EditSuccess extends ClassState {
   @override
   List<Object?> get props => [response];
 }
+
+class GetIdClassSucces extends ClassState {
+  final List<String> latinName;
+  final List<int> idClass;
+
+  GetIdClassSucces({required this.idClass, required this.latinName});
+
+  @override
+  List<Object?> get props => [latinName, idClass];
+}

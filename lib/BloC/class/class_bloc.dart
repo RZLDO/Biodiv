@@ -20,9 +20,29 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
     on<GetDetailClass>(getDetailClassData);
     on<DeleteClass>(deleteClassData);
     on<EditClass>(editData);
+    on<GetIdClass>(getIdClass);
   }
 
   final ClassRepository repository;
+
+  Future<void> getIdClass(GetIdClass event, Emitter<ClassState> emit) async {
+    final response = await repository.getDataClass();
+
+    if (response.error == false) {
+      List<ClassData> data = response.data;
+      List<String> latinName = [];
+      List<int> idClass = [];
+      for (var item in data) {
+        latinName.add(item.namaLatin);
+        idClass.add(item.idClass);
+      }
+
+      emit(GetIdClassSucces(idClass: idClass, latinName: latinName));
+    } else {
+      emit(Failure(errorMessage: response.message));
+    }
+  }
+
   Future<void> editData(EditClass event, Emitter<ClassState> emit) async {
     final result = await repository.editClassData(
         event.idClass,
@@ -31,7 +51,6 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
         event.characteristics,
         event.description,
         event.image);
-    print(result.message);
     if (result.error == true) {
       emit(Failure(errorMessage: result.message));
     } else {
