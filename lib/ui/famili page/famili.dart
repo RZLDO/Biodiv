@@ -1,6 +1,7 @@
 import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/model/famili%20model/famili_model.dart';
 import 'package:biodiv/repository/famili_repository.dart';
+import 'package:biodiv/ui/famili%20page/famili_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -71,7 +72,13 @@ class _FamiliScreenState extends State<FamiliScreen> {
                               if (dataAnimal != null)
                                 Expanded(
                                     child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailFamili(
+                                                idFamili: dataAnimal!.id)));
+                                  },
                                   child: CustomCard(
                                       namaUmum: dataAnimal.commonName,
                                       namaLatin: dataAnimal.latinName,
@@ -81,7 +88,13 @@ class _FamiliScreenState extends State<FamiliScreen> {
                               if (dataAnimalDua != null)
                                 Expanded(
                                     child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailFamili(
+                                                idFamili: dataAnimalDua!.id)));
+                                  },
                                   child: CustomCard(
                                       namaUmum: dataAnimalDua.commonName,
                                       namaLatin: dataAnimalDua.latinName,

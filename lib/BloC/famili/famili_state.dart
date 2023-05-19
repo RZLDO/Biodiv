@@ -24,3 +24,11 @@ class FailureFamili extends FamiliState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class GetDetailFamiliSuccess extends FamiliState {
+  final FamiliDetailModel result;
+
+  GetDetailFamiliSuccess({required this.result});
+  @override
+  List<Object?> get props => [result];
+}
