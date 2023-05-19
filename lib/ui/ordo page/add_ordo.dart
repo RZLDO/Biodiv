@@ -21,7 +21,25 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AddOrdoScreen extends StatefulWidget {
-  const AddOrdoScreen({super.key});
+  final int? idOrdo;
+  final String? latinName;
+  final String? commonName;
+  final String? character;
+  final String? description;
+  final int? idClass;
+  final bool isEdit;
+  final String? image;
+  const AddOrdoScreen({
+    super.key,
+    this.character,
+    this.commonName,
+    this.description,
+    this.idClass,
+    this.idOrdo,
+    this.latinName,
+    this.image,
+    required this.isEdit,
+  });
 
   @override
   State<AddOrdoScreen> createState() => _AddOrdoScreenState();
@@ -35,6 +53,7 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
   TextEditingController idClass = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey();
   XFile? _imagePicker;
+  XFile? imagefromUrl;
   late ClassBloc _classBloc;
   late OrdoBloc _ordoBloc;
   int? id;
@@ -44,6 +63,14 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
     _classBloc = ClassBloc(repository: ClassRepository());
     _ordoBloc = OrdoBloc(repository: OrdoRepository());
     _classBloc.add(GetIdClass());
+    if (widget.isEdit) {
+      latinName = TextEditingController(text: widget.latinName);
+      commonName = TextEditingController(text: widget.commonName);
+      description = TextEditingController(text: widget.description);
+      id = widget.idClass;
+      characteristics = TextEditingController(text: widget.character);
+      getImageFromNetwork(widget.image.toString());
+    }
   }
 
   @override
@@ -113,13 +140,15 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                           child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: _imagePicker == null
-                                ? Icon(
-                                    Icons.image_search,
-                                    size: 100,
-                                    color: Colors.black45.withOpacity(0.5),
-                                  )
-                                : Image.file(File(_imagePicker!.path)),
+                            child: imagefromUrl != null
+                                ? Image.file(File(imagefromUrl!.path))
+                                : _imagePicker == null
+                                    ? Icon(
+                                        Icons.image_search,
+                                        size: 100,
+                                        color: Colors.black45.withOpacity(0.5),
+                                      )
+                                    : Image.file(File(_imagePicker!.path)),
                           ),
                         ),
                       ),
@@ -133,6 +162,7 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                               DropdownMenu(
                                 menuHeight: 200,
                                 width: MediaQuery.of(context).size.width * 0.85,
+                                initialSelection: id,
                                 dropdownMenuEntries: latin,
                                 inputDecorationTheme: InputDecorationTheme(
                                   filled: true,
@@ -192,60 +222,91 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                               ),
                             ],
                           )),
-                      BlocBuilder<OrdoBloc, OrdoState>(
+                      BlocConsumer<OrdoBloc, OrdoState>(
                           bloc: _ordoBloc,
                           builder: (context, state) {
                             return CustomButton(
-                                text: "Add Ordo Data",
+                                text: widget.isEdit
+                                    ? "Edit Data Ordo"
+                                    : "Add Data Ordo",
                                 onTap: () {
                                   if (_key.currentState!.validate()) {
-                                    _ordoBloc.add(AddOrdoEvent(
-                                        idClass: id!.toInt(),
-                                        latinName: latinName.text,
-                                        commonName: commonName.text,
-                                        character: characteristics.text,
-                                        description: description.text,
-                                        image: _imagePicker));
-
-                                    if (state is AddOrdoSuccess) {
-                                      AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.success,
-                                          autoDismiss: false,
-                                          title: "Add Ordo Data",
-                                          body: const Text(
-                                            "Please wait admin to verification your data",
-                                          ),
-                                          onDismissCallback: (type) =>
-                                              Navigator.pop(context),
-                                          btnOkOnPress: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HomeScreen()));
-                                          }).show();
-                                    } else if (state is FailureOrdo) {
-                                      AwesomeDialog(
-                                          context: context,
-                                          dialogType: DialogType.success,
-                                          autoDismiss: false,
-                                          title: "Add Ordo Data",
-                                          body: Text(
-                                            state.errorMessage.toString(),
-                                          ),
-                                          onDismissCallback: (type) =>
-                                              Navigator.pop(context),
-                                          btnOkOnPress: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HomeScreen()));
-                                          }).show();
+                                    if (widget.isEdit) {
+                                      _ordoBloc.add(UpdateOrdoEvent(
+                                          idOrdo: widget.idOrdo!.toInt(),
+                                          latinName: latinName.text,
+                                          commonName: commonName.text,
+                                          character: characteristics.text,
+                                          description: description.text,
+                                          idClass: id!.toInt(),
+                                          image: _imagePicker));
+                                    } else {
+                                      if (_imagePicker != null) {
+                                        _ordoBloc.add(AddOrdoEvent(
+                                            idClass: id!.toInt(),
+                                            latinName: latinName.text,
+                                            commonName: commonName.text,
+                                            character: characteristics.text,
+                                            description: description.text,
+                                            image: _imagePicker));
+                                      } else {
+                                        AwesomeDialog(
+                                                context: context,
+                                                dialogType: DialogType.error,
+                                                title: "Add Ordo Data",
+                                                desc: "Please add the Image",
+                                                btnOkOnPress: () {})
+                                            .show();
+                                      }
                                     }
                                   }
                                 });
+                          },
+                          listener: (context, state) {
+                            if (state is AddOrdoSuccess) {
+                              AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  autoDismiss: false,
+                                  title: "Add Ordo Data",
+                                  desc:
+                                      "Please wait admin to verification your data",
+                                  onDismissCallback: (type) =>
+                                      Navigator.pop(context),
+                                  btnOkOnPress: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  }).show();
+                            } else if (state is UpdateOrdoStateSuccess) {
+                              AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  autoDismiss: false,
+                                  title: "Update Ordo Data",
+                                  desc: "Update Data Success",
+                                  onDismissCallback: (type) =>
+                                      Navigator.pop(context),
+                                  btnOkOnPress: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  }).show();
+                            } else if (state is FailureOrdo) {
+                              AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.error,
+                                      title: "Update Ordo Data",
+                                      desc: widget.isEdit
+                                          ? "Edit Data Failed "
+                                          : "Add Data Failed",
+                                      btnOkOnPress: () {})
+                                  .show();
+                            }
                           })
                     ],
                   ),
@@ -266,6 +327,13 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
 
   Future<void> getImage() async {
     final imageData = await ImageResource.getImageData();
+    setState(() {
+      _imagePicker = imageData;
+    });
+  }
+
+  Future<void> getImageFromNetwork(String image) async {
+    final imageData = await ImageResource.getImageFileFromNetwork(image);
     setState(() {
       _imagePicker = imageData;
     });

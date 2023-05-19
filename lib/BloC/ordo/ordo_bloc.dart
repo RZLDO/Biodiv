@@ -15,6 +15,7 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
     on<GetDetailOrdoEvent>(getDetailOrdo);
     on<AddOrdoEvent>(addOrdoData);
     on<DeleteOrdoEvent>(deleteOrdoData);
+    on<UpdateOrdoEvent>(updateOrdodata);
   }
 
   final OrdoRepository repository;
@@ -61,5 +62,19 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
     } else {
       emit(DeleteOrdoStateSuccess(response: result));
     }
+  }
+
+  Future<void> updateOrdodata(
+      UpdateOrdoEvent event, Emitter<OrdoState> emit) async {
+    final result = await repository.updateOrdo(
+        event.idOrdo,
+        event.latinName,
+        event.commonName,
+        event.character,
+        event.description,
+        event.idClass,
+        event.image);
+    print(result.message);
+    emit(UpdateOrdoStateSuccess(response: result));
   }
 }

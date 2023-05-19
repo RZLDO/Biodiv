@@ -56,9 +56,9 @@ class OrdoRepository {
       var request = http.MultipartRequest('POST', url);
 
       request.fields['nama_latin'] = latinName;
-      request.fields['nama_umum'] = latinName;
-      request.fields['ciri_ciri'] = latinName;
-      request.fields['keterangan'] = latinName;
+      request.fields['nama_umum'] = commonName;
+      request.fields['ciri_ciri'] = character;
+      request.fields['keterangan'] = description;
       request.fields['id_class'] = idClass.toString();
 
       if (image != null) {
@@ -71,7 +71,7 @@ class OrdoRepository {
 
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-
+      print(responseBody);
       if (response.statusCode == 200) {
         final json = jsonDecode(responseBody);
         final result = AddOrdoData.fromJson(json);
@@ -83,6 +83,7 @@ class OrdoRepository {
       }
     } catch (error) {
       final result = AddOrdoData(error: true, message: error.toString());
+      print(result);
       return result;
     }
   }
@@ -96,6 +97,49 @@ class OrdoRepository {
       return result;
     } catch (error) {
       final result = DeleteOrdoModel(error: true, message: error.toString());
+      return result;
+    }
+  }
+
+  Future<UpdateOrdoModel> updateOrdo(
+      int idOrdo,
+      String latinName,
+      String commonName,
+      String character,
+      String description,
+      int idClass,
+      XFile? image) async {
+    try {
+      final url = Uri.parse('$baseUrl/ordo');
+      var request = http.MultipartRequest('PUT', url);
+      request.fields['id_ordo'] = idOrdo.toString();
+      request.fields['nama_latin'] = latinName;
+      request.fields['nama_umum'] = commonName;
+      request.fields['ciri_ciri'] = character;
+      request.fields['keterangan'] = description;
+      request.fields['id_class'] = idClass.toString();
+      if (image != null) {
+        var imagefile = File(image.path);
+
+        var imageField =
+            await http.MultipartFile.fromPath('image', imagefile.path);
+        request.files.add(imageField);
+      }
+
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(responseBody);
+        final result = UpdateOrdoModel.fromJson(json);
+        return result;
+      } else {
+        final json = jsonDecode(responseBody);
+        final result = UpdateOrdoModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result = UpdateOrdoModel(error: true, message: error.toString());
       return result;
     }
   }

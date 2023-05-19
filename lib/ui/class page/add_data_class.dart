@@ -148,7 +148,7 @@ class _AddDataClassState extends State<AddDataClass> {
                               latinName: latinName.text,
                               characteristics: characteristics.text,
                               description: description.text,
-                              image: image));
+                              image: _imagePicker));
                         });
                   } else {
                     return CustomButton(
@@ -223,14 +223,13 @@ class _AddDataClassState extends State<AddDataClass> {
   Future getImageFileFromNetwork(String imageUrl) async {
     try {
       var response = await http.get(Uri.parse('$baseUrl/image/$imageUrl'));
-      print(response.body);
       if (response.statusCode == 200) {
         final tempDir = await getTemporaryDirectory();
         final file = File('${tempDir.path}/$imageUrl');
 
         await file.writeAsBytes(response.bodyBytes);
         setState(() {
-          image = XFile(file.path);
+          _imagePicker = XFile(file.path);
         });
       } else {
         throw Exception('Failed to download image');

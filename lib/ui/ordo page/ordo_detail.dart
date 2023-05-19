@@ -3,6 +3,7 @@ import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
+import 'package:biodiv/ui/ordo%20page/add_ordo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -142,7 +143,22 @@ class _OrdoDetailState extends State<OrdoDetail> {
                                 ),
                                 CustomButtonExtended(
                                     text: "Edit Data",
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddOrdoScreen(
+                                                      idClass: data.idClass,
+                                                      idOrdo: data.idOrdo,
+                                                      commonName: data.namaUmum,
+                                                      latinName: data.namaLatin,
+                                                      description:
+                                                          data.keterangan,
+                                                      character: data.ciriCiri,
+                                                      image: data.gambar,
+                                                      isEdit: true)));
+                                    },
                                     width: MediaQuery.of(context).size.width *
                                         0.65,
                                     setText: false),

@@ -43,3 +43,26 @@ class DeleteOrdoEvent extends OrdoEvent {
   @override
   List<Object?> get props => [idOrdo];
 }
+
+class UpdateOrdoEvent extends OrdoEvent {
+  final int idOrdo;
+  final String latinName;
+  final String commonName;
+  final String character;
+  final String description;
+  final int idClass;
+  final XFile? image;
+
+  UpdateOrdoEvent(
+      {required this.idOrdo,
+      required this.latinName,
+      required this.commonName,
+      required this.character,
+      required this.description,
+      required this.idClass,
+      required this.image});
+
+  @override
+  List<Object?> get props =>
+      [idOrdo, latinName, commonName, character, description, idClass, image];
+}

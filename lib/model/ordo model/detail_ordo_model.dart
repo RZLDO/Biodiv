@@ -52,3 +52,14 @@ class OrdoModel {
     );
   }
 }
+
+class UpdateOrdoModel {
+  final bool error;
+  final String message;
+
+  UpdateOrdoModel({required this.error, required this.message});
+
+  factory UpdateOrdoModel.fromJson(Map<String, dynamic> json) {
+    return UpdateOrdoModel(error: json['error'], message: json['message']);
+  }
+}

@@ -12,7 +12,9 @@ import '../../utils/card_view.dart';
 import '../../utils/constant.dart';
 
 class OrdoScreen extends StatefulWidget {
-  const OrdoScreen({super.key});
+  const OrdoScreen({
+    super.key,
+  });
 
   @override
   State<OrdoScreen> createState() => _OrdoScreenState();
@@ -33,8 +35,12 @@ class _OrdoScreenState extends State<OrdoScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.secondaryColor,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddOrdoScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddOrdoScreen(
+                          isEdit: false,
+                        )));
           },
           child: const Icon(
             Icons.add,
@@ -64,9 +70,9 @@ class _OrdoScreenState extends State<OrdoScreen> {
                           if (index % 2 == 0 && index + 1 < data.length) {
                             dataAnimal = data[index];
                             dataAnimalDua = data[index + 1];
-                          } else if (data.length > 2) {
-                            if (index == data.length - 1) {
-                              dataAnimal = data[index];
+                          } else if (data.length >= 2) {
+                            if (index == data.length - 2) {
+                              dataAnimal = data[index + 1];
                             }
                           }
                           return Row(

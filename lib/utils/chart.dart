@@ -15,14 +15,6 @@ class _ShowPieChartState extends State<ShowPieChart> {
   int touchedIndex = -1;
 
   List<PieChartSectionData> showingSections() {
-    // final List<String> _taksonomiItems = [
-    //   'class',
-    //   'ordo',
-    //   'famili',
-    //   'genus',
-    //   'spesies'
-    // ];
-
     return List.generate(widget.itemList.length, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
