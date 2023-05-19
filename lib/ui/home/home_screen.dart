@@ -2,6 +2,7 @@ import 'package:biodiv/BloC/home/home_bloc.dart';
 import 'package:biodiv/repository/home_repository.dart';
 import 'package:biodiv/repository/user_preferences.dart';
 import 'package:biodiv/ui/class%20page/class_page.dart';
+import 'package:biodiv/ui/famili%20page/famili.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/ui/ordo%20page/ordo.dart';
 import 'package:biodiv/utils/chart.dart';
@@ -39,7 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
     Colors.blueGrey,
     Colors.lightGreen,
   ];
-  final List listNavigation = [const ClassScreen(), const OrdoScreen()];
+  final List listNavigation = [
+    const ClassScreen(),
+    const OrdoScreen(),
+    const FamiliScreen()
+  ];
   late HomeBloc _homeBloc;
   @override
   void initState() {
@@ -403,8 +408,6 @@ class Indicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             height: 20,

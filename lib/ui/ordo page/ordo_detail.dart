@@ -230,6 +230,5 @@ class _OrdoDetailState extends State<OrdoDetail> {
             },
           ),
         ));
-    ;
   }
 }

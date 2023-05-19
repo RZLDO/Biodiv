@@ -47,6 +47,7 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
         event.character,
         event.description,
         event.image);
+    print(response);
     if (response.error == true) {
       emit(FailureOrdo(errorMessage: response.message));
     } else {
@@ -74,7 +75,6 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
         event.description,
         event.idClass,
         event.image);
-    print(result.message);
     emit(UpdateOrdoStateSuccess(response: result));
   }
 }

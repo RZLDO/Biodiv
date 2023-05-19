@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:biodiv/model/Class%20Model/update_data_class.dart';
 import 'package:biodiv/repository/class_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../model/Class Model/detail_class_model.dart';
