@@ -3,8 +3,6 @@ import 'package:biodiv/model/famili%20model/famili_model.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:biodiv/ui/famili%20page/famili_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../utils/card_view.dart';

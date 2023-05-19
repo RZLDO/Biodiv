@@ -32,3 +32,11 @@ class GetDetailFamiliSuccess extends FamiliState {
   @override
   List<Object?> get props => [result];
 }
+
+class DeleteFamiliSuccess extends FamiliState {
+  final DeleteFamiliModel result;
+  DeleteFamiliSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}

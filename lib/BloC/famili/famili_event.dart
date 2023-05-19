@@ -14,3 +14,12 @@ class GetFamiliDetailevent extends FamiliEvent {
   @override
   List<Object?> get props => [idFamili];
 }
+
+class DeleteFamiliEvent extends FamiliEvent {
+  final int idFamili;
+
+  DeleteFamiliEvent({required this.idFamili});
+
+  @override
+  List<Object?> get props => [idFamili];
+}

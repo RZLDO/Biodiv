@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
 import 'package:biodiv/repository/famili_repository.dart';
+import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -157,10 +158,38 @@ class _DetailFamiliState extends State<DetailFamili> {
                                               onDismissCallback: (type) {
                                                 Navigator.pop(context);
                                               },
-                                              btnOkOnPress: () {},
+                                              btnOkOnPress: () {
+                                                _familiBloc.add(
+                                                    DeleteFamiliEvent(
+                                                        idFamili: data.id));
+                                                AwesomeDialog(
+                                                        context: context,
+                                                        dialogType:
+                                                            DialogType.warning,
+                                                        autoDismiss: false,
+                                                        onDismissCallback:
+                                                            (type) {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        btnOkOnPress: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const HomeScreen()));
+                                                        },
+                                                        btnCancelOnPress: () {},
+                                                        desc:
+                                                            "Success delete data",
+                                                        title: "Delete Data")
+                                                    .show();
+                                              },
                                               btnCancelOnPress: () {},
-                                              title:
-                                                  "Are you sure to delete this data?")
+                                              desc:
+                                                  "Are you sure to delete this data?",
+                                              title: "Delete Data")
                                           .show();
                                     },
                                     width: MediaQuery.of(context).size.width *
