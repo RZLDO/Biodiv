@@ -1,3 +1,4 @@
+import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/model/famili%20model/add_famili_model.dart';
 import 'package:biodiv/model/famili%20model/delete_famili.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
@@ -6,6 +7,8 @@ import 'package:biodiv/repository/famili_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../model/famili model/update_famili_model.dart';
 
 part 'famili_state.dart';
 part 'famili_event.dart';
@@ -16,6 +19,7 @@ class FamiliBloc extends Bloc<FamiliEvent, FamiliState> {
     on<GetFamiliDetailevent>(getDetailFamili);
     on<DeleteFamiliEvent>(deleteFamili);
     on<AddDatafamiliEvent>(addFamiliData);
+    on<UpdateDatafamiliEvent>(updateFamiliData);
   }
   final FamiliRepository repository;
 
@@ -60,6 +64,24 @@ class FamiliBloc extends Bloc<FamiliEvent, FamiliState> {
       emit(FailureFamili(errorMessage: result.message));
     } else {
       emit(AddDataFamiliSuccess(result: result));
+    }
+  }
+
+  Future<void> updateFamiliData(
+      UpdateDatafamiliEvent event, Emitter<FamiliState> emit) async {
+    final result = await repository.updateFamiliData(
+        event.idFamili,
+        event.idOrdo,
+        event.latinName,
+        event.commonName,
+        event.character,
+        event.description,
+        event.image);
+
+    if (result.error) {
+      emit(FailureFamili(errorMessage: result.message));
+    } else {
+      emit(UpdateFamiliSuccess(result: result));
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:biodiv/model/famili%20model/add_famili_model.dart';
 import 'package:biodiv/model/famili%20model/delete_famili.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
 import 'package:biodiv/model/famili%20model/famili_model.dart';
+import 'package:biodiv/model/famili%20model/update_famili_model.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -112,6 +113,51 @@ class FamiliRepository {
       }
     } catch (error) {
       final result = AddFamiliModel(error: true, message: error.toString());
+      return result;
+    }
+  }
+
+  Future<UpdateFamiliModel> updateFamiliData(
+    int idFamili,
+    int idOrdo,
+    String latinName,
+    String commonName,
+    String character,
+    String description,
+    XFile? image,
+  ) async {
+    try {
+      final url = Uri.parse('$baseUrl/famili');
+      var request = http.MultipartRequest('PUT', url);
+
+      request.fields['id_famili'] = idFamili.toString();
+      request.fields['id_ordo'] = idOrdo.toString();
+      request.fields['nama_latin'] = latinName;
+      request.fields['nama_umum'] = commonName;
+      request.fields['ciri_ciri'] = character;
+      request.fields['keterangan'] = description;
+
+      if (image != null) {
+        final imageFile = File(image.path);
+        final imageField =
+            await http.MultipartFile.fromPath('image', imageFile.path);
+        request.files.add(imageField);
+      }
+
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      final json = jsonDecode(responseBody);
+
+      if (response.statusCode == 200) {
+        final result = UpdateFamiliModel.fromJson(json);
+        return result;
+      } else {
+        final result = UpdateFamiliModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result = UpdateFamiliModel(error: true, message: error.toString());
       return result;
     }
   }

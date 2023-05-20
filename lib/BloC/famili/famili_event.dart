@@ -46,3 +46,26 @@ class AddDatafamiliEvent extends FamiliEvent {
   List<Object?> get props =>
       [idOrdo, latinName, commonName, character, description, image];
 }
+
+class UpdateDatafamiliEvent extends FamiliEvent {
+  final int idFamili;
+  final int idOrdo;
+  final String latinName;
+  final String commonName;
+  final String character;
+  final String description;
+  final XFile? image;
+
+  UpdateDatafamiliEvent({
+    required this.idFamili,
+    required this.idOrdo,
+    required this.latinName,
+    required this.commonName,
+    required this.character,
+    required this.description,
+    required this.image,
+  });
+  @override
+  List<Object?> get props =>
+      [idFamili, idOrdo, latinName, commonName, character, description, image];
+}

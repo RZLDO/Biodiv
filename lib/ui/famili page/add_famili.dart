@@ -9,8 +9,6 @@ import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -52,8 +50,8 @@ class _AddFamiliState extends State<AddFamili> {
   TextEditingController commonName = TextEditingController();
   TextEditingController characteristics = TextEditingController();
   TextEditingController description = TextEditingController();
-  TextEditingController idClass = TextEditingController();
-  XFile? imagefromUrl;
+  TextEditingController idOrdo = TextEditingController();
+  // XFile? imagefromUrl;
   final GlobalKey<FormState> _key = GlobalKey();
   XFile? _imagePicker;
   late OrdoBloc _ordoBloc;
@@ -64,6 +62,14 @@ class _AddFamiliState extends State<AddFamili> {
     super.initState();
     _familiBloc = FamiliBloc(repository: FamiliRepository());
     _ordoBloc = OrdoBloc(repository: OrdoRepository());
+    if (widget.isEdit) {
+      latinName = TextEditingController(text: widget.latinName);
+      commonName = TextEditingController(text: widget.commonName);
+      characteristics = TextEditingController(text: widget.character);
+      description = TextEditingController(text: widget.description);
+      id = widget.idOrdo;
+      getImageFromNetwork(widget.image.toString());
+    }
     _ordoBloc.add(GetIdLatinOrdoEvent());
   }
 
@@ -127,8 +133,8 @@ class _AddFamiliState extends State<AddFamili> {
                           child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: imagefromUrl != null
-                                ? Image.file(File(imagefromUrl!.path))
+                            child: _imagePicker != null
+                                ? Image.file(File(_imagePicker!.path))
                                 : _imagePicker == null
                                     ? Icon(
                                         Icons.image_search,
@@ -218,14 +224,16 @@ class _AddFamiliState extends State<AddFamili> {
                                     : "Add Data Ordo",
                                 onTap: () {
                                   if (_key.currentState!.validate()) {
-                                    if (widget.isEdit) {
-                                      _ordoBloc.add(UpdateOrdoEvent(
-                                          idOrdo: widget.idOrdo!.toInt(),
+                                    if (widget.isEdit == true) {
+                                      print(
+                                          "$id , ${widget.idFamili.toString()}");
+                                      _familiBloc.add(UpdateDatafamiliEvent(
+                                          idFamili: widget.idFamili!.toInt(),
+                                          idOrdo: id!.toInt(),
                                           latinName: latinName.text,
                                           commonName: commonName.text,
                                           character: characteristics.text,
                                           description: description.text,
-                                          idClass: id!.toInt(),
                                           image: _imagePicker));
                                     } else {
                                       if (_imagePicker != null) {
@@ -267,18 +275,23 @@ class _AddFamiliState extends State<AddFamili> {
                                             builder: (context) =>
                                                 const HomeScreen()));
                                   }).show();
-                            } else if (state is UpdateOrdoStateSuccess) {
+                            } else if (state is UpdateFamiliSuccess) {
                               AwesomeDialog(
-                                      context: context,
-                                      dialogType: DialogType.success,
-                                      autoDismiss: false,
-                                      title: "Update Ordo Data",
-                                      desc: "Update Data Success",
-                                      onDismissCallback: (type) =>
-                                          Navigator.pop(context),
-                                      btnOkOnPress: () {})
-                                  .show();
-                            } else if (state is FailureOrdo) {
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  autoDismiss: false,
+                                  title: "Update Ordo Data",
+                                  desc: "Update Data Success",
+                                  onDismissCallback: (type) =>
+                                      Navigator.pop(context),
+                                  btnOkOnPress: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  }).show();
+                            } else if (state is FailureFamili) {
                               AwesomeDialog(
                                       context: context,
                                       dialogType: DialogType.error,

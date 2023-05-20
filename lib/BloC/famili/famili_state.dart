@@ -58,3 +58,12 @@ class AddDataFamiliSuccess extends FamiliState {
   @override
   List<Object?> get props => [result];
 }
+
+class UpdateFamiliSuccess extends FamiliState {
+  final UpdateFamiliModel result;
+
+  UpdateFamiliSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}

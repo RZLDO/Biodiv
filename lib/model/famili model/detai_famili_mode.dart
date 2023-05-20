@@ -15,35 +15,35 @@ class FamiliDetailModel {
 }
 
 class FamilyDetail {
-  final int id;
+  final int idFamili;
   final String latinName;
   final String commonName;
   final String characteristics;
   final String description;
   final String image;
-  final int orderID;
+  final int idOrdo;
   final String verification;
 
   FamilyDetail({
-    required this.id,
+    required this.idFamili,
     required this.latinName,
     required this.commonName,
     required this.characteristics,
     required this.description,
     required this.image,
-    required this.orderID,
+    required this.idOrdo,
     required this.verification,
   });
 
   factory FamilyDetail.fromJson(Map<String, dynamic> json) {
     return FamilyDetail(
-      id: json['id_famili'],
+      idFamili: json['id_famili'],
       latinName: json['nama_latin'],
       commonName: json['nama_umum'],
       characteristics: json['ciri_ciri'],
       description: json['keterangan'],
       image: json['gambar'],
-      orderID: json['id_ordo'],
+      idOrdo: json['id_ordo'],
       verification: json['verifikasi'],
     );
   }

@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
 import 'package:biodiv/repository/famili_repository.dart';
+import 'package:biodiv/ui/famili%20page/add_famili.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,7 @@ class _DetailFamiliState extends State<DetailFamili> {
                 );
               } else if (state is GetDetailFamiliSuccess) {
                 final FamilyDetail? data = state.result.data;
+
                 return SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: Stack(
@@ -141,7 +143,21 @@ class _DetailFamiliState extends State<DetailFamili> {
                                 ),
                                 CustomButtonExtended(
                                     text: "Edit Data",
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AddFamili(
+                                                  latinName: data.latinName,
+                                                  commonName: data.commonName,
+                                                  character:
+                                                      data.characteristics,
+                                                  description: data.description,
+                                                  idOrdo: data.idOrdo,
+                                                  image: data.image,
+                                                  idFamili: data.idFamili,
+                                                  isEdit: true)));
+                                    },
                                     width: MediaQuery.of(context).size.width *
                                         0.65,
                                     setText: false),
@@ -160,7 +176,8 @@ class _DetailFamiliState extends State<DetailFamili> {
                                               btnOkOnPress: () {
                                                 _familiBloc.add(
                                                     DeleteFamiliEvent(
-                                                        idFamili: data.id));
+                                                        idFamili:
+                                                            data.idFamili));
                                                 AwesomeDialog(
                                                         context: context,
                                                         dialogType:
