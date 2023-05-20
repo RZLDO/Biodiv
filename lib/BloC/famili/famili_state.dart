@@ -50,3 +50,11 @@ class GetIdLatinSuccess extends FamiliState {
   @override
   List<Object?> get props => [idOrdo, namaLatin];
 }
+
+class AddDataFamiliSuccess extends FamiliState {
+  final AddFamiliModel result;
+  AddDataFamiliSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}

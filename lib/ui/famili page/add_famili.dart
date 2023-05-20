@@ -5,6 +5,7 @@ import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
+import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -228,8 +229,8 @@ class _AddFamiliState extends State<AddFamili> {
                                           image: _imagePicker));
                                     } else {
                                       if (_imagePicker != null) {
-                                        _ordoBloc.add(AddOrdoEvent(
-                                            idClass: id!.toInt(),
+                                        _familiBloc.add(AddDatafamiliEvent(
+                                            idOrdo: id!.toInt(),
                                             latinName: latinName.text,
                                             commonName: commonName.text,
                                             character: characteristics.text,
@@ -249,18 +250,23 @@ class _AddFamiliState extends State<AddFamili> {
                                 });
                           },
                           listener: (context, state) {
-                            if (state is AddOrdoSuccess) {
+                            if (state is AddDataFamiliSuccess) {
                               AwesomeDialog(
-                                      context: context,
-                                      dialogType: DialogType.success,
-                                      autoDismiss: false,
-                                      title: "Add Ordo Data",
-                                      desc:
-                                          "Please wait admin to verification your data",
-                                      onDismissCallback: (type) =>
-                                          Navigator.pop(context),
-                                      btnOkOnPress: () {})
-                                  .show();
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  autoDismiss: false,
+                                  title: "Add Ordo Data",
+                                  desc:
+                                      "Please wait admin to verification your data",
+                                  onDismissCallback: (type) =>
+                                      Navigator.pop(context),
+                                  btnOkOnPress: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  }).show();
                             } else if (state is UpdateOrdoStateSuccess) {
                               AwesomeDialog(
                                       context: context,
