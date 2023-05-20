@@ -118,7 +118,6 @@ class ClassRepository {
       if (response.statusCode == 200) {
         // Image uploaded successfully
         var result = UpdateDataClass.fromJson(json);
-        print(result.message);
         return result;
       } else {
         // Failed to upload image
@@ -127,7 +126,6 @@ class ClassRepository {
       }
     } catch (error) {
       var result = UpdateDataClass(error: true, message: error.toString());
-      print("error" + result.message);
       return result;
     }
   }

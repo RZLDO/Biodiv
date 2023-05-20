@@ -23,3 +23,5 @@ class DeleteFamiliEvent extends FamiliEvent {
   @override
   List<Object?> get props => [idFamili];
 }
+
+class GetIdLatinEvent extends FamiliEvent {}

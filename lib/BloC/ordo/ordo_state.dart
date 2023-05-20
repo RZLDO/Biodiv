@@ -55,3 +55,13 @@ class UpdateOrdoStateSuccess extends OrdoState {
   @override
   List<Object> get props => [response];
 }
+
+class GetIdLatinOrdoSuccess extends OrdoState {
+  final List<int> idOrdo;
+  final List<String> latinName;
+
+  GetIdLatinOrdoSuccess({required this.idOrdo, required this.latinName});
+
+  @override
+  List<Object?> get props => [idOrdo, latinName];
+}

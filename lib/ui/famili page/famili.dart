@@ -1,6 +1,7 @@
 import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/model/famili%20model/famili_model.dart';
 import 'package:biodiv/repository/famili_repository.dart';
+import 'package:biodiv/ui/famili%20page/add_famili.dart';
 import 'package:biodiv/ui/famili%20page/famili_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +32,12 @@ class _FamiliScreenState extends State<FamiliScreen> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.secondaryColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddFamili(isEdit: false)));
+          },
           child: const Icon(
             Icons.add,
             color: Colors.white,

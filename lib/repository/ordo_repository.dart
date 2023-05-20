@@ -71,7 +71,6 @@ class OrdoRepository {
 
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-      print(responseBody);
       if (response.statusCode == 200) {
         final json = jsonDecode(responseBody);
         final result = AddOrdoData.fromJson(json);
@@ -83,7 +82,6 @@ class OrdoRepository {
       }
     } catch (error) {
       final result = AddOrdoData(error: true, message: error.toString());
-      print(result);
       return result;
     }
   }

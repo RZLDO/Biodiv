@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:biodiv/model/famili%20model/delete_famili.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
 import 'package:biodiv/model/famili%20model/famili_model.dart';
@@ -47,4 +45,7 @@ class FamiliBloc extends Bloc<FamiliEvent, FamiliState> {
       emit(DeleteFamiliSuccess(result: result));
     }
   }
+
+  Future<void> getIdLatin(
+      GetIdLatinEvent event, Emitter<FamiliState> emit) async {}
 }

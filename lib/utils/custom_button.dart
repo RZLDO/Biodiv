@@ -6,8 +6,8 @@ import 'colors.dart';
 class CustomButton extends StatelessWidget {
   final Function() onTap;
   final String text;
-  bool isLoading;
-  CustomButton(
+  final bool isLoading;
+  const CustomButton(
       {super.key,
       required this.text,
       required this.onTap,
@@ -43,12 +43,12 @@ class CustomButton extends StatelessWidget {
 
 class CustomButtonExtended extends StatelessWidget {
   final Function() onTap;
-  String? text;
+  final String? text;
   final double width;
-  IconData? icon;
-  bool setText;
-  Color? color;
-  CustomButtonExtended(
+  final IconData? icon;
+  final bool setText;
+  final Color? color;
+  const CustomButtonExtended(
       {super.key,
       this.text,
       required this.onTap,

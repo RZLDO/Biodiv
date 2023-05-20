@@ -66,3 +66,5 @@ class UpdateOrdoEvent extends OrdoEvent {
   List<Object?> get props =>
       [idOrdo, latinName, commonName, character, description, idClass, image];
 }
+
+class GetIdLatinOrdoEvent extends OrdoEvent {}

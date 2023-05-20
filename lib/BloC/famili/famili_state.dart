@@ -40,3 +40,13 @@ class DeleteFamiliSuccess extends FamiliState {
   @override
   List<Object?> get props => [result];
 }
+
+class GetIdLatinSuccess extends FamiliState {
+  final List<int> idOrdo;
+  final List<String> namaLatin;
+
+  GetIdLatinSuccess({required this.idOrdo, required this.namaLatin});
+
+  @override
+  List<Object?> get props => [idOrdo, namaLatin];
+}

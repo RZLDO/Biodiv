@@ -17,14 +17,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class AddDataClass extends StatefulWidget {
-  int? idClass;
-  String? common;
-  String? latin;
-  String? chara;
-  String? desc;
-  String? image;
-  bool isEdit;
-  AddDataClass(
+  final int? idClass;
+  final String? common;
+  final String? latin;
+  final String? chara;
+  final String? desc;
+  final String? image;
+  final bool isEdit;
+  const AddDataClass(
       {super.key,
       this.idClass = 0,
       this.common,

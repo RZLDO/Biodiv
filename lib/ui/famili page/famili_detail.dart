@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../BloC/class/class_bloc.dart';
 import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 import '../../utils/custom_button.dart';

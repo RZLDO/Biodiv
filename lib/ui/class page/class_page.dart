@@ -36,7 +36,7 @@ class _ClassScreenState extends State<ClassScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddDataClass(
+                    builder: (context) => const AddDataClass(
                           isEdit: false,
                         )));
           },

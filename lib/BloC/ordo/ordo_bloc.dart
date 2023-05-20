@@ -16,6 +16,7 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
     on<AddOrdoEvent>(addOrdoData);
     on<DeleteOrdoEvent>(deleteOrdoData);
     on<UpdateOrdoEvent>(updateOrdodata);
+    on<GetIdLatinOrdoEvent>(getIdLatin);
   }
 
   final OrdoRepository repository;
@@ -47,7 +48,6 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
         event.character,
         event.description,
         event.image);
-    print(response);
     if (response.error == true) {
       emit(FailureOrdo(errorMessage: response.message));
     } else {
@@ -76,5 +76,22 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
         event.idClass,
         event.image);
     emit(UpdateOrdoStateSuccess(response: result));
+  }
+
+  Future<void> getIdLatin(
+      GetIdLatinOrdoEvent event, Emitter<OrdoState> emit) async {
+    final result = await repository.getOrdoData();
+    if (result.error) {
+      emit(FailureOrdo(errorMessage: result.message));
+    } else {
+      List<OrdoData> data = result.data;
+      List<String> latinName = [];
+      List<int> idOrdo = [];
+      for (var item in data) {
+        latinName.add(item.namaLatin);
+        idOrdo.add(item.idOrdo);
+      }
+      emit(GetIdLatinOrdoSuccess(idOrdo: idOrdo, latinName: latinName));
+    }
   }
 }
