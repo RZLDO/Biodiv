@@ -6,3 +6,11 @@ abstract class GenusEvent extends Equatable {
 }
 
 class GetDataGenusEvent extends GenusEvent {}
+
+class GetDetailGenusEvent extends GenusEvent {
+  final int idGenus;
+  GetDetailGenusEvent({required this.idGenus});
+
+  @override
+  List<Object?> get props => [idGenus];
+}

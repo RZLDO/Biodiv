@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/model/genus/get_data_genus.dart';
 import 'package:biodiv/repository/genus_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -18,6 +21,17 @@ class GenusBloc extends Bloc<GenusEvent, GenusState> {
       emit(GenusFailure(errorMessage: result.message));
     } else {
       emit(GetGenusDataSuccess(result: result));
+    }
+  }
+
+  Future<void> getDetailGenusData(
+      GetDetailGenusEvent event, Emitter<GenusState> emit) async {
+    final result = await repository.getDetailGenusData(event.idGenus);
+
+    if (result.error == true) {
+      emit(GenusFailure(errorMessage: result.message));
+    } else {
+      emit(GetGenusDetailDataSuccess(result: result));
     }
   }
 }

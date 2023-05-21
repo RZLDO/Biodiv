@@ -24,3 +24,12 @@ class GenusFailure extends GenusState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class GetGenusDetailDataSuccess extends GenusState {
+  final GetDetailGenusModel result;
+
+  GetGenusDetailDataSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [];
+}

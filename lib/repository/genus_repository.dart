@@ -23,4 +23,11 @@ class GenusRepository {
       return result;
     }
   }
+
+  Future<GetDetailGenusModel> getDetailGenusData(int idGenus) async {
+    try {
+      final url = Uri.parse('$baseUrl/genus/$idGenus');
+      http.Response response = await http.get(url);
+    } catch (error) {}
+  }
 }

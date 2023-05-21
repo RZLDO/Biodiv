@@ -1,3 +1,19 @@
+class GetDetailGenusModel {
+  final bool error;
+  final String message;
+  final GenusData? data;
+
+  GetDetailGenusModel(
+      {required this.error, required this.message, required this.data});
+
+  factory GetDetailGenusModel.fromJson(Map<String, dynamic> json) {
+    return GetDetailGenusModel(
+        error: json['error'],
+        message: json['message'],
+        data: GenusData.fromJson(json['data']));
+  }
+}
+
 class GetGenusModel {
   final bool error;
   final String message;
