@@ -3,6 +3,7 @@ import 'package:biodiv/repository/home_repository.dart';
 import 'package:biodiv/repository/user_preferences.dart';
 import 'package:biodiv/ui/class%20page/class_page.dart';
 import 'package:biodiv/ui/famili%20page/famili.dart';
+import 'package:biodiv/ui/genus/genus.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/ui/ordo%20page/ordo.dart';
 import 'package:biodiv/utils/chart.dart';
@@ -43,7 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List listNavigation = [
     const ClassScreen(),
     const OrdoScreen(),
-    const FamiliScreen()
+    const FamiliScreen(),
+    const GenusScreen(),
   ];
   late HomeBloc _homeBloc;
   @override
