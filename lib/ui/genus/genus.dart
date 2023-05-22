@@ -1,6 +1,7 @@
 import 'package:biodiv/BloC/genus/genus_bloc.dart';
 import 'package:biodiv/model/genus/get_data_genus.dart';
 import 'package:biodiv/repository/genus_repository.dart';
+import 'package:biodiv/ui/genus/add_data_genus.dart';
 import 'package:biodiv/ui/genus/detail_genus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +32,13 @@ class _GenusScreen extends State<GenusScreen> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.secondaryColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const AddDataGenusScreen(isEdit: false)));
+          },
           child: const Icon(
             Icons.add,
             color: Colors.white,

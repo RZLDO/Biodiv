@@ -22,3 +22,5 @@ class DeleteGenusEvent extends GenusEvent {
   @override
   List<Object?> get props => [idGenus];
 }
+
+class GetIdLatinGenusEvent extends GenusEvent {}

@@ -2,6 +2,7 @@ import 'package:biodiv/model/famili%20model/add_famili_model.dart';
 import 'package:biodiv/model/famili%20model/delete_famili.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
 import 'package:biodiv/model/famili%20model/famili_model.dart';
+import 'package:biodiv/model/genus/get_data_genus.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,6 +20,7 @@ class FamiliBloc extends Bloc<FamiliEvent, FamiliState> {
     on<DeleteFamiliEvent>(deleteFamili);
     on<AddDatafamiliEvent>(addFamiliData);
     on<UpdateDatafamiliEvent>(updateFamiliData);
+    on<GetIdLatinFamiliEvent>(getIdLatin);
   }
   final FamiliRepository repository;
 
@@ -53,7 +55,23 @@ class FamiliBloc extends Bloc<FamiliEvent, FamiliState> {
   }
 
   Future<void> getIdLatin(
-      GetIdLatinEvent event, Emitter<FamiliState> emit) async {}
+      GetIdLatinFamiliEvent event, Emitter<FamiliState> emit) async {
+    final result = await repository.getFamiliData();
+
+    if (result.error) {
+      emit(FailureFamili(errorMessage: result.message));
+    } else {
+      List<Family> data = result.data;
+      List<String> latinName = [];
+      List<int> idFamili = [];
+
+      for (var item in data) {
+        latinName.add(item.latinName);
+        idFamili.add(item.idFamili);
+      }
+      emit(GetIdLatinSuccess(idFamili: idFamili, namaLatin: latinName));
+    }
+  }
 
   Future<void> addFamiliData(
       AddDatafamiliEvent event, Emitter<FamiliState> emit) async {

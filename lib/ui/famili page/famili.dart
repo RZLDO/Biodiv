@@ -81,7 +81,8 @@ class _FamiliScreenState extends State<FamiliScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => DetailFamili(
-                                                idFamili: dataAnimal!.id)));
+                                                idFamili:
+                                                    dataAnimal!.idFamili)));
                                   },
                                   child: CustomCard(
                                       namaUmum: dataAnimal.commonName,
@@ -97,7 +98,8 @@ class _FamiliScreenState extends State<FamiliScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => DetailFamili(
-                                                idFamili: dataAnimalDua!.id)));
+                                                idFamili:
+                                                    dataAnimalDua!.idFamili)));
                                   },
                                   child: CustomCard(
                                       namaUmum: dataAnimalDua.commonName,

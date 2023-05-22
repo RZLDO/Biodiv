@@ -41,3 +41,13 @@ class DeleteGenusSuccess extends GenusState {
   @override
   List<Object?> get props => [result];
 }
+
+class GetGenusIdLatinSuccess extends GenusState {
+  final List<int> idOrdo;
+  final List<String> latinName;
+
+  GetGenusIdLatinSuccess({required this.idOrdo, required this.latinName});
+
+  @override
+  List<Object?> get props => [idOrdo, latinName];
+}

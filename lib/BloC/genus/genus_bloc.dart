@@ -44,4 +44,13 @@ class GenusBloc extends Bloc<GenusEvent, GenusState> {
       emit(DeleteGenusSuccess(result: result));
     }
   }
+
+  Future<void> getIdLatinGenus(
+      GetIdLatinGenusEvent event, Emitter<GenusState> emit) async {
+    final result = await repository.getGenusData();
+
+    if (result.error) {
+      emit(GenusFailure(errorMessage: result.message));
+    } else {}
+  }
 }

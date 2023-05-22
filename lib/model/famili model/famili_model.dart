@@ -16,7 +16,7 @@ class FamiliResponseModel {
 }
 
 class Family {
-  final int id;
+  final int idFamili;
   final String latinName;
   final String commonName;
   final String characteristics;
@@ -26,7 +26,7 @@ class Family {
   final String verification;
 
   Family({
-    required this.id,
+    required this.idFamili,
     required this.latinName,
     required this.commonName,
     required this.characteristics,
@@ -38,7 +38,7 @@ class Family {
 
   factory Family.fromJson(Map<String, dynamic> json) {
     return Family(
-      id: json['id_famili'],
+      idFamili: json['id_famili'],
       latinName: json['nama_latin'],
       commonName: json['nama_umum'],
       characteristics: json['ciri_ciri'],

@@ -24,7 +24,7 @@ class DeleteFamiliEvent extends FamiliEvent {
   List<Object?> get props => [idFamili];
 }
 
-class GetIdLatinEvent extends FamiliEvent {}
+class GetIdLatinFamiliEvent extends FamiliEvent {}
 
 class AddDatafamiliEvent extends FamiliEvent {
   final int idOrdo;
