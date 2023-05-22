@@ -14,3 +14,11 @@ class GetDetailGenusEvent extends GenusEvent {
   @override
   List<Object?> get props => [idGenus];
 }
+
+class DeleteGenusEvent extends GenusEvent {
+  final int idGenus;
+  DeleteGenusEvent({required this.idGenus});
+
+  @override
+  List<Object?> get props => [idGenus];
+}

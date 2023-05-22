@@ -225,8 +225,6 @@ class _AddFamiliState extends State<AddFamili> {
                                 onTap: () {
                                   if (_key.currentState!.validate()) {
                                     if (widget.isEdit == true) {
-                                      print(
-                                          "$id , ${widget.idFamili.toString()}");
                                       _familiBloc.add(UpdateDatafamiliEvent(
                                           idFamili: widget.idFamili!.toInt(),
                                           idOrdo: id!.toInt(),

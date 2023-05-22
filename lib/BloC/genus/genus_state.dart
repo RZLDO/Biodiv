@@ -33,3 +33,11 @@ class GetGenusDetailDataSuccess extends GenusState {
   @override
   List<Object?> get props => [];
 }
+
+class DeleteGenusSuccess extends GenusState {
+  final DeleteGenusModel result;
+  DeleteGenusSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}

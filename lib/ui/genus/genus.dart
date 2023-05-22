@@ -1,6 +1,7 @@
 import 'package:biodiv/BloC/genus/genus_bloc.dart';
 import 'package:biodiv/model/genus/get_data_genus.dart';
 import 'package:biodiv/repository/genus_repository.dart';
+import 'package:biodiv/ui/genus/detail_genus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,7 +74,15 @@ class _GenusScreen extends State<GenusScreen> {
                                 if (dataAnimal != null)
                                   Expanded(
                                       child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailGenusScreen(
+                                                      idGenus: dataAnimal!
+                                                          .idGenus)));
+                                    },
                                     child: CustomCard(
                                         namaUmum: dataAnimal.namaUmum,
                                         namaLatin: dataAnimal.namaLatin,
@@ -83,7 +92,15 @@ class _GenusScreen extends State<GenusScreen> {
                                 if (dataAnimalDua != null)
                                   Expanded(
                                       child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailGenusScreen(
+                                                      idGenus: dataAnimalDua!
+                                                          .idGenus)));
+                                    },
                                     child: CustomCard(
                                         namaUmum: dataAnimalDua.namaUmum,
                                         namaLatin: dataAnimalDua.namaLatin,
