@@ -24,3 +24,52 @@ class DeleteGenusEvent extends GenusEvent {
 }
 
 class GetIdLatinGenusEvent extends GenusEvent {}
+
+class AddDataGenusEvent extends GenusEvent {
+  final int idFamili;
+  final String latinName;
+  final String commonName;
+  final String characterteristics;
+  final String description;
+  final XFile? image;
+
+  AddDataGenusEvent(
+      {required this.idFamili,
+      required this.latinName,
+      required this.commonName,
+      required this.characterteristics,
+      required this.description,
+      required this.image});
+  @override
+  List<Object?> get props =>
+      [idFamili, latinName, commonName, characterteristics, description, image];
+}
+
+class UpdateDataGenusEvent extends GenusEvent {
+  final int idGenus;
+  final int idFamili;
+  final String latinName;
+  final String commonName;
+  final String characterteristics;
+  final String description;
+  final XFile? image;
+
+  UpdateDataGenusEvent(
+      {required this.idFamili,
+      required this.latinName,
+      required this.commonName,
+      required this.characterteristics,
+      required this.description,
+      required this.idGenus,
+      required this.image});
+  @override
+  List<Object?> get props => [
+        idFamili,
+        latinName,
+        commonName,
+        characterteristics,
+        description,
+        idGenus,
+        image
+      ];
+}

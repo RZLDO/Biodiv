@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/genus/genus_bloc.dart';
 import 'package:biodiv/model/genus/get_data_genus.dart';
 import 'package:biodiv/repository/genus_repository.dart';
+import 'package:biodiv/ui/genus/add_data_genus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -142,7 +143,22 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                 ),
                                 CustomButtonExtended(
                                     text: "Edit Data",
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddDataGenusScreen(
+                                                      idGenus: data.idGenus,
+                                                      idFamili: data.idFamili,
+                                                      latinName: data.namaLatin,
+                                                      commonName: data.namaUmum,
+                                                      character: data.ciriCiri,
+                                                      description:
+                                                          data.keterangan,
+                                                      image: data.gambar,
+                                                      isEdit: true)));
+                                    },
                                     width: MediaQuery.of(context).size.width *
                                         0.65,
                                     setText: false),

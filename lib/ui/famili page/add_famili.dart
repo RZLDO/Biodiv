@@ -50,7 +50,7 @@ class _AddFamiliState extends State<AddFamili> {
   TextEditingController commonName = TextEditingController();
   TextEditingController characteristics = TextEditingController();
   TextEditingController description = TextEditingController();
-  TextEditingController idOrdo = TextEditingController();
+  // TextEditingController idOrdo = TextEditingController();
   // XFile? imagefromUrl;
   final GlobalKey<FormState> _key = GlobalKey();
   XFile? _imagePicker;

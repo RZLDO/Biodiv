@@ -21,7 +21,7 @@ import '../../utils/validation.dart';
 import '../home/home_screen.dart';
 
 class AddDataGenusScreen extends StatefulWidget {
-  final int? idOrdo;
+  final int? idGenus;
   final String? latinName;
   final String? commonName;
   final String? character;
@@ -35,7 +35,7 @@ class AddDataGenusScreen extends StatefulWidget {
     this.commonName,
     this.description,
     this.idFamili,
-    this.idOrdo,
+    this.idGenus,
     this.latinName,
     this.image,
     required this.isEdit,
@@ -50,7 +50,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
   TextEditingController commonName = TextEditingController();
   TextEditingController characteristics = TextEditingController();
   TextEditingController description = TextEditingController();
-  TextEditingController id = TextEditingController();
+  // TextEditingController id = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey();
   late GenusBloc _genusBloc;
   late FamiliBloc _familiBloc;
@@ -61,6 +61,14 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
     _familiBloc = FamiliBloc(repository: FamiliRepository());
     _genusBloc = GenusBloc(repository: GenusRepository());
     _familiBloc.add(GetIdLatinFamiliEvent());
+    if (widget.isEdit) {
+      latinName = TextEditingController(text: widget.latinName);
+      commonName = TextEditingController(text: widget.commonName);
+      characteristics = TextEditingController(text: widget.character);
+      description = TextEditingController(text: widget.description);
+      idFamili = widget.idFamili;
+      getImageFromNetwork(widget.image.toString());
+    }
     super.initState();
   }
 
@@ -206,23 +214,40 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                               ),
                             ],
                           )),
-                      BlocConsumer<FamiliBloc, FamiliState>(
-                          bloc: _familiBloc,
+                      BlocConsumer<GenusBloc, GenusState>(
+                          bloc: _genusBloc,
                           builder: (context, state) {
                             return CustomButton(
                                 text: widget.isEdit
-                                    ? "Edit Data Ordo"
-                                    : "Add Data Ordo",
+                                    ? "Edit Data Genus"
+                                    : "Add Data Genus",
                                 onTap: () {
                                   if (_key.currentState!.validate()) {
                                     if (widget.isEdit == true) {
+                                      _genusBloc.add(UpdateDataGenusEvent(
+                                          idFamili: idFamili!.toInt(),
+                                          latinName: latinName.text,
+                                          commonName: commonName.text,
+                                          characterteristics:
+                                              characteristics.text,
+                                          description: description.text,
+                                          idGenus: widget.idGenus!.toInt(),
+                                          image: _imagePicker));
                                     } else {
                                       if (_imagePicker != null) {
+                                        _genusBloc.add(AddDataGenusEvent(
+                                            idFamili: idFamili!.toInt(),
+                                            latinName: latinName.text,
+                                            commonName: commonName.text,
+                                            characterteristics:
+                                                characteristics.text,
+                                            description: description.text,
+                                            image: _imagePicker));
                                       } else {
                                         AwesomeDialog(
                                                 context: context,
                                                 dialogType: DialogType.error,
-                                                title: "Add Ordo Data",
+                                                title: "Add Genus Data",
                                                 desc: "Please add the Image",
                                                 btnOkOnPress: () {})
                                             .show();
@@ -232,7 +257,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                 });
                           },
                           listener: (context, state) {
-                            if (state is AddDataFamiliSuccess) {
+                            if (state is AddDataGenusSuccess) {
                               AwesomeDialog(
                                   context: context,
                                   dialogType: DialogType.success,
@@ -249,12 +274,12 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                             builder: (context) =>
                                                 const HomeScreen()));
                                   }).show();
-                            } else if (state is UpdateFamiliSuccess) {
+                            } else if (state is UpdateGenusSuccess) {
                               AwesomeDialog(
                                   context: context,
                                   dialogType: DialogType.success,
                                   autoDismiss: false,
-                                  title: "Update Ordo Data",
+                                  title: "Update Genus Data",
                                   desc: "Update Data Success",
                                   onDismissCallback: (type) =>
                                       Navigator.pop(context),
@@ -265,7 +290,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                             builder: (context) =>
                                                 const HomeScreen()));
                                   }).show();
-                            } else if (state is FailureFamili) {
+                            } else if (state is GenusFailure) {
                               AwesomeDialog(
                                       context: context,
                                       dialogType: DialogType.error,

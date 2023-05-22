@@ -51,3 +51,17 @@ class GetGenusIdLatinSuccess extends GenusState {
   @override
   List<Object?> get props => [idOrdo, latinName];
 }
+
+class AddDataGenusSuccess extends GenusState {
+  final AddDataGenusModel result;
+  AddDataGenusSuccess({required this.result});
+  @override
+  List<Object?> get props => [result];
+}
+
+class UpdateGenusSuccess extends GenusState {
+  final AddDataGenusModel result;
+  UpdateGenusSuccess({required this.result});
+  @override
+  List<Object?> get props => [result];
+}
