@@ -8,7 +8,6 @@ import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/ui/ordo%20page/ordo.dart';
 import 'package:biodiv/utils/chart.dart';
 import 'package:biodiv/utils/text_style.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,8 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       drawer: Drawer(
         child: Column(
@@ -94,35 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
           "BIODIV-INFORMATICS",
           style: ReusableTextStyle.basicWhiteBold,
         ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 50,
-        backgroundColor: AppColor.secondaryColor,
-        items: const [
-          Icon(
-            Icons.home_sharp,
-            size: 30,
-            color: AppColor.mainColor,
-          ),
-          Icon(
-            Icons.list_alt,
-            size: 30,
-            color: AppColor.mainColor,
-          ),
-          Icon(
-            Icons.verified_user,
-            size: 30,
-            color: AppColor.mainColor,
-          ),
-          Icon(
-            IconData(0xe9c9, fontFamily: 'MaterialIcons'),
-            size: 30,
-            color: AppColor.mainColor,
-          ),
-        ],
-        onTap: (index) {
-          setState(() {});
-        },
       ),
       body: BlocProvider(
           create: (context) => _homeBloc,
@@ -397,7 +366,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           )),
-    ));
+    );
   }
 }
 

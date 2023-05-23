@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
+import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token != null) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+          context, MaterialPageRoute(builder: (context) => const Navigation()));
     } else {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(context,
