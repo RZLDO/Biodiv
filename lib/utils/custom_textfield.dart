@@ -1,4 +1,7 @@
+import 'package:biodiv/utils/colors.dart';
+import 'package:biodiv/utils/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
@@ -32,6 +35,30 @@ class CustomTextField extends StatelessWidget {
       ),
       obscureText: obsecure,
       validator: validator,
+    );
+  }
+}
+
+class CustomTextSpan extends StatelessWidget {
+  final String text;
+  final String data;
+  const CustomTextSpan({super.key, required this.text, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      text: TextSpan(children: <TextSpan>[
+        TextSpan(
+            text: text,
+            style: GoogleFonts.poppins(
+                color: AppColor.mainColor, fontWeight: FontWeight.bold)),
+        TextSpan(
+          text: data,
+          style: GoogleFonts.poppins(color: Colors.black),
+        )
+      ]),
     );
   }
 }

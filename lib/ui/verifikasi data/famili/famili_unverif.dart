@@ -4,10 +4,13 @@ import 'package:biodiv/model/famili%20model/famili_model.dart';
 import 'package:biodiv/repository/verification_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/card_view.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
+import '../../../utils/custom_app_bar.dart';
+import '../../../utils/custom_textfield.dart';
 
 class FamiliUnverif extends StatefulWidget {
   const FamiliUnverif({super.key});
@@ -28,6 +31,8 @@ class _FamiliUnverifState extends State<FamiliUnverif> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(text: ""),
+      backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
         create: (context) => _verifBloc,
         child: BlocBuilder<VerifBloc, VerifState>(
@@ -46,41 +51,84 @@ class _FamiliUnverifState extends State<FamiliUnverif> {
                   child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        Family? dataAnimal;
-                        Family? dataAnimalDua;
-                        if (index % 2 == 0 && index + 1 < data.length) {
-                          dataAnimal = data[index];
-                          dataAnimalDua = data[index + 1];
-                        } else if (data.length >= 2) {
-                          if (index == data.length - 2) {
-                            dataAnimal = data[index + 1];
-                          }
-                        } else {
-                          dataAnimal = data[index];
-                        }
-                        return Row(
-                          children: [
-                            if (dataAnimal != null)
-                              Expanded(
-                                  child: GestureDetector(
-                                onTap: () {},
-                                child: CustomCard(
-                                    namaUmum: dataAnimal.commonName,
-                                    namaLatin: dataAnimal.latinName,
-                                    image:
-                                        "$baseUrl/image/${dataAnimal.image}"),
-                              )),
-                            if (dataAnimalDua != null)
-                              Expanded(
-                                  child: GestureDetector(
-                                onTap: () {},
-                                child: CustomCard(
-                                    namaUmum: dataAnimalDua.commonName,
-                                    namaLatin: dataAnimalDua.latinName,
-                                    image:
-                                        "$baseUrl/image/${dataAnimalDua.image}"),
-                              ))
-                          ],
+                        Family? dataAnimal = data[index];
+                        return Card(
+                          elevation: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "$baseUrl/image/${dataAnimal.image}"),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 200,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CustomTextSpan(
+                                              text: "Latin : ",
+                                              data: dataAnimal.latinName),
+                                          CustomTextSpan(
+                                              text: "Common: ",
+                                              data: dataAnimal.commonName),
+                                          CustomTextSpan(
+                                              text: "Character: ",
+                                              data: dataAnimal.characteristics),
+                                          CustomTextSpan(
+                                              text: "Description: ",
+                                              data: dataAnimal.description),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Text(
+                                        "Verivikasi",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColor.mainColor),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Text(
+                                        "Delete",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColor.redColorAccent),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         );
                       }),
                 );

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/model/Class%20Model/get_class_model.dart';
 import 'package:biodiv/model/get_ordo_model.dart';
 import 'package:biodiv/model/verif%20model/verif_model.dart';
@@ -95,7 +94,6 @@ class VerificationRepository {
       final url = Uri.parse('$baseUrl/unverified/famili');
       http.Response response = await http.get(url);
       final json = jsonDecode(response.body);
-      print(json);
       if (response.statusCode == 200) {
         final result = FamiliResponseModel.fromJson(json);
         return result;

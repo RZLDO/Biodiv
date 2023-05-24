@@ -60,7 +60,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: ListView.builder(
                             itemCount: state.data.length - 1,
                             itemBuilder: (BuildContext context, int index) {
@@ -73,6 +73,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                               pageDirection[index]));
                                 },
                                 child: Card(
+                                  elevation: 3,
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     height: MediaQuery.of(context).size.height *
