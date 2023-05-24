@@ -2,6 +2,9 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/repository/verification_repository.dart';
 import 'package:biodiv/ui/verifikasi%20data/class/verified_item_class.dart';
+import 'package:biodiv/ui/verifikasi%20data/famili/famili_unverif.dart';
+import 'package:biodiv/ui/verifikasi%20data/genus/genus_verif.dart';
+import 'package:biodiv/ui/verifikasi%20data/ordo/ordo_verif.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +28,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
   ];
   List pageDirection = [
     const UnverifiedClassScreen(),
+    const OrdoUnverif(),
+    const GenusUnverif(),
+    const FamiliUnverif()
   ];
   late VerifBloc _verifBloc;
   @override

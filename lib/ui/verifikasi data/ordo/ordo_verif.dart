@@ -1,27 +1,30 @@
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
-import 'package:biodiv/model/Class%20Model/get_class_model.dart';
+import 'package:biodiv/model/get_ordo_model.dart';
+import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
 import 'package:biodiv/repository/verification_repository.dart';
-import 'package:biodiv/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/card_view.dart';
+import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
 
-class UnverifiedClassScreen extends StatefulWidget {
-  const UnverifiedClassScreen({super.key});
+class OrdoUnverif extends StatefulWidget {
+  const OrdoUnverif({super.key});
 
   @override
-  State<UnverifiedClassScreen> createState() => _UnverifiedClassScreenState();
+  State<OrdoUnverif> createState() => _OrdoUnverifState();
 }
 
-class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
+class _OrdoUnverifState extends State<OrdoUnverif> {
   late VerifBloc _verifBloc;
   @override
   void initState() {
     super.initState();
     _verifBloc = VerifBloc(repository: VerificationRepository());
-    _verifBloc.add(GetUnverifClass());
+    _verifBloc.add(GetUnverifOrdo());
   }
 
   @override
@@ -38,15 +41,15 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                     color: AppColor.mainColor,
                   ),
                 );
-              } else if (state is GetUnverifiedClassSuccess) {
-                List<ClassData> data = state.result.data;
+              } else if (state is GetUnverifiedOrdoSuccess) {
+                List<OrdoData> data = state.result.data;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        ClassData? dataAnimal;
-                        ClassData? dataAnimalDua;
+                        OrdoData? dataAnimal;
+                        OrdoData? dataAnimalDua;
                         if (index % 2 == 0 && index + 1 < data.length) {
                           dataAnimal = data[index];
                           dataAnimalDua = data[index + 1];

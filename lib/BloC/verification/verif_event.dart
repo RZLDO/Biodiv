@@ -6,3 +6,11 @@ abstract class VerifEvent extends Equatable {
 }
 
 class GetUnverifiedData extends VerifEvent {}
+
+class GetUnverifClass extends VerifEvent {}
+
+class GetUnverifGenus extends VerifEvent {}
+
+class GetUnverifOrdo extends VerifEvent {}
+
+class GetUnverifFamili extends VerifEvent {}

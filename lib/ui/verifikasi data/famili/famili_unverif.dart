@@ -1,27 +1,28 @@
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
-import 'package:biodiv/model/Class%20Model/get_class_model.dart';
+import 'package:biodiv/model/famili%20model/famili_model.dart';
+
 import 'package:biodiv/repository/verification_repository.dart';
-import 'package:biodiv/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/card_view.dart';
+import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
 
-class UnverifiedClassScreen extends StatefulWidget {
-  const UnverifiedClassScreen({super.key});
+class FamiliUnverif extends StatefulWidget {
+  const FamiliUnverif({super.key});
 
   @override
-  State<UnverifiedClassScreen> createState() => _UnverifiedClassScreenState();
+  State<FamiliUnverif> createState() => _FamiliUnverifState();
 }
 
-class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
+class _FamiliUnverifState extends State<FamiliUnverif> {
   late VerifBloc _verifBloc;
   @override
   void initState() {
     super.initState();
     _verifBloc = VerifBloc(repository: VerificationRepository());
-    _verifBloc.add(GetUnverifClass());
+    _verifBloc.add(GetUnverifFamili());
   }
 
   @override
@@ -38,15 +39,15 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                     color: AppColor.mainColor,
                   ),
                 );
-              } else if (state is GetUnverifiedClassSuccess) {
-                List<ClassData> data = state.result.data;
+              } else if (state is GetUnverifiedFamili) {
+                List<Family> data = state.result.data;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        ClassData? dataAnimal;
-                        ClassData? dataAnimalDua;
+                        Family? dataAnimal;
+                        Family? dataAnimalDua;
                         if (index % 2 == 0 && index + 1 < data.length) {
                           dataAnimal = data[index];
                           dataAnimalDua = data[index + 1];
@@ -64,20 +65,20 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                                   child: GestureDetector(
                                 onTap: () {},
                                 child: CustomCard(
-                                    namaUmum: dataAnimal.namaUmum,
-                                    namaLatin: dataAnimal.namaLatin,
+                                    namaUmum: dataAnimal.commonName,
+                                    namaLatin: dataAnimal.latinName,
                                     image:
-                                        "$baseUrl/image/${dataAnimal.gambar}"),
+                                        "$baseUrl/image/${dataAnimal.image}"),
                               )),
                             if (dataAnimalDua != null)
                               Expanded(
                                   child: GestureDetector(
                                 onTap: () {},
                                 child: CustomCard(
-                                    namaUmum: dataAnimalDua.namaUmum,
-                                    namaLatin: dataAnimalDua.namaLatin,
+                                    namaUmum: dataAnimalDua.commonName,
+                                    namaLatin: dataAnimalDua.latinName,
                                     image:
-                                        "$baseUrl/image/${dataAnimalDua.gambar}"),
+                                        "$baseUrl/image/${dataAnimalDua.image}"),
                               ))
                           ],
                         );

@@ -22,3 +22,37 @@ class GetUnverifiedDataSuccess extends VerifState {
   @override
   List<Object?> get props => [data];
 }
+
+class GetUnverifiedClassSuccess extends VerifState {
+  final GetDataClass result;
+  GetUnverifiedClassSuccess({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+class GetUnverifiedGenusSuccess extends VerifState {
+  final GetGenusModel result;
+  GetUnverifiedGenusSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
+class GetUnverifiedOrdoSuccess extends VerifState {
+  final OrdoResponse result;
+
+  GetUnverifiedOrdoSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
+class GetUnverifiedFamili extends VerifState {
+  final FamiliResponseModel result;
+
+  GetUnverifiedFamili({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
