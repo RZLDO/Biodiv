@@ -56,3 +56,35 @@ class GetUnverifiedFamili extends VerifState {
   @override
   List<Object?> get props => [result];
 }
+
+class VerifSuccess extends VerifState {
+  final VerifModel result;
+  VerifSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
+class VerificationFailure extends VerifState {
+  final String errorMessage;
+  VerificationFailure({required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class DeleteUnverifSuccess extends VerifState {
+  final VerifModel result;
+  DeleteUnverifSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
+class DeleteFailure extends VerifState {
+  final String errorMessage;
+  DeleteFailure({required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}

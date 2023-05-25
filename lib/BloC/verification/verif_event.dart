@@ -14,3 +14,22 @@ class GetUnverifGenus extends VerifEvent {}
 class GetUnverifOrdo extends VerifEvent {}
 
 class GetUnverifFamili extends VerifEvent {}
+
+class VerifClassEvent extends VerifEvent {
+  final int id;
+  final String path;
+  VerifClassEvent({required this.id, required this.path});
+
+  @override
+  List<Object?> get props => [];
+}
+
+class DeleteUnverifEvent extends VerifEvent {
+  final int id;
+  final String path;
+
+  DeleteUnverifEvent({required this.id, required this.path});
+
+  @override
+  List<Object?> get props => [id, path];
+}

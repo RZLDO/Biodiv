@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/model/get_ordo_model.dart';
 import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
@@ -13,6 +14,8 @@ import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/custom_app_bar.dart';
 import '../../../utils/custom_textfield.dart';
+import '../../../utils/state_screen.dart';
+import '../verif_data.dart';
 
 class OrdoUnverif extends StatefulWidget {
   const OrdoUnverif({super.key});
@@ -37,23 +40,35 @@ class _OrdoUnverifState extends State<OrdoUnverif> {
       backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
         create: (context) => _verifBloc,
-        child: BlocBuilder<VerifBloc, VerifState>(
-            bloc: _verifBloc,
-            builder: (context, state) {
-              if (state is VerifLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColor.mainColor,
+        child: BlocConsumer<VerifBloc, VerifState>(
+          bloc: _verifBloc,
+          builder: (context, state) {
+            if (state is VerifLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: AppColor.mainColor,
+                ),
+              );
+            } else if (state is GetUnverifiedOrdoSuccess) {
+              List<OrdoData> data = state.result.data;
+
+              if (data.isEmpty) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: const Center(
+                    child: EmptyData(
+                      textMessage: "No data to verified Here",
+                    ),
                   ),
                 );
-              } else if (state is GetUnverifiedOrdoSuccess) {
-                List<OrdoData> data = state.result.data;
+              } else {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         OrdoData? dataAnimal = data[index];
+
                         return Card(
                           elevation: 3,
                           child: Padding(
@@ -68,7 +83,7 @@ class _OrdoUnverifState extends State<OrdoUnverif> {
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  "$baseUrl/image/${dataAnimal!.gambar}"),
+                                                  "$baseUrl/image/${dataAnimal.gambar}"),
                                               fit: BoxFit.cover)),
                                     ),
                                     const SizedBox(
@@ -103,7 +118,11 @@ class _OrdoUnverifState extends State<OrdoUnverif> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        _verifBloc.add(VerifClassEvent(
+                                            id: dataAnimal.idOrdo,
+                                            path: 'ordo'));
+                                      },
                                       child: Text(
                                         "Verivikasi",
                                         style: GoogleFonts.poppins(
@@ -115,7 +134,26 @@ class _OrdoUnverifState extends State<OrdoUnverif> {
                                       width: 20,
                                     ),
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        AwesomeDialog(
+                                                context: context,
+                                                title: "Verif Data",
+                                                desc:
+                                                    "this action will delete this data",
+                                                dialogType: DialogType.warning,
+                                                autoDismiss: false,
+                                                onDismissCallback: (type) {
+                                                  Navigator.pop(context);
+                                                },
+                                                btnOkOnPress: () {
+                                                  _verifBloc.add(
+                                                      DeleteUnverifEvent(
+                                                          id: dataAnimal.idOrdo,
+                                                          path: "ordo"));
+                                                },
+                                                btnCancelOnPress: () {})
+                                            .show();
+                                      },
                                       child: Text(
                                         "Delete",
                                         style: GoogleFonts.poppins(
@@ -134,12 +172,68 @@ class _OrdoUnverifState extends State<OrdoUnverif> {
                         );
                       }),
                 );
-              } else {
-                return const Center(
-                  child: Text("an error occured"),
-                );
               }
-            }),
+            } else {
+              return const Center(
+                child: Text("an error occured"),
+              );
+            }
+          },
+          listener: (context, state) {
+            if (state is VerifSuccess) {
+              AwesomeDialog(
+                context: context,
+                title: "Verif Data",
+                desc: "Verification Data Success",
+                dialogType: DialogType.success,
+                autoDismiss: false,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                },
+                btnOkOnPress: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OrdoUnverif()));
+                },
+              ).show();
+            } else if (state is VerificationFailure) {
+              AwesomeDialog(
+                context: context,
+                title: "Verif Data",
+                desc: "Verification Failed",
+                dialogType: DialogType.error,
+                autoDismiss: false,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                },
+                btnOkOnPress: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const VerificationScreen()));
+                },
+              ).show();
+            } else if (state is DeleteUnverifSuccess) {
+              AwesomeDialog(
+                context: context,
+                title: "Verif Data",
+                desc: "Delete Data Success",
+                dialogType: DialogType.success,
+                autoDismiss: false,
+                onDismissCallback: (type) {
+                  Navigator.pop(context);
+                },
+                btnOkOnPress: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OrdoUnverif()));
+                },
+              ).show();
+            }
+          },
+        ),
       ),
     );
   }

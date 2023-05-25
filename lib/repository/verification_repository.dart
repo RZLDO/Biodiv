@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/famili model/famili_model.dart';
 import '../model/genus/get_data_genus.dart';
+import '../model/verif model/verif_success.dart';
 
 class VerificationRepository {
   Future<VerifResponseModel> getTotalUnverifiedData() async {
@@ -104,6 +105,44 @@ class VerificationRepository {
     } catch (error) {
       final result =
           FamiliResponseModel(error: true, message: error.toString(), data: []);
+      return result;
+    }
+  }
+
+  Future<VerifModel> verifClass(int id, String path) async {
+    try {
+      final url = Uri.parse('$baseUrl/verif/$path/$id');
+
+      http.Response response = await http.put(url);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final result = VerifModel.fromJson(json);
+        return result;
+      } else {
+        final result = VerifModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result = VerifModel(error: true, message: error.toString());
+      return result;
+    }
+  }
+
+  Future<VerifModel> DeleteUnverifClass(int id, String path) async {
+    try {
+      final url = Uri.parse('$baseUrl/$path/$id');
+
+      http.Response response = await http.delete(url);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final result = VerifModel.fromJson(json);
+        return result;
+      } else {
+        final result = VerifModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result = VerifModel(error: true, message: error.toString());
       return result;
     }
   }

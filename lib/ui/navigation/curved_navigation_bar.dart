@@ -1,15 +1,13 @@
-import 'package:biodiv/ui/class%20page/class_page.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../utils/colors.dart';
 
 class Navigation extends StatefulWidget {
-  const Navigation({super.key});
+  final int pageId;
+  const Navigation({super.key, required this.pageId});
 
   @override
   State<Navigation> createState() => _NavigationState();
@@ -18,6 +16,12 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int page = 0;
   List navigation = [const HomeScreen(), const VerificationScreen()];
+  @override
+  void initState() {
+    super.initState();
+    page = widget.pageId;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -36,7 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token != null) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Navigation()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => const Navigation(
+                    pageId: 0,
+                  )));
     } else {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(context,
