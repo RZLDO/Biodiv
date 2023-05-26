@@ -141,7 +141,6 @@ class GenusRepository {
       var response = await request.send();
 
       var responseBody = await response.stream.bytesToString();
-      print(responseBody);
       if (response.statusCode == 200) {
         final json = jsonDecode(responseBody);
         final result = AddDataGenusModel.fromJson(json);

@@ -21,7 +21,6 @@ import '../../utils/custom_app_bar.dart';
 import '../../utils/custom_button.dart';
 import '../../utils/custom_textfield.dart';
 import '../../utils/validation.dart';
-import '../home/home_screen.dart';
 
 class AddSpesiesScreen extends StatefulWidget {
   final int? idGenus;

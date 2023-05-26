@@ -1,7 +1,6 @@
 import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:biodiv/repository/scarcity_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'scarcity_event.dart';
@@ -18,16 +17,16 @@ class ScarcityBloc extends Bloc<ScarcityEvent, ScarcityState> {
       GetScarcityId event, Emitter<ScarcityState> emit) async {
     final result = await repository.getScarcity();
     if (result.error) {
-      emit(ScarcityFailure(ErrorMessage: result.message));
+      emit(ScarcityFailure(errorMessage: result.message));
     } else {
       List<ConservationStatus> data = result.data;
-      List<String> ScarcityName = [];
+      List<String> scarcityName = [];
       List<int> idScarcity = [];
       for (var item in data) {
-        ScarcityName.add(item.nama);
+        scarcityName.add(item.nama);
         idScarcity.add(item.idKategori);
       }
-      emit(GetIdScarcity(idScarcity: idScarcity, nameScarcity: ScarcityName));
+      emit(GetIdScarcity(idScarcity: idScarcity, nameScarcity: scarcityName));
     }
   }
 }

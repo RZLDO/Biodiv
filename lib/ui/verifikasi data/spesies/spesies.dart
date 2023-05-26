@@ -1,32 +1,34 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
-import 'package:biodiv/model/Class%20Model/get_class_model.dart';
+
+import 'package:biodiv/model/spesies/get_spesies_data.dart';
+
 import 'package:biodiv/repository/verification_repository.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
-import 'package:biodiv/utils/colors.dart';
-import 'package:biodiv/utils/custom_app_bar.dart';
-import 'package:biodiv/utils/custom_textfield.dart';
-import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
+import '../../../utils/custom_app_bar.dart';
+import '../../../utils/custom_textfield.dart';
+import '../../../utils/state_screen.dart';
 
-class UnverifiedClassScreen extends StatefulWidget {
-  const UnverifiedClassScreen({super.key});
+class SpesiesUnverif extends StatefulWidget {
+  const SpesiesUnverif({super.key});
 
   @override
-  State<UnverifiedClassScreen> createState() => _UnverifiedClassScreenState();
+  State<SpesiesUnverif> createState() => _SpesiesUnverifState();
 }
 
-class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
+class _SpesiesUnverifState extends State<SpesiesUnverif> {
   late VerifBloc _verifBloc;
   @override
   void initState() {
     super.initState();
     _verifBloc = VerifBloc(repository: VerificationRepository());
-    _verifBloc.add(GetUnverifClass());
+    _verifBloc.add(GetUnverifSpesies());
   }
 
   @override
@@ -45,8 +47,8 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                       color: AppColor.mainColor,
                     ),
                   );
-                } else if (state is GetUnverifiedClassSuccess) {
-                  List<ClassData> data = state.result.data;
+                } else if (state is GetUnverifiedSpesies) {
+                  List<SpeciesData> data = state.result.data;
                   if (data.isEmpty) {
                     return SizedBox(
                       height: MediaQuery.of(context).size.height,
@@ -62,7 +64,7 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                       child: ListView.builder(
                           itemCount: data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            ClassData? dataAnimal = data[index];
+                            SpeciesData? dataAnimal = data[index];
                             return Card(
                               elevation: 3,
                               child: Padding(
@@ -99,7 +101,8 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                                                   data: dataAnimal.namaUmum),
                                               CustomTextSpan(
                                                   text: "Character: ",
-                                                  data: dataAnimal.ciriCiri),
+                                                  data:
+                                                      dataAnimal.karakteristik),
                                               CustomTextSpan(
                                                   text: "Description: ",
                                                   data: dataAnimal.keterangan),
@@ -114,8 +117,8 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                                         GestureDetector(
                                           onTap: () {
                                             _verifBloc.add(VerifClassEvent(
-                                                id: dataAnimal.idClass,
-                                                path: "class"));
+                                                id: dataAnimal.idSpesies,
+                                                path: "spesies"));
                                           },
                                           child: Text(
                                             "Verivikasi",
@@ -144,8 +147,8 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                                                       _verifBloc.add(
                                                           DeleteUnverifEvent(
                                                               id: dataAnimal
-                                                                  .idClass,
-                                                              path: "class"));
+                                                                  .idSpesies,
+                                                              path: "spesies"));
                                                     },
                                                     btnCancelOnPress: () {})
                                                 .show();
@@ -190,15 +193,14 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const UnverifiedClassScreen()));
+                              builder: (context) => const SpesiesUnverif()));
                     },
                   ).show();
-                } else if (state is VerifFailure) {
+                } else if (state is VerificationFailure) {
                   AwesomeDialog(
                     context: context,
                     title: "Verif Data",
-                    desc: "An error Occured",
+                    desc: "Verification Failed",
                     dialogType: DialogType.error,
                     autoDismiss: false,
                     onDismissCallback: (type) {
@@ -226,8 +228,7 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const UnverifiedClassScreen()));
+                              builder: (context) => const SpesiesUnverif()));
                     },
                   ).show();
                 }

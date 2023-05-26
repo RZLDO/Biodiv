@@ -5,6 +5,7 @@ import 'package:biodiv/ui/verifikasi%20data/class/verified_item_class.dart';
 import 'package:biodiv/ui/verifikasi%20data/famili/famili_unverif.dart';
 import 'package:biodiv/ui/verifikasi%20data/genus/genus_verif.dart';
 import 'package:biodiv/ui/verifikasi%20data/ordo/ordo_verif.dart';
+import 'package:biodiv/ui/verifikasi%20data/spesies/spesies.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
     const UnverifiedClassScreen(),
     const OrdoUnverif(),
     const GenusUnverif(),
-    const FamiliUnverif()
+    const FamiliUnverif(),
+    const SpesiesUnverif()
   ];
   late VerifBloc _verifBloc;
   @override

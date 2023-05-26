@@ -8,8 +8,8 @@ abstract class ScarcityState extends Equatable {
 class ScarcityLoading extends ScarcityState {}
 
 class ScarcityFailure extends ScarcityState {
-  final String ErrorMessage;
-  ScarcityFailure({required this.ErrorMessage});
+  final String errorMessage;
+  ScarcityFailure({required this.errorMessage});
 
   @override
   List<Object?> get props => [];

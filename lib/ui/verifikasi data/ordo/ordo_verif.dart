@@ -1,15 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/model/get_ordo_model.dart';
-import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
 import 'package:biodiv/repository/verification_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../utils/card_view.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/custom_app_bar.dart';

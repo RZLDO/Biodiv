@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/famili model/famili_model.dart';
 import '../model/genus/get_data_genus.dart';
+import '../model/spesies/get_spesies_data.dart';
 import '../model/verif model/verif_success.dart';
 
 class VerificationRepository {
@@ -77,7 +78,6 @@ class VerificationRepository {
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
         final result = OrdoResponse.fromJson(json);
-        print(result.message);
         return result;
       } else {
         final result = OrdoResponse.fromJson(json);
@@ -109,6 +109,25 @@ class VerificationRepository {
     }
   }
 
+  Future<SpesiesGetAllModel> getSpesiesUnverified() async {
+    try {
+      final url = Uri.parse('$baseUrl/unverified/spesies');
+      http.Response response = await http.get(url);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final result = SpesiesGetAllModel.fromJson(json);
+        return result;
+      } else {
+        final result = SpesiesGetAllModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result =
+          SpesiesGetAllModel(error: true, message: error.toString(), data: []);
+      return result;
+    }
+  }
+
   Future<VerifModel> verifClass(int id, String path) async {
     try {
       final url = Uri.parse('$baseUrl/verif/$path/$id');
@@ -128,7 +147,7 @@ class VerificationRepository {
     }
   }
 
-  Future<VerifModel> DeleteUnverifClass(int id, String path) async {
+  Future<VerifModel> deleteUnverifClass(int id, String path) async {
     try {
       final url = Uri.parse('$baseUrl/$path/$id');
 

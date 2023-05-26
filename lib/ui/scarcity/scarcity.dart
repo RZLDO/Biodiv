@@ -1,7 +1,5 @@
 import 'package:biodiv/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class ScarcityScreen extends StatefulWidget {
   const ScarcityScreen({super.key});
@@ -15,6 +13,10 @@ class _ScarcityScreenState extends State<ScarcityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(),
+      ),
     );
   }
 }

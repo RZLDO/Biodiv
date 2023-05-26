@@ -15,6 +15,8 @@ class GetUnverifOrdo extends VerifEvent {}
 
 class GetUnverifFamili extends VerifEvent {}
 
+class GetUnverifSpesies extends VerifEvent {}
+
 class VerifClassEvent extends VerifEvent {
   final int id;
   final String path;

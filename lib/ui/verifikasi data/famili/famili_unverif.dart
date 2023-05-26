@@ -3,13 +3,10 @@ import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/model/famili%20model/famili_model.dart';
 
 import 'package:biodiv/repository/verification_repository.dart';
-import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../utils/card_view.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/custom_app_bar.dart';

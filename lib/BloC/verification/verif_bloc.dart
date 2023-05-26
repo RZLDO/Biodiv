@@ -6,6 +6,7 @@ import 'package:biodiv/repository/verification_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/spesies/get_spesies_data.dart';
 import '../../model/verif model/verif_success.dart';
 
 part 'verif_event.dart';
@@ -18,13 +19,14 @@ class VerifBloc extends Bloc<VerifEvent, VerifState> {
     on<GetUnverifGenus>(getUnverifiedGenus);
     on<GetUnverifOrdo>(getUnverifiedOrdo);
     on<GetUnverifFamili>(getUnverifiedFamili);
+    on<GetUnverifSpesies>(getUnverifiedSpesies);
     on<VerifClassEvent>(verifiedClass);
     on<DeleteUnverifEvent>(deleteClass);
   }
   final VerificationRepository repository;
   Future<void> deleteClass(
       DeleteUnverifEvent event, Emitter<VerifState> emit) async {
-    final result = await repository.DeleteUnverifClass(event.id, event.path);
+    final result = await repository.deleteUnverifClass(event.id, event.path);
     if (result.error) {
       emit(DeleteFailure(errorMessage: result.message));
     } else {
@@ -35,7 +37,6 @@ class VerifBloc extends Bloc<VerifEvent, VerifState> {
   Future<void> verifiedClass(
       VerifClassEvent event, Emitter<VerifState> emit) async {
     final result = await repository.verifClass(event.id, event.path);
-    print(result.message);
     if (result.error) {
       emit(VerificationFailure(errorMessage: result.message));
     } else {
@@ -87,7 +88,6 @@ class VerifBloc extends Bloc<VerifEvent, VerifState> {
   Future<void> getUnverifiedOrdo(
       GetUnverifOrdo event, Emitter<VerifState> emit) async {
     final result = await repository.getOrdoUnverified();
-    print(result.data);
     if (result.error) {
       emit(VerifFailure(errorMessage: result.message));
     } else {
@@ -102,6 +102,16 @@ class VerifBloc extends Bloc<VerifEvent, VerifState> {
       emit(VerifFailure(errorMessage: result.message));
     } else {
       emit(GetUnverifiedFamili(result: result));
+    }
+  }
+
+  Future<void> getUnverifiedSpesies(
+      GetUnverifSpesies event, Emitter<VerifState> emit) async {
+    final result = await repository.getSpesiesUnverified();
+    if (result.error) {
+      emit(VerifFailure(errorMessage: result.message));
+    } else {
+      emit(GetUnverifiedSpesies(result: result));
     }
   }
 }

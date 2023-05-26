@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/utils/colors.dart';

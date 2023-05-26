@@ -57,6 +57,15 @@ class GetUnverifiedFamili extends VerifState {
   List<Object?> get props => [result];
 }
 
+class GetUnverifiedSpesies extends VerifState {
+  final SpesiesGetAllModel result;
+
+  GetUnverifiedSpesies({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
 class VerifSuccess extends VerifState {
   final VerifModel result;
   VerifSuccess({required this.result});
