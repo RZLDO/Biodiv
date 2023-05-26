@@ -6,6 +6,7 @@ import 'package:biodiv/ui/famili%20page/famili.dart';
 import 'package:biodiv/ui/genus/genus.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/ui/ordo%20page/ordo.dart';
+import 'package:biodiv/ui/species/species.dart';
 import 'package:biodiv/utils/chart.dart';
 import 'package:biodiv/utils/text_style.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -45,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const OrdoScreen(),
     const FamiliScreen(),
     const GenusScreen(),
+    const SpeciesScreen()
   ];
   late HomeBloc _homeBloc;
   @override

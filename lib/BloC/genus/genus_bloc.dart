@@ -15,6 +15,7 @@ class GenusBloc extends Bloc<GenusEvent, GenusState> {
     on<DeleteGenusEvent>(deleteGenus);
     on<AddDataGenusEvent>(addGenusData);
     on<UpdateDataGenusEvent>(updateGenusData);
+    on<GetIdLatinGenusEvent>(getIdLatinGenus);
   }
   final GenusRepository repository;
   Future<void> getGenusData(
@@ -55,7 +56,16 @@ class GenusBloc extends Bloc<GenusEvent, GenusState> {
 
     if (result.error) {
       emit(GenusFailure(errorMessage: result.message));
-    } else {}
+    } else {
+      List<GenusData> data = result.data;
+      List<String> latinName = [];
+      List<int> idGenus = [];
+      for (var item in data) {
+        latinName.add(item.namaLatin);
+        idGenus.add(item.idGenus);
+      }
+      emit(GetIdLatinGenusSuccess(idGenus: idGenus, latinName: latinName));
+    }
   }
 
   Future<void> addGenusData(

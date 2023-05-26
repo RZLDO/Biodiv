@@ -65,3 +65,12 @@ class UpdateGenusSuccess extends GenusState {
   @override
   List<Object?> get props => [result];
 }
+
+class GetIdLatinGenusSuccess extends GenusState {
+  final List<int> idGenus;
+  final List<String> latinName;
+
+  GetIdLatinGenusSuccess({required this.idGenus, required this.latinName});
+  @override
+  List<Object?> get props => [idGenus, latinName];
+}

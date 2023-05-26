@@ -22,3 +22,24 @@ class EmptyData extends StatelessWidget {
     );
   }
 }
+
+class FailureState extends StatelessWidget {
+  final String textMessage;
+  const FailureState({super.key, required this.textMessage});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'asset/image/wrong.png',
+        ),
+        Text(
+          textMessage,
+          style: GoogleFonts.poppins(color: AppColor.mainColor, fontSize: 18),
+        )
+      ],
+    );
+  }
+}
