@@ -7,7 +7,6 @@ import 'package:biodiv/repository/class_repository.dart';
 import 'package:biodiv/repository/image_repository.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
 import 'package:biodiv/ui/class%20page/add_data_class.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:biodiv/utils/custom_button.dart';
@@ -19,6 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../navigation/curved_navigation_bar.dart';
 
 class AddOrdoScreen extends StatefulWidget {
   final int? idOrdo;
@@ -275,11 +276,11 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                                   onDismissCallback: (type) =>
                                       Navigator.pop(context),
                                   btnOkOnPress: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const Navigation(pageId: 0)));
                                   }).show();
                             } else if (state is UpdateOrdoStateSuccess) {
                               AwesomeDialog(
@@ -291,11 +292,11 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                                   onDismissCallback: (type) =>
                                       Navigator.pop(context),
                                   btnOkOnPress: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const Navigation(pageId: 0)));
                                   }).show();
                             } else if (state is FailureOrdo) {
                               AwesomeDialog(

@@ -3,7 +3,7 @@ import 'package:biodiv/BloC/class/class_bloc.dart';
 import 'package:biodiv/model/Class%20Model/detail_class_model.dart';
 import 'package:biodiv/repository/class_repository.dart';
 import 'package:biodiv/ui/class%20page/add_data_class.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
+
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:biodiv/utils/custom_button.dart';
@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
+
+import '../navigation/curved_navigation_bar.dart';
 
 class DetailClass extends StatefulWidget {
   final String idClass;
@@ -188,9 +190,10 @@ class _DetailClassState extends State<DetailClass> {
                                                           Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          const HomeScreen()));
+                                                                  builder: (context) =>
+                                                                      const Navigation(
+                                                                          pageId:
+                                                                              0)));
                                                         },
                                                         title:
                                                             "Data Berhasil di hapus")

@@ -8,3 +8,5 @@ abstract class ScarcityEvent extends Equatable {
 class GetScarcityData extends ScarcityEvent {}
 
 class GetScarcityId extends ScarcityEvent {}
+
+class GetTotalScarcity extends ScarcityEvent {}

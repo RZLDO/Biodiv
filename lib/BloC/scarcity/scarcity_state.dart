@@ -31,3 +31,12 @@ class GetIdScarcity extends ScarcityState {
   @override
   List<Object?> get props => [idScarcity, nameScarcity];
 }
+
+class GetTotalScarcitySuccess extends ScarcityState {
+  final List<ScarcityModelChart> result;
+
+  GetTotalScarcitySuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}

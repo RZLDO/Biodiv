@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/class/class_bloc.dart';
 import 'package:biodiv/repository/class_repository.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
@@ -15,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+
+import '../navigation/curved_navigation_bar.dart';
 
 class AddDataClass extends StatefulWidget {
   final int? idClass;
@@ -179,10 +180,11 @@ class _AddDataClassState extends State<AddDataClass> {
                         ),
                         onDismissCallback: (type) => Navigator.pop(context),
                         btnOkOnPress: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
+                                  builder: (context) =>
+                                      const Navigation(pageId: 0)));
                         }).show();
                   } else if (state is EditSuccess) {
                     AwesomeDialog(
@@ -192,10 +194,11 @@ class _AddDataClassState extends State<AddDataClass> {
                         title: "EditData Success",
                         onDismissCallback: (type) => Navigator.pop(context),
                         btnOkOnPress: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
+                                  builder: (context) =>
+                                      const Navigation(pageId: 0)));
                         }).show();
                   } else if (state is Failure) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

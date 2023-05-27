@@ -2,7 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/model/ordo%20model/detail_ordo_model.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
+import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/ui/ordo%20page/add_ordo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -193,19 +193,22 @@ class _OrdoDetailState extends State<OrdoDetail> {
                                                       Navigator.pop(context);
                                                     },
                                                     btnOkOnPress: () {
-                                                      Navigator.push(
+                                                      Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  const HomeScreen()));
+                                                                  const Navigation(
+                                                                      pageId:
+                                                                          0)));
                                                     },
                                                   ).show();
                                                 }
-                                                Navigator.push(
+                                                Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const HomeScreen()));
+                                                            const Navigation(
+                                                                pageId: 0)));
                                               },
                                               btnCancelOnPress: () {})
                                           .show();

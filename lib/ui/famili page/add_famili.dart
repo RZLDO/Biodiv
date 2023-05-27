@@ -5,7 +5,7 @@ import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:biodiv/repository/ordo_repository.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
+import 'package:biodiv/ui/ordo%20page/add_ordo.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ import '../../utils/colors.dart';
 import '../../utils/custom_button.dart';
 import '../../utils/custom_textfield.dart';
 import '../../utils/validation.dart';
+import '../navigation/curved_navigation_bar.dart';
 
 class AddFamili extends StatefulWidget {
   final int? idOrdo;
@@ -110,14 +111,21 @@ class _AddFamiliState extends State<AddFamili> {
                           child: RichText(
                               text: TextSpan(children: [
                             TextSpan(
-                                text: "if the class data not avaible please  ",
+                                text: "if the ordo data not avaible please  ",
                                 style: GoogleFonts.poppins()),
                             TextSpan(
                                 text: "Press here!",
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {}),
+                                  ..onTap = () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AddOrdoScreen(
+                                                    isEdit: false)));
+                                  }),
                           ])),
                         ),
                       ),
@@ -267,11 +275,11 @@ class _AddFamiliState extends State<AddFamili> {
                                   onDismissCallback: (type) =>
                                       Navigator.pop(context),
                                   btnOkOnPress: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const Navigation(pageId: 0)));
                                   }).show();
                             } else if (state is UpdateFamiliSuccess) {
                               AwesomeDialog(
@@ -287,7 +295,7 @@ class _AddFamiliState extends State<AddFamili> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const Navigation(pageId: 0)));
                                   }).show();
                             } else if (state is FailureFamili) {
                               AwesomeDialog(

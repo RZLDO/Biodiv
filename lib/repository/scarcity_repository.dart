@@ -26,4 +26,25 @@ class ScarcityRepository {
       return result;
     }
   }
+
+  Future<ScarcityTotalModel> getTotalScarcity() async {
+    try {
+      final url = Uri.parse('$baseUrl/scarcity/total');
+
+      http.Response response = await http.get(url);
+
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final result = ScarcityTotalModel.fromJson(json);
+        return result;
+      } else {
+        final result = ScarcityTotalModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result =
+          ScarcityTotalModel(error: true, message: error.toString(), data: []);
+      return result;
+    }
+  }
 }

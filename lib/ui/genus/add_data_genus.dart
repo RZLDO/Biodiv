@@ -18,7 +18,7 @@ import '../../utils/custom_app_bar.dart';
 import '../../utils/custom_button.dart';
 import '../../utils/custom_textfield.dart';
 import '../../utils/validation.dart';
-import '../home/home_screen.dart';
+import '../navigation/curved_navigation_bar.dart';
 
 class AddDataGenusScreen extends StatefulWidget {
   final int? idGenus;
@@ -268,11 +268,11 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                   onDismissCallback: (type) =>
                                       Navigator.pop(context),
                                   btnOkOnPress: () {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const Navigation(pageId: 0)));
                                   }).show();
                             } else if (state is UpdateGenusSuccess) {
                               AwesomeDialog(
@@ -288,7 +288,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const Navigation(pageId: 1)));
                                   }).show();
                             } else if (state is GenusFailure) {
                               AwesomeDialog(

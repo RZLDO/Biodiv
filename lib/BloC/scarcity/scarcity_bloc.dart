@@ -9,6 +9,7 @@ part 'scarcity_state.dart';
 class ScarcityBloc extends Bloc<ScarcityEvent, ScarcityState> {
   ScarcityBloc({required this.repository}) : super(ScarcityLoading()) {
     on<GetScarcityId>(getScarcity);
+    on<GetTotalScarcity>(getTotalScarcity);
   }
 
   final ScarcityRepository repository;
@@ -27,6 +28,34 @@ class ScarcityBloc extends Bloc<ScarcityEvent, ScarcityState> {
         idScarcity.add(item.idKategori);
       }
       emit(GetIdScarcity(idScarcity: idScarcity, nameScarcity: scarcityName));
+    }
+  }
+
+  Future<void> getTotalScarcity(
+      GetTotalScarcity event, Emitter<ScarcityState> emit) async {
+    final result = await repository.getTotalScarcity();
+
+    if (result.error) {
+      emit(ScarcityFailure(errorMessage: result.message));
+    } else {
+      final List<ScarcityDataModel> data = result.data;
+      final List<ScarcityModelChart> listData = [];
+
+      for (var i = 1; i <= 9; i++) {
+        var count = 0;
+        for (var item in data) {
+          if (item.idKategori == i) {
+            count = item.count;
+            break;
+          }
+        }
+        final dataModel = ScarcityModelChart(idKelangkaan: i, count: count);
+        listData.add(dataModel);
+      }
+
+      emit(GetTotalScarcitySuccess(result: listData));
+
+      emit(GetTotalScarcitySuccess(result: listData));
     }
   }
 }

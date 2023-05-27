@@ -47,6 +47,7 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
 
   Future<void> updateDataSpesies(
       UpdateSpesiesDataEvent event, Emitter<SpesiesState> emit) async {
+    print(event.status);
     final result = await repository.updataeSpesiesData(
         event.idGenus,
         event.idCategory,

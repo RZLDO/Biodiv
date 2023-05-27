@@ -3,7 +3,6 @@ import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/model/famili%20model/detai_famili_mode.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:biodiv/ui/famili%20page/add_famili.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +11,7 @@ import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 import '../../utils/custom_button.dart';
 import '../class page/class_detail_page.dart';
+import '../navigation/curved_navigation_bar.dart';
 
 class DetailFamili extends StatefulWidget {
   final int idFamili;
@@ -189,12 +189,13 @@ class _DetailFamiliState extends State<DetailFamili> {
                                                               context);
                                                         },
                                                         btnOkOnPress: () {
-                                                          Navigator.push(
+                                                          Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          const HomeScreen()));
+                                                                  builder: (context) =>
+                                                                      const Navigation(
+                                                                          pageId:
+                                                                              0)));
                                                         },
                                                         btnCancelOnPress: () {},
                                                         desc:

@@ -11,7 +11,7 @@ import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 import '../../utils/custom_button.dart';
 import '../class page/class_detail_page.dart';
-import '../home/home_screen.dart';
+import '../navigation/curved_navigation_bar.dart';
 
 class DetailGenusScreen extends StatefulWidget {
   final int idGenus;
@@ -188,12 +188,13 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                                               context);
                                                         },
                                                         btnOkOnPress: () {
-                                                          Navigator.push(
+                                                          Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          const HomeScreen()));
+                                                                  builder: (context) =>
+                                                                      const Navigation(
+                                                                          pageId:
+                                                                              0)));
                                                         },
                                                         btnCancelOnPress: () {},
                                                         desc:
