@@ -1,6 +1,7 @@
 import 'package:biodiv/BloC/login/login_bloc.dart';
 import 'package:biodiv/repository/auth_repository.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
+import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/ui/register/register_screen.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_button.dart';
@@ -71,10 +72,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   bloc: _loginBloc,
                   listener: (context, state) {
                     if (state is LoginSuccess) {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
+                              builder: (context) =>
+                                  const Navigation(pageId: 0)));
                     } else if (state is LoginFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: AppColor.mainColor,

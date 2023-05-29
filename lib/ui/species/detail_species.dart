@@ -1,60 +1,62 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:biodiv/BloC/class/class_bloc.dart';
-import 'package:biodiv/model/Class%20Model/detail_class_model.dart';
-import 'package:biodiv/repository/class_repository.dart';
-import 'package:biodiv/ui/class%20page/add_data_class.dart';
-
+import 'package:biodiv/BloC/spesies/spesies_bloc.dart';
+import 'package:biodiv/model/spesies/get_spesies_data.dart';
+import 'package:biodiv/repository/spesies_repository.dart';
 import 'package:biodiv/utils/colors.dart';
-import 'package:biodiv/utils/constant.dart';
-import 'package:biodiv/utils/custom_button.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:readmore/readmore.dart';
 
+import '../../utils/constant.dart';
+import '../../utils/custom_button.dart';
+import '../class page/class_detail_page.dart';
+import '../genus/add_data_genus.dart';
 import '../navigation/curved_navigation_bar.dart';
 
-class DetailClass extends StatefulWidget {
-  final String idClass;
-  const DetailClass({super.key, required this.idClass});
+class DetailSpesiesScreen extends StatefulWidget {
+  final int idSpesies;
+  const DetailSpesiesScreen({super.key, required this.idSpesies});
 
   @override
-  State<DetailClass> createState() => _DetailClassState();
+  State<DetailSpesiesScreen> createState() => _DetailSpesiesScreenState();
 }
 
-class _DetailClassState extends State<DetailClass> {
-  late ClassBloc _classBloc;
+class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
+  late SpesiesBloc _spesiesBloc;
   @override
   void initState() {
+    _spesiesBloc = SpesiesBloc(repository: SpesiesRepository());
+    _spesiesBloc.add(GetDetailSpecies(idSpesies: widget.idSpesies));
     super.initState();
-    _classBloc = ClassBloc(repository: ClassRepository());
-    _classBloc.add(GetDetailClass(idClass: widget.idClass));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
-        // appBar: const CustomAppBar(text: ""),
-        body: BlocProvider<ClassBloc>(
-          create: (context) => _classBloc,
-          child: BlocBuilder<ClassBloc, ClassState>(
+      backgroundColor: AppColor.backgroundColor,
+      body: BlocProvider(
+        create: (context) => _spesiesBloc,
+        child: BlocBuilder<SpesiesBloc, SpesiesState>(
+            bloc: _spesiesBloc,
             builder: (context, state) {
-              if (state is ClassLoading) {
+              if (state is SpesiesLoading) {
                 return const Center(
                   child: CircularProgressIndicator(
                     color: AppColor.mainColor,
                   ),
                 );
-              } else if (state is DetailSuccess) {
-                final ClassDataDetail? data = state.detail.data;
+              } else if (state is GetDetailSpesiciesSuccess) {
+                final Species? data = state.result.data;
                 return SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: Stack(
                     children: [
                       Positioned(
                           child: Image.network(
-                        '$baseUrl/image/${data!.gambar}',
+                        '$baseUrl/image/${data!.image}',
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.45,
                         fit: BoxFit.fill,
@@ -91,7 +93,7 @@ class _DetailClassState extends State<DetailClass> {
                                   children: [
                                     TextStyling(
                                       title: "Common Name",
-                                      text: data.namaUmum,
+                                      text: data.commonName,
                                       style: false,
                                     ),
                                     const SizedBox(
@@ -99,8 +101,17 @@ class _DetailClassState extends State<DetailClass> {
                                     ),
                                     TextStyling(
                                       title: "Latin Name",
-                                      text: data.namaLatin,
+                                      text: data.latinName,
                                       style: true,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextStyling(
+                                      title: "Habitat",
+                                      text: data.habitat,
+                                      style: false,
+                                      size: 14,
                                     ),
                                     const SizedBox(
                                       height: 10,
@@ -113,7 +124,7 @@ class _DetailClassState extends State<DetailClass> {
                                               fontSize: 20,
                                               color: AppColor.secondaryColor)),
                                     ),
-                                    ReadMoreCustom(text: data.ciriCiri),
+                                    ReadMoreCustom(text: data.characteristics),
                                     const SizedBox(
                                       height: 10,
                                     ),
@@ -125,7 +136,7 @@ class _DetailClassState extends State<DetailClass> {
                                               fontSize: 20,
                                               color: AppColor.secondaryColor)),
                                     ),
-                                    ReadMoreCustom(text: data.keterangan)
+                                    ReadMoreCustom(text: data.description)
                                   ],
                                 ),
                               ),
@@ -143,21 +154,7 @@ class _DetailClassState extends State<DetailClass> {
                                 ),
                                 CustomButtonExtended(
                                     text: "Edit Data",
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AddDataClass(
-                                                    idClass: data.idClass,
-                                                    latin: data.namaLatin,
-                                                    common: data.namaUmum,
-                                                    chara: data.ciriCiri,
-                                                    desc: data.keterangan,
-                                                    image: data.gambar,
-                                                    isEdit: true,
-                                                  )));
-                                    },
+                                    onTap: () {},
                                     width: MediaQuery.of(context).size.width *
                                         0.65,
                                     setText: false),
@@ -174,18 +171,16 @@ class _DetailClassState extends State<DetailClass> {
                                                 Navigator.pop(context);
                                               },
                                               btnOkOnPress: () {
-                                                _classBloc.add(DeleteClass(
-                                                    idClass: data.idClass));
                                                 AwesomeDialog(
                                                         context: context,
+                                                        dialogType:
+                                                            DialogType.warning,
                                                         autoDismiss: false,
                                                         onDismissCallback:
                                                             (type) {
                                                           Navigator.pop(
                                                               context);
                                                         },
-                                                        dialogType:
-                                                            DialogType.success,
                                                         btnOkOnPress: () {
                                                           Navigator.pushReplacement(
                                                               context,
@@ -195,13 +190,16 @@ class _DetailClassState extends State<DetailClass> {
                                                                           pageId:
                                                                               0)));
                                                         },
-                                                        title:
-                                                            "Data Berhasil di hapus")
+                                                        btnCancelOnPress: () {},
+                                                        desc:
+                                                            "Success delete data",
+                                                        title: "Delete Data")
                                                     .show();
                                               },
                                               btnCancelOnPress: () {},
-                                              title:
-                                                  "Are you sure to delete this data?")
+                                              desc:
+                                                  "Are you sure to delete this data?",
+                                              title: "Delete Data")
                                           .show();
                                     },
                                     width: MediaQuery.of(context).size.width *
@@ -218,73 +216,11 @@ class _DetailClassState extends State<DetailClass> {
                 );
               } else {
                 return const Center(
-                  child: Text("an error occured"),
+                  child: FailureState(textMessage: "Sorry Any error Occured"),
                 );
               }
-            },
-          ),
-        ));
-  }
-}
-
-class TextStyling extends StatelessWidget {
-  final String title;
-  final String text;
-  final bool style;
-  final double size;
-  const TextStyling(
-      {super.key,
-      required this.title,
-      required this.text,
-      required this.style,
-      this.size = 16});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title,
-            style: GoogleFonts.montserrat(
-                textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: AppColor.secondaryColor))),
-        Text(text,
-            style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                    fontSize: size,
-                    fontStyle: style ? FontStyle.italic : FontStyle.normal))),
-      ],
-    );
-  }
-}
-
-class ReadMoreCustom extends StatefulWidget {
-  final String text;
-  const ReadMoreCustom({super.key, required this.text});
-
-  @override
-  State<ReadMoreCustom> createState() => _ReadMoreCustomState();
-}
-
-class _ReadMoreCustomState extends State<ReadMoreCustom> {
-  @override
-  Widget build(BuildContext context) {
-    return ReadMoreText(
-      widget.text,
-      trimLines: 3,
-      trimMode: TrimMode.Line,
-      trimCollapsedText: '  Show more',
-      trimExpandedText: '   Show less',
-      style: GoogleFonts.poppins(
-          textStyle: const TextStyle(
-        fontSize: 14,
-      )),
-      moreStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.bold, color: AppColor.mainColor),
-      lessStyle: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.bold, color: AppColor.mainColor),
+            }),
+      ),
     );
   }
 }

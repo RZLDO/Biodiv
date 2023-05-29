@@ -7,6 +7,14 @@ abstract class SpesiesEvent extends Equatable {
 
 class GetSpesiesData extends SpesiesEvent {}
 
+class GetDetailSpecies extends SpesiesEvent {
+  final int idSpesies;
+  GetDetailSpecies({required this.idSpesies});
+
+  @override
+  List<Object?> get props => [idSpesies];
+}
+
 class AddSpesiesDataEvent extends SpesiesEvent {
   final int idGenus;
   final int idCategory;

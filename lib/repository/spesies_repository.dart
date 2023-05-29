@@ -8,6 +8,21 @@ import '../model/spesies/get_spesies_data.dart';
 import 'package:http/http.dart' as http;
 
 class SpesiesRepository {
+  Future<SpeciesDetailModel> getDetailSpesies(int idSpesies) async {
+    try {
+      final url = Uri.parse('$baseUrl/spesies/$idSpesies');
+      http.Response response = await http.get(url);
+
+      final json = jsonDecode(response.body);
+      final result = SpeciesDetailModel.fromJson(json);
+      return result;
+    } catch (error) {
+      final result = SpeciesDetailModel(
+          error: true, message: error.toString(), data: null);
+      return result;
+    }
+  }
+
   Future<SpesiesGetAllModel> spesiesGetAll() async {
     try {
       final url = Uri.parse('$baseUrl/spesies');

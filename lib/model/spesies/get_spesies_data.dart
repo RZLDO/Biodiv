@@ -1,3 +1,56 @@
+class SpeciesDetailModel {
+  final bool error;
+  final String message;
+  final Species? data;
+
+  SpeciesDetailModel(
+      {required this.error, required this.message, required this.data});
+
+  factory SpeciesDetailModel.fromJson(Map<String, dynamic> json) {
+    return SpeciesDetailModel(
+        error: json['error'],
+        message: json['message'],
+        data: Species.fromJson(json['data']));
+  }
+}
+
+class Species {
+  final int id;
+  final String latinName;
+  final String commonName;
+  final String habitat;
+  final String characteristics;
+  final String description;
+  final String status;
+  final String image;
+
+  Species({
+    required this.id,
+    required this.latinName,
+    required this.commonName,
+    required this.habitat,
+    required this.characteristics,
+    required this.description,
+    required this.status,
+    required this.image,
+  });
+
+  factory Species.fromJson(Map<String, dynamic> json) {
+    return Species(
+      id: json['id_spesies'],
+      latinName: json['nama_latin'],
+      commonName: json['nama_umum'],
+      habitat: json['habitat'],
+      characteristics: json['karakteristik'],
+      description: json['keterangan'],
+      status: json['status'],
+      image: json['gambar'],
+    );
+  }
+
+  get namaLatin => null;
+}
+
 class AddData {
   final bool error;
   final String message;

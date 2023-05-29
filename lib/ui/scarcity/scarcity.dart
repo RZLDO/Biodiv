@@ -6,6 +6,7 @@ import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/state_screen.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +23,8 @@ class _ScarcityScreenState extends State<ScarcityScreen> {
   void initState() {
     super.initState();
     _scarcityBloc = ScarcityBloc(repository: ScarcityRepository());
-    _scarcityBloc.add(GetTotalScarcity());
+
+    _scarcityBloc.add(GetScarcityData());
   }
 
   @override
@@ -41,7 +43,7 @@ class _ScarcityScreenState extends State<ScarcityScreen> {
                     color: AppColor.mainColor,
                   ),
                 );
-              } else if (state is GetTotalScarcitySuccess) {
+              } else if (state is ScarcitySuccess) {
                 List<ScarcityModelChart> data = state.result;
                 return SafeArea(
                   child: Column(
@@ -66,7 +68,73 @@ class _ScarcityScreenState extends State<ScarcityScreen> {
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.2,
-                          child: ShowLineChart(data: data))
+                          child: ShowLineChart(data: data)),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "What is Scarcity ? ",
+                        style: GoogleFonts.poppins(
+                            color: AppColor.mainColor,
+                            fontWeight: FontWeight.bold,
+                            textBaseline: TextBaseline.ideographic,
+                            fontSize: 18),
+                      ),
+                      Container(
+                        height: 3,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: AppColor.mainColor),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: state.data.data.length,
+                            itemBuilder: (context, int index) {
+                              return Card(
+                                color: AppColor.mainColor,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.13,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "asset/image/backgroundBanner.png"),
+                                          fit: BoxFit.fill)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        state.data.data[index].nama,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.mainColor,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        state.data.data[index].singkatan,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.mainColor,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
                     ],
                   ),
                 );

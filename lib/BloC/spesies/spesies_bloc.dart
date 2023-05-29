@@ -13,8 +13,19 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
     on<GetSpesiesData>(getAllDataSpesies);
     on<AddSpesiesDataEvent>(addDataSpesies);
     on<UpdateSpesiesDataEvent>(updateDataSpesies);
+    on<GetDetailSpecies>(getDetailSpesies);
   }
   final SpesiesRepository repository;
+  Future<void> getDetailSpesies(
+      GetDetailSpecies event, Emitter<SpesiesState> emit) async {
+    final result = await repository.getDetailSpesies(event.idSpesies);
+    print(result.message);
+    if (result.error) {
+      emit(SpesiesFailure(errorMessage: result.message));
+    } else {
+      emit(GetDetailSpesiciesSuccess(result: result));
+    }
+  }
 
   Future<void> getAllDataSpesies(
       GetSpesiesData event, Emitter<SpesiesState> emit) async {
@@ -28,6 +39,7 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
 
   Future<void> addDataSpesies(
       AddSpesiesDataEvent event, Emitter<SpesiesState> emit) async {
+    print(event.status + event.idGenus.toString());
     final result = await repository.addOrdoData(
         event.idGenus,
         event.idCategory,
@@ -47,7 +59,7 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
 
   Future<void> updateDataSpesies(
       UpdateSpesiesDataEvent event, Emitter<SpesiesState> emit) async {
-    print(event.status);
+    print(event.status + event.character);
     final result = await repository.updataeSpesiesData(
         event.idGenus,
         event.idCategory,

@@ -16,8 +16,9 @@ class ScarcityFailure extends ScarcityState {
 }
 
 class ScarcitySuccess extends ScarcityState {
-  final GetScarcityModel result;
-  ScarcitySuccess({required this.result});
+  final GetScarcityModel data;
+  final List<ScarcityModelChart> result;
+  ScarcitySuccess({required this.data, required this.result});
   @override
   List<Object?> get props => [result];
 }

@@ -319,6 +319,7 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                         ),
                                         onSelected: (statusOfScarcity) {
                                           setState(() {
+                                            print(statusOfScarcity);
                                             statusScarcity = statusOfScarcity;
                                           });
                                         },
@@ -371,7 +372,8 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                                       commonName:
                                                           commonName.text,
                                                       habitat: habitat.text,
-                                                      status: status.toString(),
+                                                      status: statusScarcity
+                                                          .toString(),
                                                       character:
                                                           characteristics.text,
                                                       description:
@@ -390,7 +392,8 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                                   latinName: latinName.text,
                                                   commonName: commonName.text,
                                                   habitat: habitat.text,
-                                                  status: status.toString(),
+                                                  status:
+                                                      statusScarcity.toString(),
                                                   character:
                                                       characteristics.text,
                                                   description: description.text,

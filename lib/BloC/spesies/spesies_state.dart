@@ -23,6 +23,14 @@ class GetSpesiciesSuccess extends SpesiesState {
   List<Object?> get props => [result];
 }
 
+class GetDetailSpesiciesSuccess extends SpesiesState {
+  final SpeciesDetailModel result;
+  GetDetailSpesiciesSuccess({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
 class AddDataSuccess extends SpesiesState {
   final AddData result;
   AddDataSuccess({required this.result});
