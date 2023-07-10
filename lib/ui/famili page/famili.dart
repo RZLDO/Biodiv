@@ -6,6 +6,7 @@ import 'package:biodiv/ui/famili%20page/famili_detail.dart';
 import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/card_view.dart';
 import '../../utils/colors.dart';
@@ -13,7 +14,9 @@ import '../../utils/constant.dart';
 import '../../utils/custom_app_bar.dart';
 
 class FamiliScreen extends StatefulWidget {
-  const FamiliScreen({super.key});
+  final bool isByOrdo;
+  final int? idOrdo;
+  const FamiliScreen({super.key, this.isByOrdo = false, this.idOrdo});
 
   @override
   State<FamiliScreen> createState() => _FamiliScreenState();
@@ -21,29 +24,52 @@ class FamiliScreen extends StatefulWidget {
 
 class _FamiliScreenState extends State<FamiliScreen> {
   late FamiliBloc _familiBloc;
+  bool? isFabVisible;
   @override
   void initState() {
     super.initState();
     _familiBloc = FamiliBloc(repository: FamiliRepository());
-    _familiBloc.add(GetFamiliEvent());
+    if (widget.isByOrdo) {
+      if (widget.idOrdo != null) {
+        _familiBloc.add(GetFamiliByOrdo(idOrdo: widget.idOrdo!, page: 0));
+      }
+    } else {
+      _familiBloc.add(GetFamiliEvent());
+    }
+    getUserPreference();
+  }
+
+  void getUserPreference() async {
+    final SharedPreferences userPreference =
+        await SharedPreferences.getInstance();
+
+    final userLevel = userPreference.getInt("UserLevel");
+    if (userLevel == 3) {
+      isFabVisible = false;
+    } else {
+      isFabVisible = true;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColor.secondaryColor,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AddFamili(isEdit: false)));
-          },
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
+        floatingActionButton: isFabVisible != null && isFabVisible!
+            ? FloatingActionButton(
+                backgroundColor: AppColor.secondaryColor,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const AddFamili(isEdit: false)));
+                },
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              )
+            : null,
         backgroundColor: AppColor.backgroundColor,
         appBar: const CustomAppBar(text: ""),
         body: BlocProvider(

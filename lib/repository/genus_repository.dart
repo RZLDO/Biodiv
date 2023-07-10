@@ -9,6 +9,27 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class GenusRepository {
+  Future<GetGenusModel> getGenusByFamili(int idFamili, int? page) async {
+    try {
+      final url = page == 0
+          ? Uri.parse('$baseUrl/genus/famili/?id_famili=$idFamili')
+          : Uri.parse('$baseUrl/genus/famili/?id_famili=$idFamili&page=$page');
+      http.Response response = await http.get(url);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final result = GetGenusModel.fromJson(json);
+        return result;
+      } else {
+        final result = GetGenusModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result =
+          GetGenusModel(error: true, message: error.toString(), data: []);
+      return result;
+    }
+  }
+
   Future<GetGenusModel> getGenusData() async {
     try {
       final url = Uri.parse('$baseUrl/genus');

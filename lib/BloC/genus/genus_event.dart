@@ -7,6 +7,16 @@ abstract class GenusEvent extends Equatable {
 
 class GetDataGenusEvent extends GenusEvent {}
 
+class GetGenusByFamili extends GenusEvent {
+  final int idFamili;
+  final int page;
+
+  GetGenusByFamili({required this.idFamili, required this.page});
+
+  @override
+  List<Object?> get props => [idFamili, page];
+}
+
 class GetDetailGenusEvent extends GenusEvent {
   final int idGenus;
   GetDetailGenusEvent({required this.idGenus});

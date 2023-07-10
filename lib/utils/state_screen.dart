@@ -16,7 +16,7 @@ class EmptyData extends StatelessWidget {
         ),
         Text(
           textMessage,
-          style: GoogleFonts.poppins(color: AppColor.mainColor, fontSize: 18),
+          style: GoogleFonts.poppins(color: AppColor.mainColor, fontSize: 12),
         )
       ],
     );

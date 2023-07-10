@@ -15,6 +15,15 @@ class GetDetailOrdoEvent extends OrdoEvent {
   List<Object?> get props => [idOrdo];
 }
 
+class GetOrdoByClassEvent extends OrdoEvent {
+  final int idClass;
+  final int? page;
+  GetOrdoByClassEvent({required this.idClass, required this.page});
+
+  @override
+  List<Object?> get props => [idClass, page];
+}
+
 class AddOrdoEvent extends OrdoEvent {
   final int idClass;
   final String latinName;

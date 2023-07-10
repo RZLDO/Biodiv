@@ -8,6 +8,28 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class OrdoRepository {
+  Future<OrdoResponse> getOrdoByClass(int idClass, int? page) async {
+    try {
+      final uri = page == 0
+          ? Uri.parse('$baseUrl/ordo/class/?id_class=$idClass')
+          : Uri.parse('$baseUrl/ordo/class/?id_class=$idClass&page=$page');
+
+      http.Response response = await http.get(uri);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final response = OrdoResponse.fromJson(json);
+        return response;
+      } else {
+        final response = OrdoResponse.fromJson(json);
+        return response;
+      }
+    } catch (error) {
+      final response =
+          OrdoResponse(error: true, message: error.toString(), data: []);
+      return response;
+    }
+  }
+
   Future<OrdoResponse> getOrdoData() async {
     try {
       final uri = Uri.parse('$baseUrl/ordo');

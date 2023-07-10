@@ -20,8 +20,18 @@ class FamiliBloc extends Bloc<FamiliEvent, FamiliState> {
     on<AddDatafamiliEvent>(addFamiliData);
     on<UpdateDatafamiliEvent>(updateFamiliData);
     on<GetIdLatinFamiliEvent>(getIdLatin);
+    on<GetFamiliByOrdo>(getFamiliByOrdo);
   }
   final FamiliRepository repository;
+  Future<void> getFamiliByOrdo(
+      GetFamiliByOrdo event, Emitter<FamiliState> emit) async {
+    final result = await repository.getFamiliByOrdo(event.idOrdo, event.page);
+    if (result.error) {
+      emit(FailureFamili(errorMessage: result.message));
+    } else {
+      emit(GetDataFamiliSuccess(result: result));
+    }
+  }
 
   Future<void> getDataFamili(
       GetFamiliEvent event, Emitter<FamiliState> emit) async {

@@ -14,7 +14,9 @@ import '../../utils/card_view.dart';
 import '../../utils/constant.dart';
 
 class SpeciesScreen extends StatefulWidget {
-  const SpeciesScreen({super.key});
+  final bool isByGenus;
+  final int? idGenus;
+  const SpeciesScreen({super.key, this.idGenus, this.isByGenus = false});
 
   @override
   State<SpeciesScreen> createState() => _SpeciesScreenState();

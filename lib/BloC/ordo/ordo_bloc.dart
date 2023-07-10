@@ -17,9 +17,22 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
     on<DeleteOrdoEvent>(deleteOrdoData);
     on<UpdateOrdoEvent>(updateOrdodata);
     on<GetIdLatinOrdoEvent>(getIdLatin);
+    on<GetOrdoByClassEvent>(getOrdoByClass);
   }
 
   final OrdoRepository repository;
+  Future<void> getOrdoByClass(
+      GetOrdoByClassEvent event, Emitter<OrdoState> emit) async {
+    emit(OrdoLoading());
+    final result = await repository.getOrdoByClass(event.idClass, event.page);
+
+    if (result.error) {
+      emit(FailureOrdo(errorMessage: result.message));
+    } else {
+      emit(Success(response: result));
+    }
+  }
+
   Future<void> getDetailOrdo(
       GetDetailOrdoEvent event, Emitter<OrdoState> emit) async {
     emit(OrdoLoading());

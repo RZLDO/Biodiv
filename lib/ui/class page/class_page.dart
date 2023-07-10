@@ -6,13 +6,16 @@ import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/Class Model/get_class_model.dart';
 import '../../utils/card_view.dart';
 import '../../utils/custom_app_bar.dart';
 
 class ClassScreen extends StatefulWidget {
-  const ClassScreen({super.key});
+  const ClassScreen({
+    super.key,
+  });
 
   @override
   State<ClassScreen> createState() => _ClassScreenState();
@@ -20,31 +23,50 @@ class ClassScreen extends StatefulWidget {
 
 class _ClassScreenState extends State<ClassScreen> {
   late ClassBloc _classBloc;
+  bool? isFabVisible;
+
   @override
   void initState() {
     super.initState();
     _classBloc = ClassBloc(repository: ClassRepository());
     _classBloc.add(GetDataClassEvent());
+    getUserLevel();
+  }
+
+  void getUserLevel() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    int? level = preferences.getInt("UserLevel");
+    if (level == 3) {
+      setState(() {
+        isFabVisible = false;
+      });
+    } else {
+      setState(() {
+        isFabVisible = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColor.secondaryColor,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AddDataClass(
-                          isEdit: false,
-                        )));
-          },
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
+        floatingActionButton: isFabVisible != null && isFabVisible!
+            ? FloatingActionButton(
+                backgroundColor: AppColor.secondaryColor,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddDataClass(
+                                isEdit: false,
+                              )));
+                },
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              )
+            : null,
         backgroundColor: AppColor.backgroundColor,
         appBar: const CustomAppBar(text: ""),
         body: BlocProvider(
@@ -85,7 +107,8 @@ class _ClassScreenState extends State<ClassScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => DetailClass(
-                                              idClass: dataAnimal!.idClass
+                                              idClassGet: dataAnimal!.idClass,
+                                              idClass: dataAnimal.idClass
                                                   .toString())));
                                 },
                                 child: CustomCard(
@@ -102,7 +125,9 @@ class _ClassScreenState extends State<ClassScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => DetailClass(
-                                              idClass: dataAnimalDua!.idClass
+                                              idClassGet:
+                                                  dataAnimalDua!.idClass,
+                                              idClass: dataAnimalDua.idClass
                                                   .toString())));
                                 },
                                 child: CustomCard(

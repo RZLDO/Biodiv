@@ -8,14 +8,15 @@ import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/card_view.dart';
 import '../../utils/constant.dart';
 
 class OrdoScreen extends StatefulWidget {
-  const OrdoScreen({
-    super.key,
-  });
+  final bool isByClass;
+  final int? idClass;
+  const OrdoScreen({super.key, this.isByClass = false, this.idClass});
 
   @override
   State<OrdoScreen> createState() => _OrdoScreenState();
@@ -23,31 +24,55 @@ class OrdoScreen extends StatefulWidget {
 
 class _OrdoScreenState extends State<OrdoScreen> {
   late OrdoBloc ordoBloc;
+  bool? isFabVisible;
   @override
   void initState() {
     super.initState();
     ordoBloc = OrdoBloc(repository: OrdoRepository());
-    ordoBloc.add(GetOrdoData());
+    if (widget.isByClass) {
+      if (widget.idClass != null) {
+        ordoBloc.add(GetOrdoByClassEvent(idClass: widget.idClass!, page: 0));
+      }
+    } else {
+      ordoBloc.add(GetOrdoData());
+    }
+    getUserLevel();
+  }
+
+  void getUserLevel() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    int? level = preferences.getInt("UserLevel");
+    if (level == 3) {
+      setState(() {
+        isFabVisible = false;
+      });
+    } else {
+      setState(() {
+        isFabVisible = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColor.secondaryColor,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AddOrdoScreen(
-                          isEdit: false,
-                        )));
-          },
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
+        floatingActionButton: isFabVisible != null && isFabVisible!
+            ? FloatingActionButton(
+                backgroundColor: AppColor.secondaryColor,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddOrdoScreen(
+                                isEdit: false,
+                              )));
+                },
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              )
+            : null,
         backgroundColor: AppColor.backgroundColor,
         appBar: const CustomAppBar(text: ""),
         body: BlocProvider(
@@ -55,12 +80,9 @@ class _OrdoScreenState extends State<OrdoScreen> {
             child: BlocBuilder<OrdoBloc, OrdoState>(
                 bloc: ordoBloc,
                 builder: (context, state) {
-                  if (state is OrdoLoading) {
+                  if (state is FailureOrdo) {
                     return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.mainColor,
-                      ),
-                    );
+                        child: FailureState(textMessage: "an error occured"));
                   } else if (state is Success) {
                     List<OrdoData> data = state.response.data;
                     return ListView.builder(
@@ -116,7 +138,10 @@ class _OrdoScreenState extends State<OrdoScreen> {
                         });
                   } else {
                     return const Center(
-                        child: FailureState(textMessage: "an error Ocurred"));
+                      child: CircularProgressIndicator(
+                        color: AppColor.mainColor,
+                      ),
+                    );
                   }
                 })));
   }

@@ -16,8 +16,21 @@ class GenusBloc extends Bloc<GenusEvent, GenusState> {
     on<AddDataGenusEvent>(addGenusData);
     on<UpdateDataGenusEvent>(updateGenusData);
     on<GetIdLatinGenusEvent>(getIdLatinGenus);
+    on<GetGenusByFamili>(getGenusByFamili);
   }
   final GenusRepository repository;
+
+  Future<void> getGenusByFamili(
+      GetGenusByFamili event, Emitter<GenusState> emit) async {
+    final result =
+        await repository.getGenusByFamili(event.idFamili, event.idFamili);
+    if (result.error == true) {
+      emit(GenusFailure(errorMessage: result.message));
+    } else {
+      emit(GetGenusDataSuccess(result: result));
+    }
+  }
+
   Future<void> getGenusData(
       GetDataGenusEvent event, Emitter<GenusState> emit) async {
     final result = await repository.getGenusData();

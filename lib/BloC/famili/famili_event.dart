@@ -7,6 +7,15 @@ abstract class FamiliEvent extends Equatable {
 
 class GetFamiliEvent extends FamiliEvent {}
 
+class GetFamiliByOrdo extends FamiliEvent {
+  final int idOrdo;
+  final int page;
+  GetFamiliByOrdo({required this.idOrdo, required this.page});
+
+  @override
+  List<Object?> get props => [idOrdo];
+}
+
 class GetFamiliDetailevent extends FamiliEvent {
   final int idFamili;
   GetFamiliDetailevent({required this.idFamili});

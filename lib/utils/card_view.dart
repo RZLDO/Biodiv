@@ -4,8 +4,12 @@ class CustomCard extends StatelessWidget {
   final String namaUmum;
   final String namaLatin;
   final String image;
+  final double? height;
+  final double? textSize;
   const CustomCard(
       {super.key,
+      this.height,
+      this.textSize,
       required this.namaUmum,
       required this.namaLatin,
       required this.image});
@@ -21,7 +25,7 @@ class CustomCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 150,
+              height: height ?? 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(image),
@@ -39,8 +43,8 @@ class CustomCard extends StatelessWidget {
                   const SizedBox(height: 8.0),
                   Text(
                     namaUmum,
-                    style: const TextStyle(
-                      fontSize: 18.0,
+                    style: TextStyle(
+                      fontSize: textSize ?? 18.0,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,

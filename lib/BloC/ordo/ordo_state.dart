@@ -9,6 +9,14 @@ class OrdoInitial extends OrdoState {}
 
 class OrdoLoading extends OrdoState {}
 
+class GetOrdoByClassState extends OrdoState {
+  final OrdoResponse result;
+  GetOrdoByClassState({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}
+
 class Success extends OrdoState {
   final OrdoResponse response;
   Success({required this.response});

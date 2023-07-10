@@ -15,6 +15,7 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
     on<UpdateSpesiesDataEvent>(updateDataSpesies);
     on<GetDetailSpecies>(getDetailSpesies);
     on<DeleteSpesiesEvent>(deleteDataSpesies);
+    on<GetSpesiesByGenus>(getSpesiesByGenus);
   }
   final SpesiesRepository repository;
   Future<void> getDetailSpesies(
@@ -24,6 +25,17 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
       emit(SpesiesFailure(errorMessage: result.message));
     } else {
       emit(GetDetailSpesiciesSuccess(result: result));
+    }
+  }
+
+  Future<void> getSpesiesByGenus(
+      GetSpesiesByGenus event, Emitter<SpesiesState> emit) async {
+    final result =
+        await repository.getSpesiesByGenus(event.idGenus, event.page);
+    if (result.error) {
+      emit(SpesiesFailure(errorMessage: result.message));
+    } else {
+      emit(GetSpesiciesSuccess(result: result));
     }
   }
 

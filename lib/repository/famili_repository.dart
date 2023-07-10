@@ -11,12 +11,36 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class FamiliRepository {
+  Future<FamiliResponseModel> getFamiliByOrdo(int idOrdo, int? page) async {
+    try {
+      final url = page == 0
+          ? Uri.parse('$baseUrl/famili/ordo/?id_ordo=$idOrdo')
+          : Uri.parse('$baseUrl/famili/ordo/?id_ordo=$idOrdo&page=$page');
+      http.Response response = await http.get(url);
+
+      final json = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        final result = FamiliResponseModel.fromJson(json);
+        return result;
+      } else {
+        final result = FamiliResponseModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result =
+          FamiliResponseModel(error: true, message: error.toString(), data: []);
+      return result;
+    }
+  }
+
   Future<FamiliResponseModel> getFamiliData() async {
     try {
       final url = Uri.parse('$baseUrl/famili');
       http.Response response = await http.get(url);
 
       final json = jsonDecode(response.body);
+      print(json);
       if (response.statusCode == 200) {
         final result = FamiliResponseModel.fromJson(json);
         return result;
