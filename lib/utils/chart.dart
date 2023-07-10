@@ -161,6 +161,9 @@ class ShowLineChart extends StatelessWidget {
       case 9:
         text = 'NE';
         break;
+      case 10:
+        text = 'C';
+        break;
       default:
         text = '';
         break;

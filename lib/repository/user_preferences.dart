@@ -6,6 +6,7 @@ class UserPreferences {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setInt('id', id);
     await preferences.setString('name', name);
+    await preferences.setInt("UserLevel", level);
     if (level == 1) {
       await preferences.setString('level', "BKSDA");
     } else if (level == 2) {

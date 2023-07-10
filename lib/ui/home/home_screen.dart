@@ -6,8 +6,10 @@ import 'package:biodiv/ui/famili%20page/famili.dart';
 import 'package:biodiv/ui/genus/genus.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
 import 'package:biodiv/ui/ordo%20page/ordo.dart';
+import 'package:biodiv/ui/search_page/search_page.dart';
 import 'package:biodiv/ui/species/species.dart';
 import 'package:biodiv/utils/chart.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:biodiv/utils/text_style.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +154,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SearchingPage()));
+                                  },
                                   icon: const Icon(
                                     Icons.search_sharp,
                                     color: AppColor.secondaryColor,
@@ -247,7 +255,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: ReusableTextStyle.title,
                                 ),
                                 const SizedBox(
-                                  height: 15,
+                                  height: 5,
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  height: 3,
+                                  decoration: BoxDecoration(
+                                      color: AppColor.mainColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
                                 Expanded(
                                   child: ListView.builder(
@@ -363,7 +382,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               } else {
                 return const Center(
-                  child: Text("Terjadi Kesalahan"),
+                  child: FailureState(textMessage: "Maaf ada error"),
                 );
               }
             },

@@ -44,3 +44,12 @@ class UpdateDataSuccess extends SpesiesState {
   @override
   List<Object?> get props => [result];
 }
+
+class DeleteDataSucces extends SpesiesState {
+  final DeleteDataSpesies result;
+
+  DeleteDataSucces({required this.result});
+
+  @override
+  List<Object?> get props => [result];
+}

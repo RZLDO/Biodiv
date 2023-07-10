@@ -1,5 +1,6 @@
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/scarcity/scarcity.dart';
+import 'package:biodiv/ui/taksonomi/taxonomi_screen.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _NavigationState extends State<Navigation> {
   List navigation = [
     const HomeScreen(),
     const ScarcityScreen(),
+    const TaxonomiScreen(),
     const VerificationScreen(),
   ];
   @override
@@ -33,24 +35,24 @@ class _NavigationState extends State<Navigation> {
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
         backgroundColor: AppColor.secondaryColor,
-        items: const [
-          Icon(
+        items: [
+          const Icon(
             Icons.home_sharp,
             size: 30,
             color: AppColor.mainColor,
           ),
-          Icon(
+          const Icon(
             Icons.list_alt,
             size: 30,
             color: AppColor.mainColor,
           ),
-          Icon(
-            Icons.verified_user,
-            size: 30,
-            color: AppColor.mainColor,
+          Image.asset(
+            'asset/image/taxon.png',
+            width: 40,
+            height: 40,
           ),
-          Icon(
-            IconData(0xe9c9, fontFamily: 'MaterialIcons'),
+          const Icon(
+            Icons.verified_user,
             size: 30,
             color: AppColor.mainColor,
           ),

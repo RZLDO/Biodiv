@@ -21,7 +21,6 @@ class GenusBloc extends Bloc<GenusEvent, GenusState> {
   Future<void> getGenusData(
       GetDataGenusEvent event, Emitter<GenusState> emit) async {
     final result = await repository.getGenusData();
-
     if (result.error == true) {
       emit(GenusFailure(errorMessage: result.message));
     } else {

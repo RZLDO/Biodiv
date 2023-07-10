@@ -13,6 +13,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         elevation: 4.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -31,28 +32,33 @@ class CustomCard extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: [
-                const SizedBox(height: 8.0),
-                Text(
-                  namaUmum,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  const SizedBox(height: 8.0),
+                  Text(
+                    namaUmum,
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                const SizedBox(height: 8.0),
-                Text(
-                  namaLatin,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontStyle: FontStyle.italic,
+                  const SizedBox(height: 8.0),
+                  Text(
+                    namaLatin,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-              ],
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                ],
+              ),
             ),
           ],
         ));

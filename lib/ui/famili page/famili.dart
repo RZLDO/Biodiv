@@ -3,6 +3,7 @@ import 'package:biodiv/model/famili%20model/famili_model.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:biodiv/ui/famili%20page/add_famili.dart';
 import 'package:biodiv/ui/famili%20page/famili_detail.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -112,7 +113,8 @@ class _FamiliScreenState extends State<FamiliScreen> {
                         });
                   } else {
                     return const Center(
-                      child: Text('An error Occured'),
+                      child: FailureState(
+                          textMessage: "Oops, Something error happen"),
                     );
                   }
                 })));

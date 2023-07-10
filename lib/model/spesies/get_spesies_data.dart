@@ -62,6 +62,17 @@ class AddData {
   }
 }
 
+class DeleteDataSpesies {
+  final bool error;
+  final String message;
+
+  DeleteDataSpesies({required this.error, required this.message});
+
+  factory DeleteDataSpesies.fromJson(Map<String, dynamic> json) {
+    return DeleteDataSpesies(error: json['error'], message: json['message']);
+  }
+}
+
 class SpesiesGetAllModel {
   final bool error;
   final String message;

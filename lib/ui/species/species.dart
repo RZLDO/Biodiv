@@ -4,6 +4,7 @@ import 'package:biodiv/ui/species/add_spesies.dart';
 import 'package:biodiv/ui/species/detail_species.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -119,7 +120,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                     });
               } else {
                 return const Center(
-                  child: Text('An error Occured'),
+                  child: FailureState(textMessage: "Oops, something error"),
                 );
               }
             }),

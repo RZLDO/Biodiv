@@ -5,6 +5,7 @@ import 'package:biodiv/ui/ordo%20page/add_ordo.dart';
 import 'package:biodiv/ui/ordo%20page/ordo_detail.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -115,8 +116,7 @@ class _OrdoScreenState extends State<OrdoScreen> {
                         });
                   } else {
                     return const Center(
-                      child: Text('An error Occured'),
-                    );
+                        child: FailureState(textMessage: "an error Ocurred"));
                   }
                 })));
   }

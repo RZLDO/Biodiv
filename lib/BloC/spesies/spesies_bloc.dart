@@ -14,12 +14,12 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
     on<AddSpesiesDataEvent>(addDataSpesies);
     on<UpdateSpesiesDataEvent>(updateDataSpesies);
     on<GetDetailSpecies>(getDetailSpesies);
+    on<DeleteSpesiesEvent>(deleteDataSpesies);
   }
   final SpesiesRepository repository;
   Future<void> getDetailSpesies(
       GetDetailSpecies event, Emitter<SpesiesState> emit) async {
     final result = await repository.getDetailSpesies(event.idSpesies);
-    print(result.message);
     if (result.error) {
       emit(SpesiesFailure(errorMessage: result.message));
     } else {
@@ -59,7 +59,6 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
 
   Future<void> updateDataSpesies(
       UpdateSpesiesDataEvent event, Emitter<SpesiesState> emit) async {
-    print(event.status + event.character);
     final result = await repository.updataeSpesiesData(
         event.idGenus,
         event.idCategory,
@@ -75,6 +74,16 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
       emit(SpesiesFailure(errorMessage: result.message));
     } else {
       emit(AddDataSuccess(result: result));
+    }
+  }
+
+  Future<void> deleteDataSpesies(
+      DeleteSpesiesEvent event, Emitter<SpesiesState> emit) async {
+    final result = await repository.deleteDataSpesies(event.idSpesies);
+    if (result.error) {
+      emit(SpesiesFailure(errorMessage: result.message));
+    } else {
+      emit(DeleteDataSucces(result: result));
     }
   }
 }

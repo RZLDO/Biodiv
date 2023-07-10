@@ -141,4 +141,17 @@ class SpesiesRepository {
       return result;
     }
   }
+
+  Future<DeleteDataSpesies> deleteDataSpesies(int idSpesies) async {
+    try {
+      final uri = Uri.parse('$baseUrl/spesies/$idSpesies');
+      http.Response response = await http.delete(uri);
+      final json = jsonDecode(response.body);
+      final result = DeleteDataSpesies.fromJson(json);
+      return result;
+    } catch (error) {
+      final result = DeleteDataSpesies(error: true, message: error.toString());
+      return result;
+    }
+  }
 }

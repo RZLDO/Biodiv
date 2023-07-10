@@ -171,6 +171,9 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                                 Navigator.pop(context);
                                               },
                                               btnOkOnPress: () {
+                                                _spesiesBloc.add(
+                                                    DeleteSpesiesEvent(
+                                                        idSpesies: data.id));
                                                 AwesomeDialog(
                                                         context: context,
                                                         dialogType:
@@ -216,7 +219,7 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                 );
               } else {
                 return const Center(
-                  child: FailureState(textMessage: "Sorry Any error Occured"),
+                  child: FailureState(textMessage: "Sorry An error Occured"),
                 );
               }
             }),

@@ -3,6 +3,7 @@ import 'package:biodiv/model/genus/get_data_genus.dart';
 import 'package:biodiv/repository/genus_repository.dart';
 import 'package:biodiv/ui/genus/add_data_genus.dart';
 import 'package:biodiv/ui/genus/detail_genus.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -119,7 +120,8 @@ class _GenusScreen extends State<GenusScreen> {
                           });
                     } else {
                       return const Center(
-                        child: Text('An error Occured'),
+                        child:
+                            FailureState(textMessage: "Oops, Something Error"),
                       );
                     }
                   })),
