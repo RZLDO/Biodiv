@@ -14,6 +14,7 @@ import 'package:biodiv/utils/text_style.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/colors.dart';
 
@@ -245,17 +246,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: const EdgeInsets.all(15),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.11,
+                          height: MediaQuery.of(context).size.height * 0.12,
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   "Detail Taksonomi Data: ",
-                                  style: ReusableTextStyle.title,
-                                ),
-                                const SizedBox(
-                                  height: 5,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: AppColor.mainColor,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   width:
@@ -266,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       borderRadius: BorderRadius.circular(10)),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                                 Expanded(
                                   child: ListView.builder(
@@ -335,15 +336,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               ]),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 15),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
                         child: Text(
                           "Biodiversity Graphic",
-                          style: ReusableTextStyle.title,
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: AppColor.mainColor,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 15),
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: 3,
+                        decoration: BoxDecoration(
+                            color: AppColor.mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
                       const SizedBox(
-                        height: 70,
+                        height: 60,
                       ),
                       Row(
                         children: [
