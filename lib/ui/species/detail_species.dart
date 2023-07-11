@@ -59,7 +59,7 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                         '$baseUrl/image/${data!.image}',
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.45,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       )),
                       Positioned(
                           top: 50,

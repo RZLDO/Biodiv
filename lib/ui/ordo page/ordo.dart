@@ -16,7 +16,12 @@ import '../../utils/constant.dart';
 class OrdoScreen extends StatefulWidget {
   final bool isByClass;
   final int? idClass;
-  const OrdoScreen({super.key, this.isByClass = false, this.idClass});
+  final String appBarText;
+  const OrdoScreen(
+      {super.key,
+      this.isByClass = false,
+      this.idClass,
+      this.appBarText = "Ordo Data"});
 
   @override
   State<OrdoScreen> createState() => _OrdoScreenState();
@@ -74,7 +79,7 @@ class _OrdoScreenState extends State<OrdoScreen> {
               )
             : null,
         backgroundColor: AppColor.backgroundColor,
-        appBar: const CustomAppBar(text: ""),
+        appBar: CustomAppBar(text: widget.appBarText),
         body: BlocProvider(
             create: (context) => ordoBloc,
             child: BlocBuilder<OrdoBloc, OrdoState>(

@@ -16,7 +16,12 @@ import '../../utils/constant.dart';
 class SpeciesScreen extends StatefulWidget {
   final bool isByGenus;
   final int? idGenus;
-  const SpeciesScreen({super.key, this.idGenus, this.isByGenus = false});
+  final String appBarText;
+  const SpeciesScreen(
+      {super.key,
+      this.idGenus,
+      this.isByGenus = false,
+      this.appBarText = "Spesies Data"});
 
   @override
   State<SpeciesScreen> createState() => _SpeciesScreenState();
@@ -34,14 +39,14 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(text: ""),
+      appBar: CustomAppBar(text: widget.appBarText),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.secondaryColor,
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const AddSpesiesScreen(
+                  builder: (context) => const AddSpesiesScreen( 
                         isEdit: false,
                       )));
         },

@@ -91,7 +91,7 @@ class _DetailClassState extends State<DetailClass> {
                             '$baseUrl/image/${data!.gambar}',
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.45,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           )),
                           Positioned(
                               top: 50,
@@ -185,6 +185,8 @@ class _DetailClassState extends State<DetailClass> {
                                                               isByClass: true,
                                                               idClass:
                                                                   data.idClass,
+                                                              appBarText:
+                                                                  "Ordo Of ${data.namaUmum}",
                                                             )));
                                               },
                                               child: Text(

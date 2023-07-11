@@ -16,7 +16,12 @@ import '../../utils/custom_app_bar.dart';
 class GenusScreen extends StatefulWidget {
   final bool isByFamili;
   final int? idFamili;
-  const GenusScreen({super.key, this.idFamili, this.isByFamili = false});
+  final String appBarText;
+  const GenusScreen(
+      {super.key,
+      this.idFamili,
+      this.isByFamili = false,
+      this.appBarText = "Genus Data"});
 
   @override
   State<GenusScreen> createState() => _GenusScreen();
@@ -29,7 +34,13 @@ class _GenusScreen extends State<GenusScreen> {
   void initState() {
     super.initState();
     _genusBloc = GenusBloc(repository: GenusRepository());
-    _genusBloc.add(GetDataGenusEvent());
+    if (widget.isByFamili) {
+      if (widget.idFamili != null) {
+        _genusBloc.add(GetGenusByFamili(idFamili: widget.idFamili!, page: 0));
+      }
+    } else {
+      _genusBloc.add(GetDataGenusEvent());
+    }
     getUserPreference();
   }
 
@@ -68,7 +79,7 @@ class _GenusScreen extends State<GenusScreen> {
               )
             : null,
         backgroundColor: AppColor.backgroundColor,
-        appBar: const CustomAppBar(text: ""),
+        appBar: CustomAppBar(text: widget.appBarText),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: BlocProvider(

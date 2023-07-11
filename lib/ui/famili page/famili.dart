@@ -16,7 +16,12 @@ import '../../utils/custom_app_bar.dart';
 class FamiliScreen extends StatefulWidget {
   final bool isByOrdo;
   final int? idOrdo;
-  const FamiliScreen({super.key, this.isByOrdo = false, this.idOrdo});
+  final String appBarText;
+  const FamiliScreen(
+      {super.key,
+      this.isByOrdo = false,
+      this.idOrdo,
+      this.appBarText = "Famili Data"});
 
   @override
   State<FamiliScreen> createState() => _FamiliScreenState();
@@ -71,7 +76,7 @@ class _FamiliScreenState extends State<FamiliScreen> {
               )
             : null,
         backgroundColor: AppColor.backgroundColor,
-        appBar: const CustomAppBar(text: ""),
+        appBar: CustomAppBar(text: widget.appBarText),
         body: BlocProvider(
             create: (context) => _familiBloc,
             child: BlocBuilder<FamiliBloc, FamiliState>(

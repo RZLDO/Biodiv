@@ -186,6 +186,8 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                                               idGenus:
                                                                   data.idGenus,
                                                               isByGenus: true,
+                                                              appBarText:
+                                                                  "Spesies Of ${data.namaUmum}",
                                                             )));
                                               },
                                               child: Text(

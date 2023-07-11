@@ -68,7 +68,7 @@ class _ClassScreenState extends State<ClassScreen> {
               )
             : null,
         backgroundColor: AppColor.backgroundColor,
-        appBar: const CustomAppBar(text: ""),
+        appBar: const CustomAppBar(text: "Class Data"),
         body: BlocProvider(
           create: (context) => _classBloc,
           child: Padding(

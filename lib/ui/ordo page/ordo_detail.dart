@@ -19,6 +19,7 @@ import '../../BloC/class/class_bloc.dart';
 import '../../utils/card_view.dart';
 import '../../utils/colors.dart';
 import '../../utils/constant.dart';
+import '../../utils/custom_app_bar.dart';
 import '../../utils/custom_button.dart';
 import '../class page/class_detail_page.dart';
 
@@ -62,7 +63,7 @@ class _OrdoDetailState extends State<OrdoDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
-        // appBar: const CustomAppBar(text: ""),
+        // appBar: CustomAppBar(text: ""),
         body: MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => _ordoBloc),
@@ -182,6 +183,8 @@ class _OrdoDetailState extends State<OrdoDetail> {
                                                               idOrdo:
                                                                   data.idOrdo,
                                                               isByOrdo: true,
+                                                              appBarText:
+                                                                  "Famili Of ${data.namaUmum}",
                                                             )));
                                               },
                                               child: Text(
