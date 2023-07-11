@@ -10,3 +10,12 @@ class GetScarcityData extends ScarcityEvent {}
 class GetScarcityId extends ScarcityEvent {}
 
 class GetTotalScarcity extends ScarcityEvent {}
+
+class GetScarcityById extends ScarcityEvent {
+  final int idScarcity;
+
+  GetScarcityById({required this.idScarcity});
+
+  @override
+  List<Object?> get props => [idScarcity];
+}

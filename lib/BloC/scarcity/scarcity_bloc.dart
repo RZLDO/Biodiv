@@ -12,9 +12,20 @@ class ScarcityBloc extends Bloc<ScarcityEvent, ScarcityState> {
     on<GetScarcityId>(getScarcity);
     on<GetTotalScarcity>(getTotalScarcity);
     on<GetScarcityData>(getAllScarcity);
+    on<GetScarcityById>(getDetailScarcity);
   }
 
   final ScarcityRepository repository;
+  Future<void> getDetailScarcity(
+      GetScarcityById event, Emitter<ScarcityState> emit) async {
+    final result = await repository.getDetailScarcity(event.idScarcity);
+    if (result.error) {
+      emit(ScarcityFailure(errorMessage: result.message));
+    } else {
+      emit(GetDetailScarcityByIdState(result: result));
+    }
+  }
+
   Future<void> getAllScarcity(
       GetScarcityData event, Emitter<ScarcityState> emit) async {
     final data = await repository.getScarcity();

@@ -18,6 +18,48 @@ class GetScarcityModel {
   }
 }
 
+class DetailScarcity {
+  final bool error;
+  final String message;
+  final DetailScarcityData? data;
+
+  DetailScarcity(
+      {required this.error, required this.message, required this.data});
+
+  factory DetailScarcity.fromJson(Map<String, dynamic> json) {
+    return DetailScarcity(
+        error: json['error'],
+        message: json['message'],
+        data: DetailScarcityData.fromJson(json['data']));
+  }
+}
+
+class DetailScarcityData {
+  final int idKategori;
+  final String nama;
+  final String umum;
+  final String singkatan;
+  final String keterangan;
+
+  DetailScarcityData({
+    required this.idKategori,
+    required this.nama,
+    required this.umum,
+    required this.singkatan,
+    required this.keterangan,
+  });
+
+  factory DetailScarcityData.fromJson(Map<String, dynamic> json) {
+    return DetailScarcityData(
+      idKategori: json['id_kategori'],
+      nama: json['nama'],
+      umum: json['umum'],
+      singkatan: json['singkatan'],
+      keterangan: json['keterangan'],
+    );
+  }
+}
+
 class ConservationStatus {
   int idKategori;
   String nama;

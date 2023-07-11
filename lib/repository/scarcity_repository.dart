@@ -6,6 +6,19 @@ import 'package:biodiv/utils/constant.dart';
 import 'package:http/http.dart' as http;
 
 class ScarcityRepository {
+  Future<DetailScarcity> getDetailScarcity(int idScarcity) async {
+    final url = Uri.parse('$baseUrl/scarcity/$idScarcity}');
+    http.Response response = await http.get(url);
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final result = DetailScarcity.fromJson(json);
+      return result;
+    } else {
+      final result = DetailScarcity.fromJson(json);
+      return result;
+    }
+  }
+
   Future<GetScarcityModel> getScarcity() async {
     try {
       final url = Uri.parse('$baseUrl/scarcity');

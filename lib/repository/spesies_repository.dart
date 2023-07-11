@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -8,6 +9,26 @@ import '../model/spesies/get_spesies_data.dart';
 import 'package:http/http.dart' as http;
 
 class SpesiesRepository {
+  Future<SpesiesGetAllModel> getSpesiesByScarcity(int idScarcity) async {
+    try {
+      final url = Uri.parse('$baseUrl/spesies/scarcity/$idScarcity');
+
+      http.Response response = await http.get(url);
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final result = SpesiesGetAllModel.fromJson(json);
+        return result;
+      } else {
+        final result = SpesiesGetAllModel.fromJson(json);
+        return result;
+      }
+    } catch (error) {
+      final result =
+          SpesiesGetAllModel(error: true, message: error.toString(), data: []);
+      return result;
+    }
+  }
+
   Future<SpesiesGetAllModel> getSpesiesByGenus(int idGenus, int? page) async {
     try {
       final url = page == 0

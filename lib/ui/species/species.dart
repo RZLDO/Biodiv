@@ -8,6 +8,7 @@ import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/spesies/get_spesies_data.dart';
 import '../../utils/card_view.dart';
@@ -29,32 +30,51 @@ class SpeciesScreen extends StatefulWidget {
 
 class _SpeciesScreenState extends State<SpeciesScreen> {
   late SpesiesBloc _spesiesBloc;
+  bool? isFabVisible;
   @override
   void initState() {
     super.initState();
     _spesiesBloc = SpesiesBloc(repository: SpesiesRepository());
     _spesiesBloc.add(GetSpesiesData());
+    getUserPreference();
+  }
+
+  void getUserPreference() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    final level = preferences.getInt("UserLevel");
+
+    if (level == 3) {
+      setState(() {
+        isFabVisible = false;
+      });
+    } else {
+      setState(() {
+        isFabVisible = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(text: widget.appBarText),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColor.secondaryColor,
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const AddSpesiesScreen( 
-                        isEdit: false,
-                      )));
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
+      floatingActionButton: isFabVisible != null && isFabVisible!
+          ? FloatingActionButton(
+              backgroundColor: AppColor.secondaryColor,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddSpesiesScreen(
+                              isEdit: false,
+                            )));
+              },
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            )
+          : null,
       backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
         create: (context) => _spesiesBloc,
@@ -96,6 +116,8 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                                         builder: (context) =>
                                             DetailSpesiesScreen(
                                               idSpesies: dataAnimal!.idSpesies,
+                                              idKelangkaan:
+                                                  dataAnimal.idKategori,
                                             )));
                               },
                               child: CustomCard(
@@ -114,6 +136,8 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                                             DetailSpesiesScreen(
                                               idSpesies:
                                                   dataAnimalDua!.idSpesies,
+                                              idKelangkaan:
+                                                  dataAnimalDua.idKategori,
                                             )));
                               },
                               child: CustomCard(

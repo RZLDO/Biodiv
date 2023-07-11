@@ -271,8 +271,9 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                                                   Navigator.push(
                                                                       context,
                                                                       MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              DetailSpesiesScreen(idSpesies: dataAnimal!.idSpesies)));
+                                                                          builder: (context) => DetailSpesiesScreen(
+                                                                              idKelangkaan: dataAnimal!.idKategori,
+                                                                              idSpesies: dataAnimal.idSpesies)));
                                                                 },
                                                                 child: CustomCard(
                                                                     textSize:
@@ -298,6 +299,7 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                                                       MaterialPageRoute(
                                                                           builder: (context) => DetailSpesiesScreen(
                                                                                 idSpesies: dataAnimalDua!.idSpesies,
+                                                                                idKelangkaan: dataAnimalDua.idKategori,
                                                                               )));
                                                                 },
                                                                 child: CustomCard(

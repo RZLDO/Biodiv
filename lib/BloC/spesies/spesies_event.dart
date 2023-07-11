@@ -15,6 +15,14 @@ class GetDetailSpecies extends SpesiesEvent {
   List<Object?> get props => [idSpesies];
 }
 
+class GetSpesiesByScarcity extends SpesiesEvent {
+  final int idScarcity;
+  GetSpesiesByScarcity({required this.idScarcity});
+
+  @override
+  List<Object?> get props => [idScarcity];
+}
+
 class GetSpesiesByGenus extends SpesiesEvent {
   final int idGenus;
   final int page;
