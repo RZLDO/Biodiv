@@ -4,6 +4,7 @@ import 'package:biodiv/ui/taksonomi/taxonomi_screen.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 
@@ -17,16 +18,37 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   int page = 0;
-  List navigation = [
-    const HomeScreen(),
-    const ScarcityScreen(),
-    const TaxonomiScreen(),
-    const VerificationScreen(),
-  ];
+  bool? isAdmin;
+  List navigation = [];
   @override
   void initState() {
-    super.initState();
     page = widget.pageId;
+    getUserLevel();
+    super.initState();
+  }
+
+  Future<void> getUserLevel() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    int? level = preferences.getInt("UserLevel");
+    if (level == 3) {
+      setState(() {
+        isAdmin = false;
+        navigation = [
+          const HomeScreen(),
+          const ScarcityScreen(),
+          const VerificationScreen()
+        ];
+      });
+    } else {
+      setState(() {
+        isAdmin = true;
+        navigation = [
+          const HomeScreen(),
+          const ScarcityScreen(),
+          const VerificationScreen()
+        ];
+      });
+    }
   }
 
   @override
@@ -46,16 +68,17 @@ class _NavigationState extends State<Navigation> {
             size: 30,
             color: AppColor.mainColor,
           ),
-          Image.asset(
-            'asset/image/taxon.png',
-            width: 40,
-            height: 40,
-          ),
-          const Icon(
-            Icons.verified_user,
-            size: 30,
-            color: AppColor.mainColor,
-          ),
+          isAdmin != null && isAdmin!
+              ? const Icon(
+                  Icons.verified_user,
+                  size: 30,
+                  color: AppColor.mainColor,
+                )
+              : const Icon(
+                  Icons.person_3,
+                  size: 30,
+                  color: AppColor.mainColor,
+                ),
         ],
         onTap: (index) {
           setState(() {
@@ -63,7 +86,11 @@ class _NavigationState extends State<Navigation> {
           });
         },
       ),
-      body: navigation[page],
+      body: navigation.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : navigation[page],
     );
   }
 }

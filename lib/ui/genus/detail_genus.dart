@@ -83,6 +83,7 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                     final GenusData? data = state.result.data;
                     final List<SpeciesData> spesiesData =
                         spesiesState.result.data;
+                    print(spesiesData);
                     return SizedBox(
                       height: MediaQuery.of(context).size.height,
                       child: Stack(
@@ -219,8 +220,7 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                             child: spesiesData.isEmpty
                                                 ? const Center(
                                                     child: EmptyData(
-                                                        textMessage:
-                                                            "Sorry, no available data. Please wait for updates."),
+                                                        textMessage: ""),
                                                   )
                                                 : ListView.builder(
                                                     padding: EdgeInsets.zero,

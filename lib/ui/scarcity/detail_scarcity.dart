@@ -116,75 +116,89 @@ class _ScarcityDetailScreenState extends State<ScarcityDetailScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: ListView.builder(
-                              itemCount: data.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                SpeciesData? dataAnimal;
-                                SpeciesData? dataAnimalDua;
-                                if (index % 2 == 0 && index + 1 < data.length) {
-                                  dataAnimal = data[index];
-                                  dataAnimalDua = data[index + 1];
-                                } else if (data.length >= 2) {
-                                  if (index == data.length - 2) {
-                                    dataAnimal = data[index + 1];
-                                  }
-                                } else {
-                                  dataAnimal = data[index];
-                                }
-                                return Row(
-                                  children: [
-                                    if (dataAnimal != null)
-                                      Expanded(
-                                          child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailSpesiesScreen(
-                                                          idSpesies: dataAnimal!
-                                                              .idSpesies,
-                                                          idKelangkaan:
-                                                              dataAnimal
-                                                                  .idKategori)));
-                                        },
-                                        child: CustomCard(
-                                            namaUmum: dataAnimal.namaUmum,
-                                            namaLatin: dataAnimal.namaLatin,
-                                            image:
-                                                "$baseUrl/image/${dataAnimal.gambar}"),
-                                      )),
-                                    if (dataAnimalDua != null)
-                                      Expanded(
-                                          child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailSpesiesScreen(
-                                                          idSpesies:
-                                                              dataAnimalDua!
-                                                                  .idSpesies,
-                                                          idKelangkaan:
-                                                              dataAnimalDua
-                                                                  .idKategori)));
-                                        },
-                                        child: CustomCard(
-                                            namaUmum: dataAnimalDua.namaUmum,
-                                            namaLatin: dataAnimalDua.namaLatin,
-                                            image:
-                                                "$baseUrl/image/${dataAnimalDua.gambar}"),
-                                      ))
-                                  ],
-                                );
-                              }),
-                        ),
-                      ),
+                      data.isEmpty
+                          ? const Expanded(
+                              child: Center(
+                                child: EmptyData(
+                                    textMessage:
+                                        "Sorry, no available data. Please wait for updates."),
+                              ),
+                            )
+                          : Expanded(
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height,
+                                width: MediaQuery.of(context).size.width,
+                                child: ListView.builder(
+                                    itemCount: data.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      SpeciesData? dataAnimal;
+                                      SpeciesData? dataAnimalDua;
+                                      if (index % 2 == 0 &&
+                                          index + 1 < data.length) {
+                                        dataAnimal = data[index];
+                                        dataAnimalDua = data[index + 1];
+                                      } else if (data.length >= 2) {
+                                        if (index == data.length - 2) {
+                                          dataAnimal = data[index + 1];
+                                        }
+                                      } else {
+                                        dataAnimal = data[index];
+                                      }
+                                      return Row(
+                                        children: [
+                                          if (dataAnimal != null)
+                                            Expanded(
+                                                child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailSpesiesScreen(
+                                                                idSpesies:
+                                                                    dataAnimal!
+                                                                        .idSpesies,
+                                                                idKelangkaan:
+                                                                    dataAnimal
+                                                                        .idKategori)));
+                                              },
+                                              child: CustomCard(
+                                                  namaUmum: dataAnimal.namaUmum,
+                                                  namaLatin:
+                                                      dataAnimal.namaLatin,
+                                                  image:
+                                                      "$baseUrl/image/${dataAnimal.gambar}"),
+                                            )),
+                                          if (dataAnimalDua != null)
+                                            Expanded(
+                                                child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailSpesiesScreen(
+                                                                idSpesies:
+                                                                    dataAnimalDua!
+                                                                        .idSpesies,
+                                                                idKelangkaan:
+                                                                    dataAnimalDua
+                                                                        .idKategori)));
+                                              },
+                                              child: CustomCard(
+                                                  namaUmum:
+                                                      dataAnimalDua.namaUmum,
+                                                  namaLatin:
+                                                      dataAnimalDua.namaLatin,
+                                                  image:
+                                                      "$baseUrl/image/${dataAnimalDua.gambar}"),
+                                            ))
+                                        ],
+                                      );
+                                    }),
+                              ),
+                            ),
                       const SizedBox(
                         height: 10,
                       )

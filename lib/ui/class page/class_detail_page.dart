@@ -51,7 +51,6 @@ class _DetailClassState extends State<DetailClass> {
   void getUserLevel() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     int? level = preferences.getInt("UserLevel");
-    print(level);
     if (level == 3) {
       setState(() {
         isUserCanEdit = false;

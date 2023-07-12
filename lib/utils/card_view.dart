@@ -68,3 +68,73 @@ class CustomCard extends StatelessWidget {
         ));
   }
 }
+
+class SearchingCard extends StatelessWidget {
+  final String namaUmum;
+  final String namaLatin;
+  final String image;
+  final double? height;
+  final double? textSize;
+  const SearchingCard(
+      {super.key,
+      this.height,
+      this.textSize,
+      required this.namaUmum,
+      required this.namaLatin,
+      required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: height ?? 150,
+              width: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(image),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(8.0),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              width: 150,
+              child: Column(
+                children: [
+                  Text(
+                    namaUmum,
+                    style: TextStyle(
+                      fontSize: textSize ?? 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    namaLatin,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ));
+  }
+}

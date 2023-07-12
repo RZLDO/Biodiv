@@ -1,5 +1,4 @@
 import 'package:biodiv/utils/colors.dart';
-import 'package:biodiv/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

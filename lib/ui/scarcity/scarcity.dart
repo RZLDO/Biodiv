@@ -1,12 +1,11 @@
 import 'package:biodiv/BloC/scarcity/scarcity_bloc.dart';
 import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:biodiv/repository/scarcity_repository.dart';
+import 'package:biodiv/ui/scarcity/detail_scarcity.dart';
 import 'package:biodiv/utils/chart.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/state_screen.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -95,41 +94,55 @@ class _ScarcityScreenState extends State<ScarcityScreen> {
                             scrollDirection: Axis.vertical,
                             itemCount: state.data.data.length,
                             itemBuilder: (context, int index) {
-                              return Card(
-                                color: AppColor.mainColor,
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.13,
-                                  decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "asset/image/backgroundBanner.png"),
-                                          fit: BoxFit.fill)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        state.data.data[index].nama,
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColor.mainColor,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ScarcityDetailScreen(
+                                                  idScarcity: state
+                                                      .data
+                                                      .data[index]
+                                                      .idKategori)));
+                                },
+                                child: Card(
+                                  color: AppColor.mainColor,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.13,
+                                    decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                "asset/image/backgroundBanner.png"),
+                                            fit: BoxFit.fill)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          state.data.data[index].nama,
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColor.mainColor,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        state.data.data[index].singkatan,
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColor.mainColor,
-                                          fontSize: 16,
+                                        const SizedBox(
+                                          height: 5,
                                         ),
-                                      ),
-                                    ],
+                                        Text(
+                                          state.data.data[index].singkatan,
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColor.mainColor,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
