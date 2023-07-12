@@ -36,7 +36,7 @@ class ScarcityBloc extends Bloc<ScarcityEvent, ScarcityState> {
       final List<ScarcityDataModel> dataScarcity = result.data;
       final List<ScarcityModelChart> listData = [];
 
-      for (var i = 1; i <= 9; i++) {
+      for (var i = 1; i <= 10; i++) {
         var count = 0;
         for (var item in dataScarcity) {
           if (item.idKategori == i) {
@@ -78,7 +78,7 @@ class ScarcityBloc extends Bloc<ScarcityEvent, ScarcityState> {
       final List<ScarcityDataModel> data = result.data;
       final List<ScarcityModelChart> listData = [];
 
-      for (var i = 1; i <= 9; i++) {
+      for (var i = 1; i <= 10; i++) {
         var count = 0;
         for (var item in data) {
           if (item.idKategori == i) {

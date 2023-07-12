@@ -99,7 +99,7 @@ class ShowLineChart extends StatelessWidget {
           .toList(),
       gridData: FlGridData(show: false),
       alignment: BarChartAlignment.spaceAround,
-      maxY: 10,
+      maxY: 20,
     ));
   }
 
@@ -170,7 +170,7 @@ class ShowLineChart extends StatelessWidget {
     }
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 4,
+      space: 2,
       child: Text(text, style: style),
     );
   }
