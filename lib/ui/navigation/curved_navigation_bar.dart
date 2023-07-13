@@ -1,3 +1,4 @@
+import 'package:biodiv/ui/Profile/profile_screen.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/scarcity/scarcity.dart';
 import 'package:biodiv/ui/taksonomi/taxonomi_screen.dart';
@@ -36,7 +37,7 @@ class _NavigationState extends State<Navigation> {
         navigation = [
           const HomeScreen(),
           const ScarcityScreen(),
-          const VerificationScreen()
+          const ProfileScreen()
         ];
       });
     } else {
