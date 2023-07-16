@@ -44,6 +44,7 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
       GetSpesiesByGenus event, Emitter<SpesiesState> emit) async {
     final result =
         await repository.getSpesiesByGenus(event.idGenus, event.page);
+
     if (result.error) {
       emit(SpesiesFailure(errorMessage: result.message));
     } else {
@@ -63,7 +64,6 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
 
   Future<void> addDataSpesies(
       AddSpesiesDataEvent event, Emitter<SpesiesState> emit) async {
-    print(event.status + event.idGenus.toString());
     final result = await repository.addOrdoData(
         event.idGenus,
         event.idCategory,

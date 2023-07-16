@@ -19,6 +19,7 @@ class TaxonomiScreen extends StatefulWidget {
 
 class _TaxonomiScreenState extends State<TaxonomiScreen> {
   late ClassBloc _classBloc;
+  // ignore: unused_field
   late OrdoBloc _ordoBloc;
   final List<MyNode> _nodeList = [MyNode(title: "class", children: [])];
   @override

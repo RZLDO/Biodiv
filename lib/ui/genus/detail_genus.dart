@@ -72,10 +72,10 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
             builder: (context, spesiesState) {
               return BlocBuilder<GenusBloc, GenusState>(
                 builder: (context, state) {
-                  if (state is GenusLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.mainColor,
+                  if (spesiesState is SpesiesFailure) {
+                    return Center(
+                      child: FailureState(
+                        textMessage: spesiesState.errorMessage,
                       ),
                     );
                   } else if (state is GetGenusDetailDataSuccess &&
@@ -83,7 +83,6 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                     final GenusData? data = state.result.data;
                     final List<SpeciesData> spesiesData =
                         spesiesState.result.data;
-                    print(spesiesData);
                     return SizedBox(
                       height: MediaQuery.of(context).size.height,
                       child: Stack(
@@ -96,7 +95,7 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                             fit: BoxFit.cover,
                           )),
                           Positioned(
-                              top: 50,
+                              top: 30,
                               left: 15,
                               child: IconButton(
                                 onPressed: () {
@@ -466,7 +465,9 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                     );
                   } else {
                     return const Center(
-                      child: Text("an error occured"),
+                      child: CircularProgressIndicator(
+                        color: AppColor.mainColor,
+                      ),
                     );
                   }
                 },

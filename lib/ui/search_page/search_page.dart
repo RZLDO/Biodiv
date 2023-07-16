@@ -30,7 +30,6 @@ class SearchingPage extends StatefulWidget {
 
 class _SearchingPageState extends State<SearchingPage> {
   late SearchBloc _searchBloc;
-  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final searchTextEditingController = TextEditingController();
   final List<String> titleText = [
     "Class",
@@ -129,336 +128,360 @@ class _SearchingPageState extends State<SearchingPage> {
                         );
                       } else if (state is SearchResultStateSuccess) {
                         final SearchResult? data = state.result.data;
-                        return Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Search Result For ${searchTextEditingController.text}",
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.secondaryColor),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Container(
-                                height: 4,
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColor.secondaryColor),
-                              ),
-                              Expanded(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 10,
+
+                        return data!.dataClass.isNotEmpty &&
+                                data.dataFamili.isNotEmpty &&
+                                data.dataGenus.isNotEmpty &&
+                                data.dataOrdo.isNotEmpty &&
+                                data.dataSpesies.isNotEmpty
+                            ? Expanded(
+                                child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Search Result For ${searchTextEditingController.text}",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.secondaryColor),
+                                    ),
+                                    const SizedBox(
+                                      height: 3,
+                                    ),
+                                    Container(
+                                      height: 4,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: AppColor.secondaryColor),
+                                    ),
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Visibility(
+                                                visible: data!.dataClass.isEmpty
+                                                    ? false
+                                                    : true,
+                                                child: SizedBox(
+                                                  height: 150,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Class",
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 16,
+                                                            color: AppColor
+                                                                .secondaryColor),
+                                                      ),
+                                                      Expanded(
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  itemCount: data
+                                                                      .dataClass
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          int index) {
+                                                                    ClassData?
+                                                                        animalData =
+                                                                        data.dataClass[
+                                                                            index];
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DetailClass(idClass: animalData.idClass.toString(), idClassGet: animalData.idClass)));
+                                                                      },
+                                                                      child: SearchingCard(
+                                                                          height:
+                                                                              70,
+                                                                          namaUmum: animalData
+                                                                              .namaUmum,
+                                                                          namaLatin: animalData
+                                                                              .namaLatin,
+                                                                          image:
+                                                                              '$baseUrl/image/${animalData.gambar}'),
+                                                                    );
+                                                                  })),
+                                                    ],
+                                                  ),
+                                                )),
+                                            Visibility(
+                                                visible: data.dataOrdo.isEmpty
+                                                    ? false
+                                                    : true,
+                                                child: SizedBox(
+                                                  height: 180,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Ordo",
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 16,
+                                                            color: AppColor
+                                                                .secondaryColor),
+                                                      ),
+                                                      Expanded(
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  itemCount: data
+                                                                      .dataOrdo
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          int index) {
+                                                                    OrdoData?
+                                                                        animalData =
+                                                                        data.dataOrdo[
+                                                                            index];
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => OrdoDetail(idOrdo: animalData.idOrdo)));
+                                                                      },
+                                                                      child: SearchingCard(
+                                                                          height:
+                                                                              100,
+                                                                          namaUmum: animalData
+                                                                              .namaUmum,
+                                                                          namaLatin: animalData
+                                                                              .namaLatin,
+                                                                          image:
+                                                                              '$baseUrl/image/${animalData.gambar}'),
+                                                                    );
+                                                                  })),
+                                                    ],
+                                                  ),
+                                                )),
+                                            Visibility(
+                                                visible: data.dataFamili.isEmpty
+                                                    ? false
+                                                    : true,
+                                                child: SizedBox(
+                                                  height: 180,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Famili",
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 16,
+                                                            color: AppColor
+                                                                .secondaryColor),
+                                                      ),
+                                                      Expanded(
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  itemCount: data
+                                                                      .dataFamili
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          int index) {
+                                                                    Family?
+                                                                        animalData =
+                                                                        data.dataFamili[
+                                                                            index];
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DetailFamili(idFamili: animalData.idFamili)));
+                                                                      },
+                                                                      child: SearchingCard(
+                                                                          height:
+                                                                              100,
+                                                                          namaUmum: animalData
+                                                                              .commonName,
+                                                                          namaLatin: animalData
+                                                                              .latinName,
+                                                                          image:
+                                                                              '$baseUrl/image/${animalData.image}'),
+                                                                    );
+                                                                  })),
+                                                    ],
+                                                  ),
+                                                )),
+                                            Visibility(
+                                                visible: data.dataGenus.isEmpty
+                                                    ? false
+                                                    : true,
+                                                child: SizedBox(
+                                                  height: 180,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Genus",
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 16,
+                                                            color: AppColor
+                                                                .secondaryColor),
+                                                      ),
+                                                      Expanded(
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  itemCount: data
+                                                                      .dataOrdo
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          int index) {
+                                                                    GenusData?
+                                                                        animalData =
+                                                                        data.dataGenus[
+                                                                            index];
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DetailGenusScreen(idGenus: animalData.idGenus)));
+                                                                      },
+                                                                      child: SearchingCard(
+                                                                          height:
+                                                                              100,
+                                                                          namaUmum: animalData
+                                                                              .namaUmum,
+                                                                          namaLatin: animalData
+                                                                              .namaLatin,
+                                                                          image:
+                                                                              '$baseUrl/image/${animalData.gambar}'),
+                                                                    );
+                                                                  })),
+                                                    ],
+                                                  ),
+                                                )),
+                                            Visibility(
+                                                visible:
+                                                    data.dataSpesies.isEmpty
+                                                        ? false
+                                                        : true,
+                                                child: SizedBox(
+                                                  height: 180,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Spesies",
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 16,
+                                                            color: AppColor
+                                                                .secondaryColor),
+                                                      ),
+                                                      Expanded(
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  itemCount: data
+                                                                      .dataSpesies
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          int index) {
+                                                                    SpeciesData?
+                                                                        animalData =
+                                                                        data.dataSpesies[
+                                                                            index];
+                                                                    return GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DetailSpesiesScreen(idSpesies: animalData.idGenus, idKelangkaan: animalData.idKategori)));
+                                                                      },
+                                                                      child: SearchingCard(
+                                                                          height:
+                                                                              100,
+                                                                          namaUmum: animalData
+                                                                              .namaUmum,
+                                                                          namaLatin: animalData
+                                                                              .namaLatin,
+                                                                          image:
+                                                                              '$baseUrl/image/${animalData.gambar}'),
+                                                                    );
+                                                                  })),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ],
+                                        ),
                                       ),
-                                      Visibility(
-                                          visible: data!.dataClass.isEmpty
-                                              ? false
-                                              : true,
-                                          child: SizedBox(
-                                            height: 150,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Class",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      color: AppColor
-                                                          .secondaryColor),
-                                                ),
-                                                Expanded(
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: data
-                                                            .dataClass.length,
-                                                        itemBuilder: (context,
-                                                            int index) {
-                                                          ClassData?
-                                                              animalData =
-                                                              data.dataClass[
-                                                                  index];
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) => DetailClass(
-                                                                          idClass: animalData
-                                                                              .idClass
-                                                                              .toString(),
-                                                                          idClassGet:
-                                                                              animalData.idClass)));
-                                                            },
-                                                            child: SearchingCard(
-                                                                height: 70,
-                                                                namaUmum:
-                                                                    animalData
-                                                                        .namaUmum,
-                                                                namaLatin:
-                                                                    animalData
-                                                                        .namaLatin,
-                                                                image:
-                                                                    '$baseUrl/image/${animalData.gambar}'),
-                                                          );
-                                                        })),
-                                              ],
-                                            ),
-                                          )),
-                                      Visibility(
-                                          visible: data.dataOrdo.isEmpty
-                                              ? false
-                                              : true,
-                                          child: SizedBox(
-                                            height: 180,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Ordo",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      color: AppColor
-                                                          .secondaryColor),
-                                                ),
-                                                Expanded(
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: data
-                                                            .dataOrdo.length,
-                                                        itemBuilder: (context,
-                                                            int index) {
-                                                          OrdoData? animalData =
-                                                              data.dataOrdo[
-                                                                  index];
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          OrdoDetail(
-                                                                              idOrdo: animalData.idOrdo)));
-                                                            },
-                                                            child: SearchingCard(
-                                                                height: 100,
-                                                                namaUmum:
-                                                                    animalData
-                                                                        .namaUmum,
-                                                                namaLatin:
-                                                                    animalData
-                                                                        .namaLatin,
-                                                                image:
-                                                                    '$baseUrl/image/${animalData.gambar}'),
-                                                          );
-                                                        })),
-                                              ],
-                                            ),
-                                          )),
-                                      Visibility(
-                                          visible: data.dataFamili.isEmpty
-                                              ? false
-                                              : true,
-                                          child: SizedBox(
-                                            height: 180,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Famili",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      color: AppColor
-                                                          .secondaryColor),
-                                                ),
-                                                Expanded(
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: data
-                                                            .dataFamili.length,
-                                                        itemBuilder: (context,
-                                                            int index) {
-                                                          Family? animalData =
-                                                              data.dataFamili[
-                                                                  index];
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          DetailFamili(
-                                                                              idFamili: animalData.idFamili)));
-                                                            },
-                                                            child: SearchingCard(
-                                                                height: 100,
-                                                                namaUmum: animalData
-                                                                    .commonName,
-                                                                namaLatin:
-                                                                    animalData
-                                                                        .latinName,
-                                                                image:
-                                                                    '$baseUrl/image/${animalData.image}'),
-                                                          );
-                                                        })),
-                                              ],
-                                            ),
-                                          )),
-                                      Visibility(
-                                          visible: data.dataGenus.isEmpty
-                                              ? false
-                                              : true,
-                                          child: SizedBox(
-                                            height: 180,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Genus",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      color: AppColor
-                                                          .secondaryColor),
-                                                ),
-                                                Expanded(
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: data
-                                                            .dataOrdo.length,
-                                                        itemBuilder: (context,
-                                                            int index) {
-                                                          GenusData?
-                                                              animalData =
-                                                              data.dataGenus[
-                                                                  index];
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          DetailGenusScreen(
-                                                                              idGenus: animalData.idGenus)));
-                                                            },
-                                                            child: SearchingCard(
-                                                                height: 100,
-                                                                namaUmum:
-                                                                    animalData
-                                                                        .namaUmum,
-                                                                namaLatin:
-                                                                    animalData
-                                                                        .namaLatin,
-                                                                image:
-                                                                    '$baseUrl/image/${animalData.gambar}'),
-                                                          );
-                                                        })),
-                                              ],
-                                            ),
-                                          )),
-                                      Visibility(
-                                          visible: data.dataSpesies.isEmpty
-                                              ? false
-                                              : true,
-                                          child: SizedBox(
-                                            height: 180,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Spesies",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      color: AppColor
-                                                          .secondaryColor),
-                                                ),
-                                                Expanded(
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: data
-                                                            .dataSpesies.length,
-                                                        itemBuilder: (context,
-                                                            int index) {
-                                                          SpeciesData?
-                                                              animalData =
-                                                              data.dataSpesies[
-                                                                  index];
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) => DetailSpesiesScreen(
-                                                                          idSpesies: animalData
-                                                                              .idGenus,
-                                                                          idKelangkaan:
-                                                                              animalData.idKategori)));
-                                                            },
-                                                            child: SearchingCard(
-                                                                height: 100,
-                                                                namaUmum:
-                                                                    animalData
-                                                                        .namaUmum,
-                                                                namaLatin:
-                                                                    animalData
-                                                                        .namaLatin,
-                                                                image:
-                                                                    '$baseUrl/image/${animalData.gambar}'),
-                                                          );
-                                                        })),
-                                              ],
-                                            ),
-                                          )),
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                        ));
+                              ))
+                            : const Expanded(
+                                child: Center(
+                                  child: EmptyData(
+                                      textMessage:
+                                          "Sorry, the data you're looking for is unavailable."),
+                                ),
+                              );
                       } else {
                         return Expanded(
                           child: SizedBox(

@@ -40,7 +40,6 @@ class FamiliRepository {
       http.Response response = await http.get(url);
 
       final json = jsonDecode(response.body);
-      print(json);
       if (response.statusCode == 200) {
         final result = FamiliResponseModel.fromJson(json);
         return result;

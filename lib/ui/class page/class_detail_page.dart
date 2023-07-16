@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/class/class_bloc.dart';
 import 'package:biodiv/BloC/ordo/ordo_bloc.dart';
@@ -93,7 +91,7 @@ class _DetailClassState extends State<DetailClass> {
                             fit: BoxFit.cover,
                           )),
                           Positioned(
-                              top: 50,
+                              top: 30,
                               left: 15,
                               child: IconButton(
                                 onPressed: () {

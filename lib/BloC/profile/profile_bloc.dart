@@ -14,7 +14,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepository repository;
   Future<void> getProfile(
       GetProfileEvent event, Emitter<ProfileState> emit) async {
-    final result = await repository.GetProfiledata(event.idUser);
+    final result = await repository.getDataFamili(event.idUser);
     emit(ProfileLoading());
     if (result.error == true) {
       emit(GetProfileStateFailure(message: result.message));

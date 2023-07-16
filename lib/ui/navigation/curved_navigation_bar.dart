@@ -1,7 +1,6 @@
 import 'package:biodiv/ui/Profile/profile_screen.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/scarcity/scarcity.dart';
-import 'package:biodiv/ui/taksonomi/taxonomi_screen.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';

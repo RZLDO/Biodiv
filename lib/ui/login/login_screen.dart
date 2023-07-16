@@ -1,6 +1,5 @@
 import 'package:biodiv/BloC/login/login_bloc.dart';
 import 'package:biodiv/repository/auth_repository.dart';
-import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/ui/register/register_screen.dart';
 import 'package:biodiv/utils/colors.dart';

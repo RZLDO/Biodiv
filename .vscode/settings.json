@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "D:/data/Skripsi/APLIKASI BIODIV/biodiv/windows"
+  "cmake.sourceDirectory": "D:/data/Skripsi/APLIKASI BIODIV/biodiv/windows",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

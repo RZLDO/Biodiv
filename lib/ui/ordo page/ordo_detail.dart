@@ -15,11 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../BloC/class/class_bloc.dart';
 import '../../utils/card_view.dart';
 import '../../utils/colors.dart';
 import '../../utils/constant.dart';
-import '../../utils/custom_app_bar.dart';
 import '../../utils/custom_button.dart';
 import '../class page/class_detail_page.dart';
 
@@ -92,7 +90,7 @@ class _OrdoDetailState extends State<OrdoDetail> {
                             fit: BoxFit.fill,
                           )),
                           Positioned(
-                              top: 50,
+                              top: 30,
                               left: 15,
                               child: IconButton(
                                 onPressed: () {

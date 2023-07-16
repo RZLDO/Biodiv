@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/repository/verification_repository.dart';
 import 'package:biodiv/ui/verifikasi%20data/class/verified_item_class.dart';
@@ -7,7 +6,7 @@ import 'package:biodiv/ui/verifikasi%20data/genus/genus_verif.dart';
 import 'package:biodiv/ui/verifikasi%20data/ordo/ordo_verif.dart';
 import 'package:biodiv/ui/verifikasi%20data/spesies/spesies.dart';
 import 'package:biodiv/utils/colors.dart';
-import 'package:biodiv/utils/custom_app_bar.dart';
+import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -118,7 +117,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ),
                     );
                   } else {
-                    return Center();
+                    return const Center(
+                      child: FailureState(textMessage: "an error occured"),
+                    );
                   }
                 })));
   }

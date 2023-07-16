@@ -319,7 +319,6 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                         ),
                                         onSelected: (statusOfScarcity) {
                                           setState(() {
-                                            print(statusOfScarcity);
                                             statusScarcity = statusOfScarcity;
                                           });
                                         },

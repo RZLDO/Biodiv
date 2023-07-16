@@ -1,5 +1,4 @@
 import 'package:biodiv/model/scarcity/scarcity.dart';
-import 'package:biodiv/model/verif%20model/verif_model.dart';
 import 'package:biodiv/repository/scarcity_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

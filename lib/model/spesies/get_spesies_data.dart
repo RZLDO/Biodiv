@@ -2,15 +2,23 @@ class SpeciesDetailModel {
   final bool error;
   final String message;
   final Species? data;
-
+  final List<Location> lokasi;
   SpeciesDetailModel(
-      {required this.error, required this.message, required this.data});
+      {required this.error,
+      required this.message,
+      required this.data,
+      required this.lokasi});
 
   factory SpeciesDetailModel.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> jsonData = json['lokasi'];
+    List<Location> location = jsonData.map((item) {
+      return Location.fromJson(item);
+    }).toList();
     return SpeciesDetailModel(
         error: json['error'],
         message: json['message'],
-        data: Species.fromJson(json['data']));
+        data: Species.fromJson(json['data']),
+        lokasi: location);
   }
 }
 
@@ -88,6 +96,33 @@ class SpesiesGetAllModel {
     }).toList();
     return SpesiesGetAllModel(
         error: json['error'], message: json['message'], data: speciesDataList);
+  }
+}
+
+class Location {
+  final int idLokasi;
+  final String namaLokasi;
+  final double latitude;
+  final double longitude;
+  final int radius;
+  final int idSpesies;
+
+  Location(
+      {required this.namaLokasi,
+      required this.idLokasi,
+      required this.latitude,
+      required this.longitude,
+      required this.radius,
+      required this.idSpesies});
+
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+        idLokasi: json['id_lokasi'],
+        namaLokasi: json['nama_lokasi'],
+        latitude: json['latitude'],
+        longitude: json['longitude'],
+        radius: json['radius'],
+        idSpesies: json['id_spesies']);
   }
 }
 

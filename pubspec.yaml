@@ -50,6 +50,8 @@ dependencies:
   readmore: ^2.2.0
   awesome_dialog: ^3.0.2
   flutter_fancy_tree_view: ^1.1.1
+  google_maps_flutter: ^2.3.0
+  cached_network_image: ^3.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

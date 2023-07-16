@@ -8,8 +8,6 @@ import 'package:biodiv/repository/genus_repository.dart';
 import 'package:biodiv/ui/famili%20page/add_famili.dart';
 import 'package:biodiv/ui/genus/detail_genus.dart';
 import 'package:biodiv/ui/genus/genus.dart';
-import 'package:biodiv/ui/species/detail_species.dart';
-import 'package:biodiv/ui/species/species.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -93,7 +91,7 @@ class _DetailFamiliState extends State<DetailFamili> {
                             fit: BoxFit.cover,
                           )),
                           Positioned(
-                              top: 50,
+                              top: 30,
                               left: 15,
                               child: IconButton(
                                 onPressed: () {

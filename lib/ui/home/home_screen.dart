@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               left: 40,
                               right: 40,
                               child: Container(
-                                padding: const EdgeInsets.all(25),
+                                padding: const EdgeInsets.all(18),
                                 height:
                                     MediaQuery.of(context).size.height * 0.12,
                                 width: MediaQuery.of(context).size.width,
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: const EdgeInsets.all(15),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.12,
+                          height: 100,
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -36,6 +35,7 @@ class SpesiesRepository {
           : Uri.parse('$baseUrl/spesies/genus/?id_genus=$idGenus&page=$page');
       http.Response response = await http.get(url);
       final json = jsonDecode(response.body);
+      print(json);
       if (response.statusCode == 200) {
         final result = SpesiesGetAllModel.fromJson(json);
         return result;
@@ -60,7 +60,7 @@ class SpesiesRepository {
       return result;
     } catch (error) {
       final result = SpeciesDetailModel(
-          error: true, message: error.toString(), data: null);
+          error: true, message: error.toString(), data: null, lokasi: []);
       return result;
     }
   }

@@ -6,7 +6,7 @@ import '../model/profile model/profile.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileRepository {
-  Future<ProfileResponse> GetProfiledata(int idUser) async {
+  Future<ProfileResponse> getDataFamili(int idUser) async {
     try {
       final url = Uri.parse('$baseUrl/profile/$idUser');
       http.Response response = await http.get(url);

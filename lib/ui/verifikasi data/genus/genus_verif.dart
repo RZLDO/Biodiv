@@ -7,13 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../utils/card_view.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/custom_app_bar.dart';
 import '../../../utils/custom_textfield.dart';
 import '../../../utils/state_screen.dart';
-import '../verif_data.dart';
 
 class GenusUnverif extends StatefulWidget {
   const GenusUnverif({super.key});
