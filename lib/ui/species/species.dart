@@ -35,7 +35,12 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
   void initState() {
     super.initState();
     _spesiesBloc = SpesiesBloc(repository: SpesiesRepository());
-    _spesiesBloc.add(GetSpesiesData());
+    if (widget.isByGenus && widget.idGenus != null) {
+      _spesiesBloc
+          .add(GetSpesiesByGenus(idGenus: widget.idGenus!.toInt(), page: 0));
+    } else {
+      _spesiesBloc.add(GetSpesiesData());
+    }
     getUserPreference();
   }
 

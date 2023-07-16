@@ -167,7 +167,7 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "Famili from this Ordo",
+                                              "Spesies from this Genus",
                                               style: GoogleFonts.montserrat(
                                                   textStyle: const TextStyle(
                                                       fontWeight:

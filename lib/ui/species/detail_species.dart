@@ -286,7 +286,8 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                   child: Visibility(
                                     visible: isUserCanEdit!,
                                     child: SizedBox(
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.85,
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
@@ -300,7 +301,7 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.65,
+                                                  0.5,
                                               setText: false),
                                           const Spacer(),
                                           CustomButtonExtended(
