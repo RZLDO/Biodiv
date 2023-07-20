@@ -2,12 +2,40 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:biodiv/utils/constant.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../model/spesies/get_spesies_data.dart';
 import 'package:http/http.dart' as http;
 
 class SpesiesRepository {
+  Future<AddLocation> addSpesiesLocation(String locationName, double latitude,
+      double longitude, int radius, int idSpesies) async {
+    try {
+      final url = Uri.parse('$baseUrl/spesies/location/');
+      Map<String, dynamic> requestBody = {
+        "nama_lokasi": locationName,
+        "latitude": latitude,
+        "longitude": longitude,
+        "radius": radius,
+        "idSpesies": idSpesies
+      };
+      final headers = <String, String>{
+        'Content-Type': 'application/json; charset=utf-8',
+      };
+      http.Response response =
+          await http.post(url, body: jsonEncode(requestBody), headers: headers);
+
+      final json = jsonDecode(response.body);
+      print(json);
+      final result = AddLocation.fromJson(json);
+      return result;
+    } catch (error) {
+      final result = AddLocation(error: true, message: error.toString());
+      return result;
+    }
+  }
+
   Future<SpesiesGetAllModel> getSpesiesByScarcity(int idScarcity) async {
     try {
       final url = Uri.parse('$baseUrl/spesies/scarcity/$idScarcity');
@@ -35,7 +63,6 @@ class SpesiesRepository {
           : Uri.parse('$baseUrl/spesies/genus/?id_genus=$idGenus&page=$page');
       http.Response response = await http.get(url);
       final json = jsonDecode(response.body);
-      print(json);
       if (response.statusCode == 200) {
         final result = SpesiesGetAllModel.fromJson(json);
         return result;
@@ -146,7 +173,7 @@ class SpesiesRepository {
     int idSpesies,
   ) async {
     try {
-      final url = Uri.parse('$baseUrl/spesies');
+      final url = Uri.parse('$baseUrl/spesies/$idSpesies');
       var request = http.MultipartRequest('PUT', url);
 
       request.fields['nama_latin'] = latinName;

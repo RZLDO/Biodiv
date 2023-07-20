@@ -168,7 +168,7 @@ class _SearchingPageState extends State<SearchingPage> {
                                               height: 10,
                                             ),
                                             Visibility(
-                                                visible: data!.dataClass.isEmpty
+                                                visible: data.dataClass.isEmpty
                                                     ? false
                                                     : true,
                                                 child: SizedBox(

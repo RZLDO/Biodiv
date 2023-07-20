@@ -6,6 +6,9 @@ import 'package:biodiv/repository/scarcity_repository.dart';
 import 'package:biodiv/repository/spesies_repository.dart';
 import 'package:biodiv/ui/maps/maps_screen.dart';
 import 'package:biodiv/ui/scarcity/detail_scarcity.dart';
+import 'package:biodiv/ui/species/add_spesies.dart';
+import 'package:biodiv/ui/species/add_spesies_location.dart';
+import 'package:biodiv/utils/card_view.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
 import 'package:biodiv/utils/state_screen.dart';
@@ -15,7 +18,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../BloC/scarcity/scarcity_bloc.dart';
-import '../../utils/custom_button.dart';
 import '../class page/class_detail_page.dart';
 import '../navigation/curved_navigation_bar.dart';
 
@@ -82,30 +84,225 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                       final Species? data = state.result.data;
                       final DetailScarcityData? scarcityData =
                           scarcityState.result.data;
+
                       return Scaffold(
-                        floatingActionButton: FloatingActionButton(
-                          backgroundColor: AppColor.secondaryColor,
-                          onPressed: () {
-                            state.result.lokasi.isNotEmpty
-                                ? Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => GoogleMapsScreen(
-                                              location: state.result.lokasi,
-                                              spesies: data!,
-                                              singkatan: scarcityData!,
-                                            )))
-                                : AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.infoReverse,
-                                    title: "Location",
-                                    btnOkOnPress: () {},
-                                    desc:
-                                        "Sorry, the location of this species hasn't been updated yet.",
-                                  ).show();
-                          },
-                          child: const Icon(Icons.map),
-                        ),
+                        floatingActionButton:
+                            isUserCanEdit != null && isUserCanEdit!
+                                ? FloatingActionButton(
+                                    backgroundColor: AppColor.secondaryColor,
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top:
+                                                          Radius.circular(30))),
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.close,
+                                                        color: Colors.black45,
+                                                      )),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  ItemsAdmin(
+                                                      icon: Icons.map,
+                                                      ontap: () {
+                                                        state.result.lokasi
+                                                                .isNotEmpty
+                                                            ? Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            GoogleMapsScreen(
+                                                                              location: state.result.lokasi,
+                                                                              spesies: data!,
+                                                                              singkatan: scarcityData!,
+                                                                            )))
+                                                            : AwesomeDialog(
+                                                                context:
+                                                                    context,
+                                                                dialogType:
+                                                                    DialogType
+                                                                        .infoReverse,
+                                                                title:
+                                                                    "Location",
+                                                                btnOkOnPress:
+                                                                    () {},
+                                                                desc:
+                                                                    "Sorry, the location of this species hasn't been updated yet.",
+                                                              ).show();
+                                                      },
+                                                      text: "location"),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  ItemsAdmin(
+                                                      icon: Icons.add,
+                                                      ontap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        AddLocationSpesies(
+                                                                          idSpesies: state
+                                                                              .result
+                                                                              .data!
+                                                                              .id,
+                                                                          spesiesName: state
+                                                                              .result
+                                                                              .data!
+                                                                              .latinName,
+                                                                        )));
+                                                      },
+                                                      text:
+                                                          "add this spesies location"),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  ItemsAdmin(
+                                                      icon: Icons.edit,
+                                                      ontap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        AddSpesiesScreen(
+                                                                          isEdit:
+                                                                              true,
+                                                                          latinName:
+                                                                              data!.latinName,
+                                                                          commonName:
+                                                                              data.commonName,
+                                                                          statusScarcity:
+                                                                              data.status,
+                                                                          habitat:
+                                                                              data.habitat,
+                                                                          character:
+                                                                              data.characteristics,
+                                                                          description:
+                                                                              data.description,
+                                                                          idSpesies:
+                                                                              data.id,
+                                                                          image:
+                                                                              data.image,
+                                                                          idGenus:
+                                                                              data.idGenus,
+                                                                          idScarcity:
+                                                                              data.idScarcity,
+                                                                        )));
+                                                      },
+                                                      text: "Edit Data"),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  ItemsAdmin(
+                                                      icon: Icons.delete,
+                                                      ontap: () {
+                                                        AwesomeDialog(
+                                                                context:
+                                                                    context,
+                                                                dialogType:
+                                                                    DialogType
+                                                                        .warning,
+                                                                autoDismiss:
+                                                                    false,
+                                                                onDismissCallback:
+                                                                    (type) {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                btnOkOnPress:
+                                                                    () {
+                                                                  _spesiesBloc.add(
+                                                                      DeleteSpesiesEvent(
+                                                                          idSpesies:
+                                                                              data!.id));
+                                                                  AwesomeDialog(
+                                                                          context:
+                                                                              context,
+                                                                          dialogType: DialogType
+                                                                              .warning,
+                                                                          autoDismiss:
+                                                                              false,
+                                                                          onDismissCallback:
+                                                                              (type) {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          btnOkOnPress:
+                                                                              () {
+                                                                            Navigator.pushReplacement(context,
+                                                                                MaterialPageRoute(builder: (context) => const Navigation(pageId: 0)));
+                                                                          },
+                                                                          btnCancelOnPress:
+                                                                              () {},
+                                                                          desc:
+                                                                              "Success delete data",
+                                                                          title:
+                                                                              "Delete Data")
+                                                                      .show();
+                                                                },
+                                                                btnCancelOnPress:
+                                                                    () {},
+                                                                desc:
+                                                                    "Are you sure to delete this data?",
+                                                                title:
+                                                                    "Delete Data")
+                                                            .show();
+                                                      },
+                                                      text: "Delete Data"),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: const Icon(Icons.info_outline),
+                                  )
+                                : FloatingActionButton(
+                                    backgroundColor: AppColor.secondaryColor,
+                                    onPressed: () {
+                                      state.result.lokasi.isNotEmpty
+                                          ? Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      GoogleMapsScreen(
+                                                        location:
+                                                            state.result.lokasi,
+                                                        spesies: data!,
+                                                        singkatan:
+                                                            scarcityData!,
+                                                      )))
+                                          : AwesomeDialog(
+                                              context: context,
+                                              dialogType:
+                                                  DialogType.infoReverse,
+                                              title: "Location",
+                                              btnOkOnPress: () {},
+                                              desc:
+                                                  "Sorry, the location of this species hasn't been updated yet.",
+                                            ).show();
+                                    },
+                                    child: const Icon(Icons.map),
+                                  ),
                         body: SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: Stack(
@@ -281,95 +478,6 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                       ],
                                     ),
                                   )),
-                              Positioned(
-                                  bottom: 20,
-                                  child: Visibility(
-                                    visible: isUserCanEdit!,
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.85,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          const SizedBox(
-                                            width: 24,
-                                          ),
-                                          CustomButtonExtended(
-                                              text: "Edit Data",
-                                              onTap: () {},
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              setText: false),
-                                          const Spacer(),
-                                          CustomButtonExtended(
-                                              color: AppColor.redColorAccent,
-                                              icon: Icons.delete,
-                                              onTap: () {
-                                                AwesomeDialog(
-                                                        context: context,
-                                                        dialogType:
-                                                            DialogType.warning,
-                                                        autoDismiss: false,
-                                                        onDismissCallback:
-                                                            (type) {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        btnOkOnPress: () {
-                                                          _spesiesBloc.add(
-                                                              DeleteSpesiesEvent(
-                                                                  idSpesies:
-                                                                      data.id));
-                                                          AwesomeDialog(
-                                                                  context:
-                                                                      context,
-                                                                  dialogType:
-                                                                      DialogType
-                                                                          .warning,
-                                                                  autoDismiss:
-                                                                      false,
-                                                                  onDismissCallback:
-                                                                      (type) {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  btnOkOnPress:
-                                                                      () {
-                                                                    Navigator.pushReplacement(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                const Navigation(pageId: 0)));
-                                                                  },
-                                                                  btnCancelOnPress:
-                                                                      () {},
-                                                                  desc:
-                                                                      "Success delete data",
-                                                                  title:
-                                                                      "Delete Data")
-                                                              .show();
-                                                        },
-                                                        btnCancelOnPress: () {},
-                                                        desc:
-                                                            "Are you sure to delete this data?",
-                                                        title: "Delete Data")
-                                                    .show();
-                                              },
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.15,
-                                              setText: true),
-                                          const SizedBox(
-                                            width: 24,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ))
                             ],
                           ),
                         ),

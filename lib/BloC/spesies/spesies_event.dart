@@ -115,3 +115,22 @@ class UpdateSpesiesDataEvent extends SpesiesEvent {
         idSpesies
       ];
 }
+
+class AddLocationSpesiesEvent extends SpesiesEvent {
+  final String locationName;
+  final double latitude;
+  final double longitude;
+  final int radius;
+  final int idSpesies;
+
+  AddLocationSpesiesEvent(
+      {required this.locationName,
+      required this.latitude,
+      required this.longitude,
+      required this.radius,
+      required this.idSpesies});
+
+  @override
+  List<Object?> get props =>
+      [locationName, latitude, longitude, radius, idSpesies];
+}

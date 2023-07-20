@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
+  final int? maxLines;
+  final bool isNumber;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final bool obsecure;
@@ -11,6 +13,8 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {super.key,
       required this.hintText,
+      this.isNumber = false,
+      this.maxLines,
       required this.controller,
       required this.validator,
       required this.obsecure});
@@ -18,6 +22,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
@@ -34,6 +39,7 @@ class CustomTextField extends StatelessWidget {
       ),
       obscureText: obsecure,
       validator: validator,
+      maxLines: maxLines ?? 1,
     );
   }
 }

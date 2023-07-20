@@ -7,6 +7,7 @@ import 'package:biodiv/BloC/spesies/spesies_bloc.dart';
 import 'package:biodiv/repository/genus_repository.dart';
 import 'package:biodiv/repository/scarcity_repository.dart';
 import 'package:biodiv/repository/spesies_repository.dart';
+import 'package:biodiv/ui/genus/add_data_genus.dart';
 import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/state_screen.dart';
@@ -155,14 +156,21 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                       text: TextSpan(children: [
                                     TextSpan(
                                         text:
-                                            "if the class data not avaible please  ",
+                                            "if the genus data not avaible please  ",
                                         style: GoogleFonts.poppins()),
                                     TextSpan(
                                         text: "Press here!",
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.bold),
                                         recognizer: TapGestureRecognizer()
-                                          ..onTap = () {}),
+                                          ..onTap = () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AddDataGenusScreen(
+                                                            isEdit: false)));
+                                          }),
                                   ])),
                                 ),
                               ),
@@ -242,7 +250,7 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.85,
-                                        initialSelection: idGenus,
+                                        initialSelection: idScarcity,
                                         dropdownMenuEntries: scarcity,
                                         inputDecorationTheme:
                                             InputDecorationTheme(
@@ -327,26 +335,32 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                         height: 25,
                                       ),
                                       CustomTextField(
-                                          hintText: "Characteristics",
-                                          controller: characteristics,
-                                          validator: Validator.basicValidate,
-                                          obsecure: false),
+                                        hintText: "Characteristics",
+                                        controller: characteristics,
+                                        validator: Validator.basicValidate,
+                                        obsecure: false,
+                                        maxLines: 2,
+                                      ),
                                       const SizedBox(
                                         height: 25,
                                       ),
                                       CustomTextField(
-                                          hintText: "Habitat",
-                                          controller: habitat,
-                                          validator: Validator.basicValidate,
-                                          obsecure: false),
+                                        hintText: "Habitat",
+                                        controller: habitat,
+                                        validator: Validator.basicValidate,
+                                        obsecure: false,
+                                        maxLines: 2,
+                                      ),
                                       const SizedBox(
                                         height: 25,
                                       ),
                                       CustomTextField(
-                                          hintText: "Description",
-                                          controller: description,
-                                          validator: Validator.basicValidate,
-                                          obsecure: false),
+                                        hintText: "Description",
+                                        controller: description,
+                                        validator: Validator.basicValidate,
+                                        obsecure: false,
+                                        maxLines: 5,
+                                      ),
                                       const SizedBox(
                                         height: 25,
                                       ),
@@ -357,8 +371,8 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                   builder: (context, state) {
                                     return CustomButton(
                                         text: widget.isEdit
-                                            ? "Edit Data Ordo"
-                                            : "Add Data Ordo",
+                                            ? "Edit Data Spesies"
+                                            : "Add Data Spesies",
                                         onTap: () {
                                           if (_key.currentState!.validate()) {
                                             if (widget.isEdit) {
@@ -403,7 +417,7 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                                         context: context,
                                                         dialogType:
                                                             DialogType.error,
-                                                        title: "Add Ordo Data",
+                                                        title: "Add Genus Data",
                                                         desc:
                                                             "Please add the Image",
                                                         btnOkOnPress: () {})
@@ -453,7 +467,7 @@ class _AddSpesiesScreenState extends State<AddSpesiesScreen> {
                                       AwesomeDialog(
                                               context: context,
                                               dialogType: DialogType.error,
-                                              title: "Update Ordo Data",
+                                              title: "Updat Spesies Data",
                                               desc: widget.isEdit
                                                   ? "Edit Data Failed "
                                                   : "Add Data Failed",

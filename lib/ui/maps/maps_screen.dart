@@ -1,8 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:biodiv/model/spesies/get_spesies_data.dart';
 import 'package:biodiv/ui/scarcity/detail_scarcity.dart';
+import 'package:biodiv/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:ui' as ui;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/colors.dart';
@@ -35,9 +40,32 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
     for (int i = 0; i < widget.location.length; i++) {
       double latitude = widget.location[i].latitude;
       double longitude = widget.location[i].longitude;
+
+      final uri = Uri.parse('$baseUrl/image/${widget.spesies.image}');
+      final http.Response response = await http.get(uri);
+      var bytes = await response.bodyBytes;
+
+      int desiredWidth = 100;
+      int desiredHeight = 100;
+
+      ui.Image originalImage =
+          await decodeImageFromList(Uint8List.fromList(bytes));
+      ui.Codec codec = await ui.instantiateImageCodec(Uint8List.fromList(bytes),
+          targetHeight: desiredHeight, targetWidth: desiredWidth);
+      ui.FrameInfo frameInfo = await codec.getNextFrame();
+      ui.Image resizedImage = frameInfo.image;
+
+      final ByteData? byteData =
+          await resizedImage.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List resizedBytes = byteData!.buffer.asUint8List();
+
+      BitmapDescriptor customMarkerIcon =
+          BitmapDescriptor.fromBytes(resizedBytes);
+
       Marker marker = Marker(
         markerId: MarkerId('marker$i'),
         position: LatLng(latitude, longitude),
+        icon: customMarkerIcon,
         onTap: () {
           _showBottomSheet(
               context, widget.spesies, widget.location[i], widget.singkatan);
@@ -48,19 +76,20 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
       Circle circle = Circle(
         circleId: CircleId('circle$i'),
         center: LatLng(latitude, longitude),
-        radius: widget.location[i].radius.toDouble(), // Radius in meters
-        fillColor: Colors.blue.withOpacity(0.2),
-        strokeColor: Colors.blue,
+        radius: widget.location[i].radius.toDouble(),
+        fillColor: Colors.redAccent.withOpacity(0.5),
+        strokeColor: Colors.redAccent,
         strokeWidth: 2,
       );
 
       markers.add(marker);
       circles.add(circle);
+      setState(() {});
     }
   }
 
   static const CameraPosition _cameraPosition =
-      CameraPosition(zoom: 9, target: LatLng(4.509551, 96.931655));
+      CameraPosition(zoom: 7, target: LatLng(4.509551, 96.931655));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +114,7 @@ void _showBottomSheet(context, Species spesiesData, Location location,
     DetailScarcityData scarcity) {
   showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
       builder: (context) {
@@ -92,6 +122,7 @@ void _showBottomSheet(context, Species spesiesData, Location location,
           padding: const EdgeInsets.all(16),
           width: MediaQuery.of(context).size.width,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

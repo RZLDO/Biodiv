@@ -68,147 +68,154 @@ class _AddDataClassState extends State<AddDataClass> {
         appBar: CustomAppBar(
           text: widget.isEdit ? "Edit Data Class" : "Add Data Class",
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(24),
-          child: BlocProvider<ClassBloc>(
-            create: (context) => _classBloc,
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () async {
-                    getImage();
-                  },
-                  child: Card(
-                    elevation: 4,
-                    child: SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: image != null
-                          ? Image.file(File(image!.path))
-                          : _imagePicker == null
-                              ? Icon(
-                                  Icons.image_search,
-                                  size: 100,
-                                  color: Colors.black45.withOpacity(0.5),
-                                )
-                              : Image.file(
-                                  File(_imagePicker!.path),
-                                ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: BlocProvider<ClassBloc>(
+              create: (context) => _classBloc,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      getImage();
+                    },
+                    child: Card(
+                      elevation: 4,
+                      child: SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: image != null
+                            ? Image.file(File(image!.path))
+                            : _imagePicker == null
+                                ? Icon(
+                                    Icons.image_search,
+                                    size: 100,
+                                    color: Colors.black45.withOpacity(0.5),
+                                  )
+                                : Image.file(
+                                    File(_imagePicker!.path),
+                                  ),
+                      ),
                     ),
                   ),
-                ),
-                Form(
-                    key: _key,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        CustomTextField(
-                            hintText: "Latin Name",
-                            controller: latinName,
-                            validator: Validator.basicValidate,
-                            obsecure: false),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        CustomTextField(
-                            hintText: "Common Name",
-                            controller: commonName,
-                            validator: Validator.basicValidate,
-                            obsecure: false),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        CustomTextField(
+                  Form(
+                      key: _key,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          CustomTextField(
+                              hintText: "Latin Name",
+                              controller: latinName,
+                              validator: Validator.basicValidate,
+                              obsecure: false),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          CustomTextField(
+                              hintText: "Common Name",
+                              controller: commonName,
+                              validator: Validator.basicValidate,
+                              obsecure: false),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          CustomTextField(
                             hintText: "Characteristics",
                             controller: characteristics,
                             validator: Validator.basicValidate,
-                            obsecure: false),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        CustomTextField(
+                            obsecure: false,
+                            maxLines: 5,
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          CustomTextField(
                             hintText: "Description",
                             controller: description,
                             validator: Validator.basicValidate,
-                            obsecure: false),
-                      ],
-                    )),
-                const SizedBox(
-                  height: 24,
-                ),
-                BlocConsumer<ClassBloc, ClassState>(builder: (context, state) {
-                  if (widget.isEdit) {
-                    return CustomButton(
-                        text: state is ClassLoading ? "Loading" : "Edit Data",
-                        onTap: () {
-                          _classBloc.add(EditClass(
-                              idClass: widget.idClass.toString(),
-                              commonName: commonName.text,
-                              latinName: latinName.text,
-                              characteristics: characteristics.text,
-                              description: description.text,
-                              image: _imagePicker));
-                        });
-                  } else {
-                    return CustomButton(
-                        text: state is ClassLoading ? "Loading" : "Add Data",
-                        onTap: () {
-                          if (_key.currentState!.validate() &&
-                              _imagePicker != null) {
-                            _classBloc.add(
-                              PostDataClass(
-                                  latinName: latinName.text,
-                                  commonName: commonName.text,
-                                  characteristics: characteristics.text,
-                                  description: description.text,
-                                  image: _imagePicker),
-                            );
-                          }
-                        });
-                  }
-                }, listener: (context, state) {
-                  if (state is AddDataSuccess) {
-                    AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.success,
-                        autoDismiss: false,
-                        title: "Add Data Success",
-                        body: const Text(
-                          "Silahkan tunggu Admin untuk memverivikasi data",
-                        ),
-                        onDismissCallback: (type) => Navigator.pop(context),
-                        btnOkOnPress: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const Navigation(pageId: 0)));
-                        }).show();
-                  } else if (state is EditSuccess) {
-                    AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.success,
-                        autoDismiss: false,
-                        title: "EditData Success",
-                        onDismissCallback: (type) => Navigator.pop(context),
-                        btnOkOnPress: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const Navigation(pageId: 0)));
-                        }).show();
-                  } else if (state is Failure) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: AppColor.mainColor,
-                      content: Text(state.errorMessage),
-                      duration: const Duration(seconds: 1),
-                    ));
-                  }
-                })
-              ],
+                            obsecure: false,
+                            maxLines: 6,
+                          ),
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  BlocConsumer<ClassBloc, ClassState>(
+                      builder: (context, state) {
+                    if (widget.isEdit) {
+                      return CustomButton(
+                          text: state is ClassLoading ? "Loading" : "Edit Data",
+                          onTap: () {
+                            _classBloc.add(EditClass(
+                                idClass: widget.idClass.toString(),
+                                commonName: commonName.text,
+                                latinName: latinName.text,
+                                characteristics: characteristics.text,
+                                description: description.text,
+                                image: _imagePicker));
+                          });
+                    } else {
+                      return CustomButton(
+                          text: state is ClassLoading ? "Loading" : "Add Data",
+                          onTap: () {
+                            if (_key.currentState!.validate() &&
+                                _imagePicker != null) {
+                              _classBloc.add(
+                                PostDataClass(
+                                    latinName: latinName.text,
+                                    commonName: commonName.text,
+                                    characteristics: characteristics.text,
+                                    description: description.text,
+                                    image: _imagePicker),
+                              );
+                            }
+                          });
+                    }
+                  }, listener: (context, state) {
+                    if (state is AddDataSuccess) {
+                      AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.success,
+                          autoDismiss: false,
+                          title: "Add Data Success",
+                          body: const Text(
+                            "Silahkan tunggu Admin untuk memverivikasi data",
+                          ),
+                          onDismissCallback: (type) => Navigator.pop(context),
+                          btnOkOnPress: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Navigation(pageId: 0)));
+                          }).show();
+                    } else if (state is EditSuccess) {
+                      AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.success,
+                          autoDismiss: false,
+                          title: "EditData Success",
+                          onDismissCallback: (type) => Navigator.pop(context),
+                          btnOkOnPress: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Navigation(pageId: 0)));
+                          }).show();
+                    } else if (state is Failure) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: AppColor.mainColor,
+                        content: Text(state.errorMessage),
+                        duration: const Duration(seconds: 1),
+                      ));
+                    }
+                  })
+                ],
+              ),
             ),
           ),
         ));

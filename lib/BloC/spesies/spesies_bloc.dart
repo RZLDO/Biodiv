@@ -17,8 +17,20 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
     on<DeleteSpesiesEvent>(deleteDataSpesies);
     on<GetSpesiesByGenus>(getSpesiesByGenus);
     on<GetSpesiesByScarcity>(getSpesiesByScarcity);
+    on<AddLocationSpesiesEvent>(addLocation);
   }
   final SpesiesRepository repository;
+  Future<void> addLocation(
+      AddLocationSpesiesEvent event, Emitter<SpesiesState> emit) async {
+    final result = await repository.addSpesiesLocation(event.locationName,
+        event.latitude, event.longitude, event.radius, event.idSpesies);
+    print(result.message);
+    if (result.error) {
+      emit(SpesiesFailure(errorMessage: result.error.toString()));
+    } else {
+      emit(AddLocationSuccess(result: result));
+    }
+  }
 
   Future<void> getSpesiesByScarcity(
       GetSpesiesByScarcity event, Emitter<SpesiesState> emit) async {
@@ -97,7 +109,7 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
     if (result.error) {
       emit(SpesiesFailure(errorMessage: result.message));
     } else {
-      emit(AddDataSuccess(result: result));
+      emit(UpdateDataSuccess(result: result));
     }
   }
 

@@ -29,6 +29,8 @@ class Species {
   final String habitat;
   final String characteristics;
   final String description;
+  final int idGenus;
+  final int idScarcity;
   final String status;
   final String image;
 
@@ -37,6 +39,8 @@ class Species {
     required this.latinName,
     required this.commonName,
     required this.habitat,
+    required this.idGenus,
+    required this.idScarcity,
     required this.characteristics,
     required this.description,
     required this.status,
@@ -49,6 +53,8 @@ class Species {
       latinName: json['nama_latin'],
       commonName: json['nama_umum'],
       habitat: json['habitat'],
+      idGenus: json['id_genus'],
+      idScarcity: json['id_kategori'],
       characteristics: json['karakteristik'],
       description: json['keterangan'],
       status: json['status'],
@@ -167,5 +173,16 @@ class SpeciesData {
       idKategori: json['id_kategori'],
       verifikasi: json['verifikasi'],
     );
+  }
+}
+
+class AddLocation {
+  final bool error;
+  final String message;
+
+  AddLocation({required this.error, required this.message});
+
+  factory AddLocation.fromJson(Map<String, dynamic> json) {
+    return AddLocation(error: json['error'], message: json['message']);
   }
 }

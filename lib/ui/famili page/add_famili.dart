@@ -228,8 +228,8 @@ class _AddFamiliState extends State<AddFamili> {
                           builder: (context, state) {
                             return CustomButton(
                                 text: widget.isEdit
-                                    ? "Edit Data Ordo"
-                                    : "Add Data Ordo",
+                                    ? "Edit Data Famili"
+                                    : "Add Data Famili",
                                 onTap: () {
                                   if (_key.currentState!.validate()) {
                                     if (widget.isEdit == true) {
@@ -254,7 +254,7 @@ class _AddFamiliState extends State<AddFamili> {
                                         AwesomeDialog(
                                                 context: context,
                                                 dialogType: DialogType.error,
-                                                title: "Add Ordo Data",
+                                                title: "Add Famili Data",
                                                 desc: "Please add the Image",
                                                 btnOkOnPress: () {})
                                             .show();
@@ -286,7 +286,7 @@ class _AddFamiliState extends State<AddFamili> {
                                   context: context,
                                   dialogType: DialogType.success,
                                   autoDismiss: false,
-                                  title: "Update Ordo Data",
+                                  title: "Update Famili Data",
                                   desc: "Update Data Success",
                                   onDismissCallback: (type) =>
                                       Navigator.pop(context),
@@ -301,7 +301,7 @@ class _AddFamiliState extends State<AddFamili> {
                               AwesomeDialog(
                                       context: context,
                                       dialogType: DialogType.error,
-                                      title: "Update Ordo Data",
+                                      title: "Update Famili Data",
                                       desc: widget.isEdit
                                           ? "Edit Data Failed "
                                           : "Add Data Failed",

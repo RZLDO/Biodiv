@@ -15,4 +15,14 @@ class Validator {
     }
     return null; // input is valid
   }
+
+  static String? validateRadius(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Radius cannot be empty';
+    }
+    if (value.length < 5) {
+      return 'Radius Must be have 5';
+    }
+    return null; // input is valid
+  }
 }

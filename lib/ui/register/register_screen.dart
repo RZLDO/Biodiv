@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/register/register_bloc.dart';
 import 'package:biodiv/repository/auth_repository.dart';
 import 'package:biodiv/ui/login/login_screen.dart';
@@ -107,16 +108,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   listener: (context, state) {
                     if (state is RegisterSuccess) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
+                      AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              autoDismiss: false,
+                              onDismissCallback: (type) {
+                                Navigator.pop(context);
+                              },
+                              btnOkOnPress: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreen()));
+                              },
+                              desc: "wellcome to new discovery of biodiversity",
+                              title: " Account Created")
+                          .show();
                     } else if (state is RegisterFailure) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: AppColor.mainColor,
-                        content: Text(state.errorMessage),
-                        duration: const Duration(seconds: 1),
-                      ));
+                      AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              autoDismiss: false,
+                              onDismissCallback: (type) {
+                                Navigator.pop(context);
+                              },
+                              btnCancelOnPress: () {},
+                              desc: state.errorMessage,
+                              title: "The account creation failed")
+                          .show();
                     }
                   })
             ],

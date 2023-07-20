@@ -15,6 +15,14 @@ class SpesiesFailure extends SpesiesState {
   List<Object?> get props => [errorMessage];
 }
 
+class AddLocationSuccess extends SpesiesState {
+  final AddLocation result;
+
+  AddLocationSuccess({required this.result});
+  @override
+  List<Object?> get props => [result];
+}
+
 class GetSpesiciesSuccess extends SpesiesState {
   final SpesiesGetAllModel result;
   GetSpesiciesSuccess({required this.result});

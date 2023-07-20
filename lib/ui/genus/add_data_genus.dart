@@ -5,6 +5,7 @@ import 'package:biodiv/BloC/famili/famili_bloc.dart';
 import 'package:biodiv/BloC/genus/genus_bloc.dart';
 import 'package:biodiv/repository/famili_repository.dart';
 import 'package:biodiv/repository/genus_repository.dart';
+import 'package:biodiv/ui/famili%20page/add_famili.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,14 +110,21 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                           child: RichText(
                               text: TextSpan(children: [
                             TextSpan(
-                                text: "if the class data not avaible please  ",
+                                text: "if the Family data not avaible please  ",
                                 style: GoogleFonts.poppins()),
                             TextSpan(
                                 text: "Press here!",
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {}),
+                                  ..onTap = () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AddFamili(
+                                                    isEdit: false)));
+                                  }),
                           ])),
                         ),
                       ),
@@ -262,7 +270,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                   context: context,
                                   dialogType: DialogType.success,
                                   autoDismiss: false,
-                                  title: "Add Ordo Data",
+                                  title: "Add Genus Data",
                                   desc:
                                       "Please wait admin to verification your data",
                                   onDismissCallback: (type) =>
@@ -294,7 +302,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                               AwesomeDialog(
                                       context: context,
                                       dialogType: DialogType.error,
-                                      title: "Update Ordo Data",
+                                      title: "Update Genus Data",
                                       desc: widget.isEdit
                                           ? "Edit Data Failed "
                                           : "Add Data Failed",

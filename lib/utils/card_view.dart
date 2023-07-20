@@ -1,4 +1,6 @@
+import 'package:biodiv/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomCard extends StatelessWidget {
   final String namaUmum;
@@ -136,5 +138,40 @@ class SearchingCard extends StatelessWidget {
             ),
           ],
         ));
+  }
+}
+
+class ItemsAdmin extends StatelessWidget {
+  final IconData icon;
+  final Function() ontap;
+  final String text;
+  const ItemsAdmin(
+      {super.key, required this.icon, required this.ontap, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 28,
+              color: AppColor.secondaryColor,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              text,
+              style: GoogleFonts.poppins(
+                  fontSize: 18, fontWeight: FontWeight.w500),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
