@@ -51,16 +51,17 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
     super.initState();
   }
 
-  Future<String?> _getAddressFromLatLng(LatLng latLng) async {
+  Future<String> _getAddressFromLatLng(LatLng latLng) async {
     try {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
-        return placemark.name; // Return the location name (address)
+        return placemark.name.toString(); // Return the location name (address)
       }
+      return "no name";
     } catch (e) {
-      print('Error: $e');
+      return e.toString();
     }
   }
 
@@ -97,7 +98,7 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
                         radiusParam: radiusCircle ?? 0,
                         centerParam: LatLng(latLng.latitude, latLng.longitude));
                     _draggableMarker = Marker(
-                      markerId: MarkerId('draggable_marker'),
+                      markerId: const MarkerId('draggable_marker'),
                       position: latLng,
                       draggable: true,
                     );
