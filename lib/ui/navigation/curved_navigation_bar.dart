@@ -17,7 +17,7 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
-  int page = 0;
+  int? page;
   bool? isAdmin;
   List navigation = [];
   @override
@@ -80,17 +80,18 @@ class _NavigationState extends State<Navigation> {
                   color: AppColor.mainColor,
                 ),
         ],
+        index: page!.toInt(),
         onTap: (index) {
           setState(() {
             page = index;
           });
         },
       ),
-      body: navigation.isEmpty
+      body: navigation.isEmpty && page != null
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : navigation[page],
+          : navigation[page!.toInt()],
     );
   }
 }

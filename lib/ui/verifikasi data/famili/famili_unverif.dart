@@ -12,6 +12,7 @@ import '../../../utils/constant.dart';
 import '../../../utils/custom_app_bar.dart';
 import '../../../utils/custom_textfield.dart';
 import '../../../utils/state_screen.dart';
+import '../../navigation/curved_navigation_bar.dart';
 
 class FamiliUnverif extends StatefulWidget {
   const FamiliUnverif({super.key});
@@ -32,7 +33,15 @@ class _FamiliUnverifState extends State<FamiliUnverif> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(text: ""),
+      appBar: CustomAppBar(
+        text: "",
+        ontap: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Navigation(pageId: 2)));
+        },
+      ),
       backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
           create: (context) => _verifBloc,

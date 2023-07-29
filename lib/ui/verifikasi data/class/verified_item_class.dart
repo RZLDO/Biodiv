@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/constant.dart';
+import '../../navigation/curved_navigation_bar.dart';
 
 class UnverifiedClassScreen extends StatefulWidget {
   const UnverifiedClassScreen({super.key});
@@ -32,7 +33,15 @@ class _UnverifiedClassScreenState extends State<UnverifiedClassScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(text: ""),
+      appBar: CustomAppBar(
+        text: "",
+        ontap: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Navigation(pageId: 2)));
+        },
+      ),
       backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
           create: (context) => _verifBloc,
