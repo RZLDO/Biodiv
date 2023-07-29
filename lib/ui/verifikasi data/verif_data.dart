@@ -42,6 +42,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 
   @override
+  void dispose() {
+    _verifBloc;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,

@@ -510,6 +510,7 @@ class _ReadMoreCustomState extends State<ReadMoreCustom> {
       trimMode: TrimMode.Line,
       trimCollapsedText: '  Show more',
       trimExpandedText: '   Show less',
+      textAlign: TextAlign.justify,
       style: GoogleFonts.poppins(
           textStyle: const TextStyle(
         fontSize: 14,

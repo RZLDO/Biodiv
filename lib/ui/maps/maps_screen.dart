@@ -43,13 +43,11 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
 
       final uri = Uri.parse('$baseUrl/image/${widget.spesies.image}');
       final http.Response response = await http.get(uri);
-      var bytes = await response.bodyBytes;
+      var bytes = response.bodyBytes;
 
       int desiredWidth = 100;
       int desiredHeight = 100;
 
-      ui.Image originalImage =
-          await decodeImageFromList(Uint8List.fromList(bytes));
       ui.Codec codec = await ui.instantiateImageCodec(Uint8List.fromList(bytes),
           targetHeight: desiredHeight, targetWidth: desiredWidth);
       ui.FrameInfo frameInfo = await codec.getNextFrame();
@@ -89,19 +87,10 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
   }
 
   static const CameraPosition _cameraPosition =
-      CameraPosition(zoom: 7, target: LatLng(4.509551, 96.931655));
+      CameraPosition(zoom: 7.3, target: LatLng(4.509551, 96.931655));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColor.secondaryColor,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios)),
-      ),
       body: GoogleMap(
           markers: Set<Marker>.from(markers),
           circles: circles,

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String text;
   final Color? color;
-  const CustomAppBar({super.key, required this.text, this.color});
+  final Function()? ontap;
+  const CustomAppBar({super.key, required this.text, this.color, this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +15,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: color ?? AppColor.backgroundColor,
       elevation: 0,
       iconTheme: const IconThemeData(color: AppColor.mainColor),
-      leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios)),
+      leading: GestureDetector(
+        onTap: ontap ??
+            () {
+              Navigator.pop(context);
+            },
+        child: Icon(Icons.arrow_back_ios),
+      ),
+
       title: Text(
         text,
         style: ReusableTextStyle.basicMainColorBold,

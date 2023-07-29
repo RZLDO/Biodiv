@@ -57,7 +57,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 100,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(2, 2),
+                                blurRadius: 5,
+                                blurStyle: BlurStyle.outer,
+                                color: Colors.black.withOpacity(0.6))
+                          ]),
                       child: Row(
                         children: [
                           Container(

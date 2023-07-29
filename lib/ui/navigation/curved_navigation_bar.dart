@@ -54,15 +54,15 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.backgroundColor,
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
-        backgroundColor: AppColor.secondaryColor,
+        color: AppColor.backgroundColor,
+        buttonBackgroundColor: Colors.white,
+        backgroundColor: AppColor.secondaryColor.withOpacity(0.7),
+        animationCurve: Curves.decelerate,
         items: [
-          const Icon(
-            Icons.home_sharp,
-            size: 30,
-            color: AppColor.mainColor,
-          ),
+          const Icon(Icons.home_sharp, size: 30, color: AppColor.mainColor),
           const Icon(
             Icons.list_alt,
             size: 30,

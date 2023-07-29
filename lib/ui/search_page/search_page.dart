@@ -129,10 +129,10 @@ class _SearchingPageState extends State<SearchingPage> {
                       } else if (state is SearchResultStateSuccess) {
                         final SearchResult? data = state.result.data;
 
-                        return data!.dataClass.isNotEmpty &&
-                                data.dataFamili.isNotEmpty &&
-                                data.dataGenus.isNotEmpty &&
-                                data.dataOrdo.isNotEmpty &&
+                        return data!.dataClass.isNotEmpty ||
+                                data.dataFamili.isNotEmpty ||
+                                data.dataGenus.isNotEmpty ||
+                                data.dataOrdo.isNotEmpty ||
                                 data.dataSpesies.isNotEmpty
                             ? Expanded(
                                 child: Padding(
@@ -377,7 +377,7 @@ class _SearchingPageState extends State<SearchingPage> {
                                                                       Axis
                                                                           .horizontal,
                                                                   itemCount: data
-                                                                      .dataOrdo
+                                                                      .dataGenus
                                                                       .length,
                                                                   itemBuilder:
                                                                       (context,
@@ -452,7 +452,7 @@ class _SearchingPageState extends State<SearchingPage> {
                                                                           () {
                                                                         Navigator.push(
                                                                             context,
-                                                                            MaterialPageRoute(builder: (context) => DetailSpesiesScreen(idSpesies: animalData.idGenus, idKelangkaan: animalData.idKategori)));
+                                                                            MaterialPageRoute(builder: (context) => DetailSpesiesScreen(idSpesies: animalData.idSpesies, idKelangkaan: animalData.idKategori)));
                                                                       },
                                                                       child: SearchingCard(
                                                                           height:

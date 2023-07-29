@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   builder: (context, state) {
                     return CustomButton(
-                        text: state is LoginLoading ? "Login" : "Loading",
+                        text: state is LoginLoading ? "Loading" : "login",
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             _loginBloc.add(LoginButtonPressed(

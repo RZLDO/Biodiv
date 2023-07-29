@@ -24,7 +24,6 @@ class SpesiesBloc extends Bloc<SpesiesEvent, SpesiesState> {
       AddLocationSpesiesEvent event, Emitter<SpesiesState> emit) async {
     final result = await repository.addSpesiesLocation(event.locationName,
         event.latitude, event.longitude, event.radius, event.idSpesies);
-    print(result.message);
     if (result.error) {
       emit(SpesiesFailure(errorMessage: result.error.toString()));
     } else {

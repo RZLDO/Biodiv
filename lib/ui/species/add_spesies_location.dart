@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/repository/spesies_repository.dart';
 import 'package:biodiv/utils/colors.dart';
@@ -7,6 +9,8 @@ import 'package:biodiv/utils/custom_textfield.dart';
 import 'package:biodiv/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../BloC/spesies/spesies_bloc.dart';
 import '../navigation/curved_navigation_bar.dart';
@@ -28,13 +32,40 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
   final latitude = TextEditingController();
   final longitude = TextEditingController();
   final radius = TextEditingController();
-
+  double? radiusCircle;
+  Marker _draggableMarker = const Marker(
+      draggable: true,
+      position: LatLng(4.509551, 96.931655),
+      markerId: MarkerId("1"));
+  Circle circle = Circle(
+    circleId: const CircleId('1'),
+    center: const LatLng(4.509551, 96.931655),
+    radius: 0,
+    fillColor: Colors.redAccent.withOpacity(0.5),
+    strokeColor: Colors.redAccent,
+    strokeWidth: 2,
+  );
   @override
   void initState() {
     _spesiesBloc = SpesiesBloc(repository: SpesiesRepository());
     super.initState();
   }
 
+  Future<String?> _getAddressFromLatLng(LatLng latLng) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      if (placemarks.isNotEmpty) {
+        Placemark placemark = placemarks.first;
+        return placemark.name; // Return the location name (address)
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  static const CameraPosition _cameraPosition =
+      CameraPosition(zoom: 7.3, target: LatLng(4.509551, 96.931655));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +74,43 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
       resizeToAvoidBottomInset: false,
       body: BlocProvider<SpesiesBloc>(
         create: (context) => _spesiesBloc,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Form(
+        child: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: GoogleMap(
+                markers: {_draggableMarker},
+                circles: {circle},
+                initialCameraPosition: _cameraPosition,
+                onTap: (LatLng latLng) async {
+                  // When the map is tapped, update the position of the draggable marker
+                  final lokasiResult = await _getAddressFromLatLng(latLng);
+                  setState(() {
+                    latitude.text = latLng.latitude.toString();
+                    longitude.text = latLng.longitude.toString();
+                    location.text = lokasiResult.toString();
+                    circle = circle.copyWith(
+                        fillColorParam: Colors.redAccent.withOpacity(0.5),
+                        strokeColorParam: Colors.redAccent,
+                        strokeWidthParam: 2,
+                        radiusParam: radiusCircle ?? 0,
+                        centerParam: LatLng(latLng.latitude, latLng.longitude));
+                    _draggableMarker = Marker(
+                      markerId: MarkerId('draggable_marker'),
+                      position: latLng,
+                      draggable: true,
+                    );
+                  });
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Form(
                   key: _key,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -79,50 +141,75 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
                       const SizedBox(
                         height: 15,
                       ),
-                      CustomTextField(
-                          hintText: 'Radius',
-                          controller: radius,
-                          isNumber: true,
-                          validator: Validator.validateRadius,
-                          obsecure: false),
+                      TextFormField(
+                        controller: radius,
+                        keyboardType: TextInputType.number,
+                        onEditingComplete: () {
+                          setState(() {
+                            double? parse = double.tryParse(radius.text);
+                            radiusCircle = parse;
+                            circle = circle.copyWith(
+                                fillColorParam:
+                                    Colors.redAccent.withOpacity(0.5),
+                                strokeColorParam: Colors.redAccent,
+                                strokeWidthParam: 2,
+                                radiusParam: radiusCircle);
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Radius",
+                          filled: true,
+                          fillColor: Colors.white.withOpacity(0.7),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 14),
+                        ),
+                      ),
                     ],
                   )),
-              const SizedBox(
-                height: 25,
-              ),
-              BlocConsumer<SpesiesBloc, SpesiesState>(
-                  bloc: _spesiesBloc,
-                  listener: (context, state) {
-                    if (state is AddLocationSuccess) {
-                      AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.success,
-                          title: "Add Location",
-                          desc: "add Location Success",
-                          btnOkOnPress: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Navigation(pageId: 0)));
-                          }).show();
-                    } else if (state is SpesiesFailure) {
-                      AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              title: "Add Location",
-                              desc:
-                                  "add Location for${widget.spesiesName}Failure",
-                              btnOkOnPress: () {})
-                          .show();
-                    }
-                  },
-                  builder: (context, state) {
-                    return CustomButton(
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            BlocConsumer<SpesiesBloc, SpesiesState>(
+                bloc: _spesiesBloc,
+                listener: (context, state) {
+                  if (state is AddLocationSuccess) {
+                    AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.success,
+                        title: "Add Location",
+                        desc: "add Location Success",
+                        btnOkOnPress: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Navigation(pageId: 0)));
+                        }).show();
+                  } else if (state is SpesiesFailure) {
+                    AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            title: "Add Location",
+                            desc:
+                                "add Location for${widget.spesiesName}Failure",
+                            btnOkOnPress: () {})
+                        .show();
+                  }
+                },
+                builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: CustomButton(
                         text: "Add Location",
                         onTap: () async {
                           if (_key.currentState!.validate()) {
-                            print("DOR");
                             _spesiesBloc.add(AddLocationSpesiesEvent(
                                 locationName: location.text,
                                 latitude: double.parse(latitude.text),
@@ -130,13 +217,13 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
                                 radius: int.parse(radius.text),
                                 idSpesies: widget.idSpesies));
                           }
-                        });
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+                        }),
+                  );
+                }),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
         ),
       ),
     );

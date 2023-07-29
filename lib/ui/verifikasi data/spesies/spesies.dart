@@ -4,6 +4,7 @@ import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/model/spesies/get_spesies_data.dart';
 
 import 'package:biodiv/repository/verification_repository.dart';
+import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:biodiv/ui/verifikasi%20data/verif_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,15 @@ class _SpesiesUnverifState extends State<SpesiesUnverif> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(text: ""),
+      appBar: CustomAppBar(
+        text: "",
+        ontap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Navigation(pageId: 2)));
+        },
+      ),
       backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
           create: (context) => _verifBloc,

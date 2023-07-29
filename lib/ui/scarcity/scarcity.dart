@@ -107,13 +107,24 @@ class _ScarcityScreenState extends State<ScarcityScreen> {
                                                       .idKategori)));
                                 },
                                 child: Card(
-                                  color: AppColor.mainColor,
+                                  margin: const EdgeInsets.only(
+                                      bottom: 10, left: 5, right: 5, top: 5),
+                                  elevation: 0,
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     height: MediaQuery.of(context).size.height *
                                         0.13,
-                                    decoration: const BoxDecoration(
-                                        image: DecorationImage(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              blurRadius: 2,
+                                              blurStyle: BlurStyle.outer,
+                                              color:
+                                                  Colors.black.withOpacity(0.6),
+                                              offset: const Offset(1.5, 1.5))
+                                        ],
+                                        image: const DecorationImage(
                                             image: AssetImage(
                                                 "asset/image/backgroundBanner.png"),
                                             fit: BoxFit.fill)),

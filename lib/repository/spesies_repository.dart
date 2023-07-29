@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:biodiv/utils/constant.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../model/spesies/get_spesies_data.dart';
@@ -27,7 +26,6 @@ class SpesiesRepository {
           await http.post(url, body: jsonEncode(requestBody), headers: headers);
 
       final json = jsonDecode(response.body);
-      print(json);
       final result = AddLocation.fromJson(json);
       return result;
     } catch (error) {

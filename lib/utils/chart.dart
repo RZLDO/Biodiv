@@ -99,7 +99,7 @@ class ShowLineChart extends StatelessWidget {
           .toList(),
       gridData: FlGridData(show: false),
       alignment: BarChartAlignment.spaceAround,
-      maxY: 20,
+      maxY: 40,
     ));
   }
 
