@@ -17,7 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/card_view.dart';
 import '../../utils/colors.dart';
 import '../../utils/constant.dart';
-import '../../utils/custom_button.dart';
 import '../../utils/state_screen.dart';
 import '../class page/class_detail_page.dart';
 import '../navigation/curved_navigation_bar.dart';
@@ -438,7 +437,8 @@ class _DetailFamiliState extends State<DetailFamili> {
                             left: 20,
                             right: 20,
                             child: Container(
-                              padding: const EdgeInsets.all(20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               height: 100,
                               decoration: BoxDecoration(
                                   boxShadow: [

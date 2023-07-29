@@ -407,7 +407,9 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                   left: 20,
                                   right: 20,
                                   child: Container(
-                                    padding: const EdgeInsets.all(20),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                    ),
                                     height: 100,
                                     decoration: BoxDecoration(
                                         boxShadow: [
@@ -423,27 +425,30 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              data.commonName,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black87),
-                                            ),
-                                            Text(
-                                              data.latinName,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 14,
-                                                  fontStyle: FontStyle.italic,
-                                                  color: Colors.black87),
-                                            )
-                                          ],
+                                        SizedBox(
+                                          width: 250,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.commonName,
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black87),
+                                              ),
+                                              Text(
+                                                data.latinName,
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 14,
+                                                    fontStyle: FontStyle.italic,
+                                                    color: Colors.black87),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                         GestureDetector(
                                           onTap: () {

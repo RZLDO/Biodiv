@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:biodiv/BloC/verification/verif_bloc.dart';
 import 'package:biodiv/model/get_ordo_model.dart';
 import 'package:biodiv/repository/verification_repository.dart';
+import 'package:biodiv/ui/navigation/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,15 @@ class _OrdoUnverifState extends State<OrdoUnverif> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(text: ""),
+      appBar: CustomAppBar(
+        text: "",
+        ontap: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Navigation(pageId: 2)));
+        },
+      ),
       backgroundColor: AppColor.backgroundColor,
       body: BlocProvider(
         create: (context) => _verifBloc,

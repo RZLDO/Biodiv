@@ -41,6 +41,8 @@ class CustomCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 8.0),
                   Text(
@@ -50,11 +52,15 @@ class CustomCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8.0),
                   Text(
                     namaLatin,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 14.0,
                       fontStyle: FontStyle.italic,
@@ -122,6 +128,7 @@ class SearchingCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
@@ -131,6 +138,7 @@ class SearchingCard extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     ),
                     maxLines: 1,
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

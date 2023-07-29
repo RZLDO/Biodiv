@@ -38,11 +38,11 @@ class _ShowPieChartState extends State<ShowPieChart> {
 
   Color getColor(int index) {
     final List<Color> colors = [
-      AppColor.mainColor,
+      AppColor.fiveColor,
       AppColor.secondaryColor,
       AppColor.thirdColor,
       Colors.blueGrey,
-      Colors.lightGreen,
+      AppColor.colorFour,
     ];
     return colors[index % colors.length];
   }

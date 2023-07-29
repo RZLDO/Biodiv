@@ -38,11 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
     'spesies'
   ];
   final List<Color> colors = [
-    AppColor.mainColor,
+    AppColor.fiveColor,
     AppColor.secondaryColor,
     AppColor.thirdColor,
     Colors.blueGrey,
-    Colors.lightGreen,
+    AppColor.colorFour,
   ];
   final List listNavigation = [
     const ClassScreen(),

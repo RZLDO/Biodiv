@@ -12,7 +12,6 @@ import 'package:biodiv/ui/ordo%20page/ordo_detail.dart';
 
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/constant.dart';
-import 'package:biodiv/utils/custom_button.dart';
 import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -436,7 +435,8 @@ class _DetailClassState extends State<DetailClass> {
                             left: 20,
                             right: 20,
                             child: Container(
-                              padding: const EdgeInsets.all(20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               height: 100,
                               decoration: BoxDecoration(
                                   boxShadow: [
