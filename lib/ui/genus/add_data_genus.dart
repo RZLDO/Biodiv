@@ -69,6 +69,8 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
       description = TextEditingController(text: widget.description);
       idFamili = widget.idFamili;
       getImageFromNetwork(widget.image.toString());
+    } else if (widget.idFamili != null) {
+      idFamili = widget.idFamili;
     }
     super.initState();
   }

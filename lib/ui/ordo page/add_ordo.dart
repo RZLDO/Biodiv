@@ -71,6 +71,8 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
       id = widget.idClass;
       characteristics = TextEditingController(text: widget.character);
       getImageFromNetwork(widget.image.toString());
+    } else if (widget.idClass != null) {
+      id = widget.idClass;
     }
   }
 
@@ -314,9 +316,13 @@ class _AddOrdoScreenState extends State<AddOrdoScreen> {
                   ),
                 );
               } else {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColor.mainColor,
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColor.mainColor,
+                    ),
                   ),
                 );
               }

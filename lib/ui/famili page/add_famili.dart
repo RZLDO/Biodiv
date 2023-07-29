@@ -51,8 +51,6 @@ class _AddFamiliState extends State<AddFamili> {
   TextEditingController commonName = TextEditingController();
   TextEditingController characteristics = TextEditingController();
   TextEditingController description = TextEditingController();
-  // TextEditingController idOrdo = TextEditingController();
-  // XFile? imagefromUrl;
   final GlobalKey<FormState> _key = GlobalKey();
   XFile? _imagePicker;
   late OrdoBloc _ordoBloc;
@@ -70,6 +68,8 @@ class _AddFamiliState extends State<AddFamili> {
       description = TextEditingController(text: widget.description);
       id = widget.idOrdo;
       getImageFromNetwork(widget.image.toString());
+    } else if (widget.idOrdo != null) {
+      id = widget.idOrdo;
     }
     _ordoBloc.add(GetIdLatinOrdoEvent());
   }
