@@ -312,7 +312,7 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                 '$baseUrl/image/${data!.image}',
                                 width: MediaQuery.of(context).size.width,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.3,
+                                    MediaQuery.of(context).size.height * 0.4,
                                 fit: BoxFit.cover,
                               )),
                               Positioned(
@@ -426,7 +426,10 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         SizedBox(
-                                          width: 250,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,

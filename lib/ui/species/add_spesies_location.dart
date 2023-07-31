@@ -5,8 +5,6 @@ import 'package:biodiv/repository/spesies_repository.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:biodiv/utils/custom_button.dart';
-import 'package:biodiv/utils/custom_textfield.dart';
-import 'package:biodiv/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -49,6 +47,29 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
   void initState() {
     _spesiesBloc = SpesiesBloc(repository: SpesiesRepository());
     super.initState();
+  }
+
+  Future<void> _getLatlongFromAddress(String locationName) async {
+    try {
+      List<Location> latLong = await locationFromAddress(locationName);
+      if (latLong.isNotEmpty) {
+        latitude.text = latLong[0].latitude.toString();
+        longitude.text = latLong[0].longitude.toString();
+        _draggableMarker = Marker(
+          markerId: const MarkerId('draggable_marker'),
+          position: LatLng(latLong[0].latitude, latLong[0].longitude),
+          draggable: true,
+        );
+        circle = circle.copyWith(
+            fillColorParam: Colors.redAccent.withOpacity(0.5),
+            strokeColorParam: Colors.redAccent,
+            strokeWidthParam: 2,
+            centerParam: LatLng(latLong[0].latitude, latLong[0].longitude),
+            radiusParam: radiusCircle); // Return the location name (address)
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<String> _getAddressFromLatLng(LatLng latLng) async {
@@ -116,29 +137,107 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomTextField(
-                          hintText: 'Location Name',
-                          controller: location,
-                          validator: Validator.basicValidate,
-                          obsecure: false),
+                      TextFormField(
+                        controller: location,
+                        onEditingComplete: () {
+                          setState(() {
+                            _getLatlongFromAddress(location.text);
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Location",
+                          filled: true,
+                          fillColor: Colors.white.withOpacity(0.7),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 14),
+                        ),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
-                      CustomTextField(
-                          hintText: 'Latitude',
-                          controller: latitude,
-                          isNumber: true,
-                          validator: Validator.basicValidate,
-                          obsecure: false),
+                      TextFormField(
+                        controller: longitude,
+                        keyboardType: TextInputType.number,
+                        onEditingComplete: () {
+                          setState(() {
+                            if (latitude.text.isNotEmpty &&
+                                longitude.text.isNotEmpty) {
+                              double? parseLatitude =
+                                  double.tryParse(latitude.text);
+                              double? parseLongitude =
+                                  double.tryParse(latitude.text);
+                              if (parseLatitude != null &&
+                                  parseLongitude != null) {
+                                _draggableMarker = Marker(
+                                  markerId: const MarkerId('draggable_marker'),
+                                  position: LatLng(parseLatitude.toDouble(),
+                                      parseLongitude.toDouble()),
+                                  draggable: true,
+                                );
+                              }
+                            }
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Longitude",
+                          filled: true,
+                          fillColor: Colors.white.withOpacity(0.7),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 14),
+                        ),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
-                      CustomTextField(
-                          hintText: 'Longitude',
-                          controller: longitude,
-                          isNumber: true,
-                          validator: Validator.basicValidate,
-                          obsecure: false),
+                      TextFormField(
+                        controller: longitude,
+                        keyboardType: TextInputType.number,
+                        onEditingComplete: () {
+                          setState(() {
+                            if (latitude.text.isNotEmpty &&
+                                longitude.text.isNotEmpty) {
+                              double? parseLatitude =
+                                  double.tryParse(latitude.text);
+                              double? parseLongitude =
+                                  double.tryParse(latitude.text);
+                              if (parseLatitude != null &&
+                                  parseLongitude != null) {
+                                _draggableMarker = Marker(
+                                  markerId: const MarkerId('draggable_marker'),
+                                  position: LatLng(parseLatitude.toDouble(),
+                                      parseLongitude.toDouble()),
+                                  draggable: true,
+                                );
+                              }
+                            }
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Longitude",
+                          filled: true,
+                          fillColor: Colors.white.withOpacity(0.7),
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 14),
+                        ),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),

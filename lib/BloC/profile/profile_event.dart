@@ -11,3 +11,23 @@ class GetProfileEvent extends ProfileEvent {
   @override
   List<Object?> get props => [idUser];
 }
+
+class ChangePasswordEvent extends ProfileEvent {
+  final int idUser;
+  final String oldPassword;
+  final String newPassword;
+  ChangePasswordEvent(
+      {required this.idUser,
+      required this.oldPassword,
+      required this.newPassword});
+  @override
+  List<Object?> get props => [idUser];
+}
+
+class ChangeUsernameEvent extends ProfileEvent {
+  final int idUser;
+  final String username;
+  ChangeUsernameEvent({required this.idUser, required this.username});
+  @override
+  List<Object?> get props => [idUser];
+}

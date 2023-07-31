@@ -10,6 +10,8 @@ part 'profile_event.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc({required this.repository}) : super(ProfileInitial()) {
     on<GetProfileEvent>(getProfile);
+    on<ChangeUsernameEvent>(changeUsername);
+    on<ChangePasswordEvent>(changePassword);
   }
   final ProfileRepository repository;
   Future<void> getProfile(
@@ -20,6 +22,32 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(GetProfileStateFailure(message: result.message));
     } else {
       emit(GetProfileStateSuccess(result: result));
+    }
+  }
+
+  Future<void> changeUsername(
+      ChangeUsernameEvent event, Emitter<ProfileState> emit) async {
+    final result =
+        await repository.changeUsernameRepository(event.idUser, event.username);
+
+    emit(ProfileLoading());
+    if (result.error == true) {
+      emit(StateFailure(message: result.message));
+    } else {
+      emit(ChangePasswordAndUsernameSuccess(result: result));
+    }
+  }
+
+  Future<void> changePassword(
+      ChangePasswordEvent event, Emitter<ProfileState> emit) async {
+    final result = await repository.changePasswordRepository(
+        event.idUser, event.oldPassword, event.newPassword);
+
+    emit(ProfileLoading());
+    if (result.error == true) {
+      emit(StateFailure(message: result.message));
+    } else {
+      emit(ChangePasswordAndUsernameSuccess(result: result));
     }
   }
 }

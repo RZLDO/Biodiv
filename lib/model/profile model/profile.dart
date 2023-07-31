@@ -13,6 +13,23 @@ class ProfileResponse {
   }
 }
 
+class ChangePasswordAndUsernameResponse {
+  final bool error;
+  final String message;
+  ChangePasswordAndUsernameResponse({
+    required this.error,
+    required this.message,
+  });
+
+  factory ChangePasswordAndUsernameResponse.fromJson(
+      Map<String, dynamic> json) {
+    return ChangePasswordAndUsernameResponse(
+      error: json['error'],
+      message: json['message'],
+    );
+  }
+}
+
 class ProfileData {
   int idInstitusi;
   String nama;

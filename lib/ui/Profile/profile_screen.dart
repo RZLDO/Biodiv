@@ -1,5 +1,7 @@
 import 'package:biodiv/model/profile%20model/profile.dart';
 import 'package:biodiv/repository/profile_repository.dart';
+import 'package:biodiv/ui/Profile/change_password.dart';
+import 'package:biodiv/ui/Profile/change_username.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   late ProfileBloc _profileBloc;
+  int? idInstitusi;
   @override
   void initState() {
     _profileBloc = ProfileBloc(repository: ProfileRepository());
@@ -27,9 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void getUserPreference() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final idInstitusi = preferences.getInt('id');
+    idInstitusi = preferences.getInt('id');
     if (idInstitusi != null) {
-      _profileBloc.add(GetProfileEvent(idUser: idInstitusi));
+      _profileBloc.add(GetProfileEvent(idUser: idInstitusi!.toInt()));
     }
   }
 
@@ -100,7 +103,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         ],
                       ),
-                    )
+                    ),
+                    ProfileButton(
+                      text: "Change username",
+                      ontap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangeUsernameScreen(
+                                      idUser: idInstitusi!.toInt(),
+                                    )));
+                      },
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    ProfileButton(
+                      text: "Change password ",
+                      ontap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangePasswordScreen(
+                                      idUser: idInstitusi!.toInt(),
+                                    )));
+                      },
+                    ),
                   ],
                 );
               } else {
@@ -112,6 +140,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
             }),
       )),
+    );
+  }
+}
+
+class ProfileButton extends StatelessWidget {
+  final String text;
+  final Function() ontap;
+  const ProfileButton({super.key, required this.ontap, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        width: MediaQuery.of(context).size.width,
+        height: 50,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(2, 2),
+                  blurRadius: 5,
+                  blurStyle: BlurStyle.outer,
+                  color: Colors.black.withOpacity(0.6))
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: AppColor.mainColor,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

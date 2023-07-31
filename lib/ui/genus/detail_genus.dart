@@ -148,7 +148,7 @@ class _DetailGenusScreenState extends State<DetailGenusScreen> {
                                                             isEdit: true,
                                                           )));
                                             },
-                                            text: "Edit this Family"),
+                                            text: "Edit this Genus"),
                                         const Divider(
                                           thickness: 1,
                                         ),

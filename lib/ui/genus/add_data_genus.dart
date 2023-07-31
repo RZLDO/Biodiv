@@ -51,7 +51,6 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
   TextEditingController commonName = TextEditingController();
   TextEditingController characteristics = TextEditingController();
   TextEditingController description = TextEditingController();
-  // TextEditingController id = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey();
   late GenusBloc _genusBloc;
   late FamiliBloc _familiBloc;
@@ -298,7 +297,7 @@ class _AddDataGenusScreenState extends State<AddDataGenusScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const Navigation(pageId: 1)));
+                                                const Navigation(pageId: 0)));
                                   }).show();
                             } else if (state is GenusFailure) {
                               AwesomeDialog(
