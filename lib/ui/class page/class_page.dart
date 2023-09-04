@@ -83,7 +83,7 @@ class _ClassScreenState extends State<ClassScreen> {
                     ),
                   );
                 } else if (state is GetDataSuccess) {
-                  List<ClassData> data = state.dataClass;
+                  List<ClassData>? data = state.dataClass;
                   return ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {

@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "BIODIV-INFORMATICS",
           style: ReusableTextStyle.basicWhiteBold,
         ),
-        leading: null,
+        leading: const Icon(null),
       ),
       body: BlocProvider(
           create: (context) => _homeBloc,

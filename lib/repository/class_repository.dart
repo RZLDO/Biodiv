@@ -149,14 +149,14 @@ class ClassRepository {
     }
   }
 
-  Future<String> deleteClassRepository(int id) async {
+  Future<UpdateDataClass> deleteClassRepository(int id) async {
     try {
       final url = Uri.parse('$baseUrl/class/$id');
       http.Response response = await http.delete(url);
       final json = jsonDecode(response.body);
       return json;
     } catch (error) {
-      return "an error Occured $error";
+      return UpdateDataClass(error: true, message: error.toString());
     }
   }
 }

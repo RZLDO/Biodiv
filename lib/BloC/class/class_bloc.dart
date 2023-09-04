@@ -92,6 +92,10 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
   Future<void> deleteClassData(
       DeleteClass event, Emitter<ClassState> emit) async {
     final result = await repository.deleteClassRepository(event.idClass);
-    emit(DeleteSuccess(response: result));
+    if (result.error) {
+      emit(DeleteFailure(message: result.message));
+    } else {
+      emit(DeleteSuccess(response: result));
+    }
   }
 }

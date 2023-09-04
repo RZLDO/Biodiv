@@ -67,9 +67,7 @@ class _AddLocationSpesiesState extends State<AddLocationSpesies> {
             centerParam: LatLng(latLong[0].latitude, latLong[0].longitude),
             radiusParam: radiusCircle); // Return the location name (address)
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Future<String> _getAddressFromLatLng(LatLng latLng) async {

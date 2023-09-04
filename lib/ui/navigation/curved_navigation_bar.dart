@@ -1,3 +1,4 @@
+import 'package:biodiv/ui/News/news_page.dart';
 import 'package:biodiv/ui/Profile/profile_screen.dart';
 import 'package:biodiv/ui/home/home_screen.dart';
 import 'package:biodiv/ui/scarcity/scarcity.dart';
@@ -36,6 +37,7 @@ class _NavigationState extends State<Navigation> {
         navigation = [
           const HomeScreen(),
           const ScarcityScreen(),
+          const NewsPage(),
           const ProfileScreen()
         ];
       });
@@ -45,6 +47,7 @@ class _NavigationState extends State<Navigation> {
         navigation = [
           const HomeScreen(),
           const ScarcityScreen(),
+          const NewsPage(),
           const VerificationScreen()
         ];
       });
@@ -68,6 +71,7 @@ class _NavigationState extends State<Navigation> {
             size: 30,
             color: AppColor.mainColor,
           ),
+          const Icon(Icons.newspaper, size: 30, color: AppColor.mainColor),
           isAdmin != null && isAdmin!
               ? const Icon(
                   Icons.verified_user,

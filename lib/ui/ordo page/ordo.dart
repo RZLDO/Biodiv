@@ -89,19 +89,22 @@ class _OrdoScreenState extends State<OrdoScreen> {
                     return const Center(
                         child: FailureState(textMessage: "an error occured"));
                   } else if (state is Success) {
-                    List<OrdoData> data = state.response.data;
+                    List<OrdoData> ordoData = state.response.data;
                     return ListView.builder(
-                        itemCount: data.length,
+                        itemCount: ordoData.length,
                         itemBuilder: (BuildContext context, int index) {
                           OrdoData? dataAnimal;
                           OrdoData? dataAnimalDua;
-                          if (index % 2 == 0 && index + 1 < data.length) {
-                            dataAnimal = data[index];
-                            dataAnimalDua = data[index + 1];
-                          } else if (data.length >= 2) {
-                            if (index == data.length - 2) {
-                              dataAnimal = data[index + 1];
+
+                          if (index % 2 == 0 && index + 1 < ordoData.length) {
+                            dataAnimal = ordoData[index];
+                            dataAnimalDua = ordoData[index + 1];
+                          } else if (ordoData.length >= 2) {
+                            if (index == ordoData.length - 2) {
+                              dataAnimal = ordoData[index + 1];
                             }
+                          } else {
+                            dataAnimal = ordoData[index];
                           }
                           return Row(
                             children: [

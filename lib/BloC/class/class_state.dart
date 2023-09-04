@@ -44,10 +44,18 @@ class DetailSuccess extends ClassState {
 }
 
 class DeleteSuccess extends ClassState {
-  final String response;
-  DeleteSuccess({required this.response});
+  final UpdateDataClass? response;
+
+  DeleteSuccess({this.response});
   @override
   List<Object?> get props => [response];
+}
+
+class DeleteFailure extends ClassState {
+  final String message;
+  DeleteFailure({required this.message});
+  @override
+  List<Object?> get props => [message];
 }
 
 class EditSuccess extends ClassState {

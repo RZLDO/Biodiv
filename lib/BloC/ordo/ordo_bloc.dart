@@ -25,7 +25,6 @@ class OrdoBloc extends Bloc<OrdoEvent, OrdoState> {
       GetOrdoByClassEvent event, Emitter<OrdoState> emit) async {
     emit(OrdoLoading());
     final result = await repository.getOrdoByClass(event.idClass, event.page);
-
     if (result.error) {
       emit(FailureOrdo(errorMessage: result.message));
     } else {

@@ -4,6 +4,7 @@ import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:biodiv/model/spesies/get_spesies_data.dart';
 import 'package:biodiv/repository/scarcity_repository.dart';
 import 'package:biodiv/repository/spesies_repository.dart';
+import 'package:biodiv/ui/analisa%20Gis/analisa_gis.dart';
 import 'package:biodiv/ui/maps/maps_screen.dart';
 import 'package:biodiv/ui/scarcity/detail_scarcity.dart';
 import 'package:biodiv/ui/species/add_spesies.dart';
@@ -147,6 +148,23 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                                               ).show();
                                                       },
                                                       text: "location"),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  ItemsAdmin(
+                                                      icon: Icons.analytics,
+                                                      ontap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        AnalisaGIS(
+                                                                          idSpesies:
+                                                                              data!.id,
+                                                                        )));
+                                                      },
+                                                      text: "GIS Analysis"),
                                                   const Divider(
                                                     thickness: 1,
                                                   ),

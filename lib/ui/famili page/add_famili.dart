@@ -269,7 +269,7 @@ class _AddFamiliState extends State<AddFamili> {
                                   context: context,
                                   dialogType: DialogType.success,
                                   autoDismiss: false,
-                                  title: "Add Ordo Data",
+                                  title: "Add Famili Data",
                                   desc:
                                       "Please wait admin to verification your data",
                                   onDismissCallback: (type) =>

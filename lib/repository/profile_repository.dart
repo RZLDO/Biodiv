@@ -54,7 +54,6 @@ class ProfileRepository {
       http.Response response = await http.put(uri,
           body: {'oldPassword': oldPassword, 'newPassword': newPassword});
       final json = jsonDecode(response.body);
-      print(json);
       final result = ChangePasswordAndUsernameResponse.fromJson(json);
       return result;
     } catch (error) {

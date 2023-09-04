@@ -151,49 +151,78 @@ class _DetailClassState extends State<DetailClass> {
                                         ItemsAdmin(
                                             icon: Icons.delete_forever,
                                             ontap: () {
-                                              AwesomeDialog(
-                                                      context: context,
-                                                      dialogType:
-                                                          DialogType.warning,
-                                                      autoDismiss: false,
-                                                      onDismissCallback:
-                                                          (type) {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      btnOkOnPress: () {
-                                                        _classBloc.add(
-                                                            DeleteClass(
-                                                                idClass: data!
-                                                                    .idClass));
-                                                        AwesomeDialog(
-                                                                context:
-                                                                    context,
-                                                                autoDismiss:
-                                                                    false,
-                                                                onDismissCallback:
-                                                                    (type) {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                dialogType:
-                                                                    DialogType
-                                                                        .success,
-                                                                btnOkOnPress:
-                                                                    () {
-                                                                  Navigator.pushReplacement(
+                                              if (ordoData.isNotEmpty) {
+                                                AwesomeDialog(
+                                                        context: context,
+                                                        dialogType:
+                                                            DialogType.info,
+                                                        autoDismiss: false,
+                                                        onDismissCallback:
+                                                            (type) {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        btnOkOnPress: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      const Navigation(
+                                                                          pageId:
+                                                                              0)));
+                                                        },
+                                                        btnCancelOnPress: () {},
+                                                        title:
+                                                            "Gagal Menghapus Data ini mempunyai Relasi")
+                                                    .show();
+                                              } else {
+                                                AwesomeDialog(
+                                                        context: context,
+                                                        dialogType:
+                                                            DialogType.warning,
+                                                        autoDismiss: false,
+                                                        onDismissCallback:
+                                                            (type) {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        btnOkOnPress: () {
+                                                          _classBloc.add(
+                                                              DeleteClass(
+                                                                  idClass: data!
+                                                                      .idClass));
+                                                          AwesomeDialog(
+                                                                  context:
                                                                       context,
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              const Navigation(pageId: 0)));
-                                                                },
-                                                                title:
-                                                                    "Data Berhasil di hapus")
-                                                            .show();
-                                                      },
-                                                      btnCancelOnPress: () {},
-                                                      title:
-                                                          "Are you sure to delete this data?")
-                                                  .show();
+                                                                  dialogType:
+                                                                      DialogType
+                                                                          .info,
+                                                                  autoDismiss:
+                                                                      false,
+                                                                  onDismissCallback:
+                                                                      (type) {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  btnOkOnPress:
+                                                                      () {
+                                                                    Navigator.pushReplacement(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                const Navigation(pageId: 0)));
+                                                                  },
+                                                                  btnCancelOnPress:
+                                                                      () {},
+                                                                  title:
+                                                                      "Back to main Menu")
+                                                              .show();
+                                                        },
+                                                        btnCancelOnPress: () {},
+                                                        title:
+                                                            "Are you sure to delete this data?")
+                                                    .show();
+                                              }
                                             },
                                             text: "Delete Data "),
                                         const Divider(
@@ -362,6 +391,9 @@ class _DetailClassState extends State<DetailClass> {
                                                         dataAnimal =
                                                             ordoData[index + 1];
                                                       }
+                                                    } else {
+                                                      dataAnimal =
+                                                          ordoData[index];
                                                     }
                                                     return Padding(
                                                       padding:
