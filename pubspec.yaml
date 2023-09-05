@@ -55,6 +55,7 @@ dependencies:
   flutter_image_compress: ^2.0.4
   geocoding: ^2.1.0
   syncfusion_flutter_charts: ^20.2.39
+  webview_flutter: ^4.2.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

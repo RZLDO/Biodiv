@@ -2,10 +2,13 @@ import 'package:biodiv/BloC/news/news_bloc.dart';
 import 'package:biodiv/model/News%20Model/news_model.dart';
 import 'package:biodiv/repository/news_repository.dart';
 import 'package:biodiv/ui/News/add_news.dart';
+import 'package:biodiv/ui/News/detail_news.dart';
 import 'package:biodiv/utils/colors.dart';
+import 'package:biodiv/utils/constant.dart';
 import 'package:biodiv/utils/state_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsPage extends StatefulWidget {
@@ -76,7 +79,65 @@ class _NewsPageState extends State<NewsPage> {
                     final List<NewsResult> data = state.response.newsResult;
                     return ListView.builder(
                         itemCount: data.length,
-                        itemBuilder: (context, int index) {});
+                        itemBuilder: (context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailNews(
+                                            judul: data[index].judulBerita,
+                                            webUrl: data[index].webUrl,
+                                            idBerita: data[index].idBerita,
+                                          )));
+                            },
+                            child: Card(
+                              margin: const EdgeInsets.all(5),
+                              shadowColor: Colors.black.withOpacity(0.9),
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.network(
+                                      '$baseUrl/image/${data[index].image}',
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data[index].judulBerita,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16),
+                                        ),
+                                        Text(
+                                          data[index].deskripsi,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 12),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        });
                   }
                 } else if (state is NewsFailure) {
                   return FailureState(textMessage: state.errorMessage);
