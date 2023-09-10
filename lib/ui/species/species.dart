@@ -2,6 +2,7 @@ import 'package:biodiv/BloC/spesies/spesies_bloc.dart';
 import 'package:biodiv/repository/spesies_repository.dart';
 import 'package:biodiv/ui/species/add_spesies.dart';
 import 'package:biodiv/ui/species/detail_species.dart';
+import 'package:biodiv/ui/species/report.dart';
 import 'package:biodiv/utils/colors.dart';
 import 'package:biodiv/utils/custom_app_bar.dart';
 import 'package:biodiv/utils/state_screen.dart';
@@ -67,15 +68,81 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
           ? FloatingActionButton(
               backgroundColor: AppColor.secondaryColor,
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AddSpesiesScreen(
-                              isEdit: false,
-                            )));
+                showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(30))),
+                    builder: (context) {
+                      return Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.black45,
+                                )),
+                            ItemsAdmin(
+                                icon: Icons.report,
+                                ontap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PdfReportPage(
+                                                pdfURl:
+                                                    '$baseUrl/report/spesies',
+                                                title: "Spesies Report",
+                                              )));
+                                },
+                                text: "Get Spesies Report"),
+                            const Divider(
+                              thickness: 1,
+                            ),
+                            ItemsAdmin(
+                                icon: Icons.location_on_outlined,
+                                ontap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PdfReportPage(
+                                                pdfURl:
+                                                    '$baseUrl/report/penyebaran',
+                                                title: "Penyebaran Report",
+                                              )));
+                                },
+                                text: "Get Location Report"),
+                            const Divider(
+                              thickness: 1,
+                            ),
+                            ItemsAdmin(
+                                icon: Icons.add,
+                                ontap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AddSpesiesScreen(
+                                                  isEdit: false)));
+                                },
+                                text: "Add Spesies Data"),
+                            const Divider(
+                              thickness: 1,
+                            ),
+                          ],
+                        ),
+                      );
+                    });
               },
               child: const Icon(
-                Icons.add,
+                Icons.admin_panel_settings,
                 color: Colors.white,
               ),
             )

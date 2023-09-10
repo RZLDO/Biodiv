@@ -162,6 +162,8 @@ class _DetailSpesiesScreenState extends State<DetailSpesiesScreen> {
                                                                         AnalisaGIS(
                                                                           idSpesies:
                                                                               data!.id,
+                                                                          idKelangkaan:
+                                                                              data.idScarcity,
                                                                         )));
                                                       },
                                                       text: "GIS Analysis"),

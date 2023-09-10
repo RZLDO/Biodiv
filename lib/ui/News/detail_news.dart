@@ -37,7 +37,6 @@ class _DetailNewsState extends State<DetailNews> {
     _newsBloc = NewsBloc(newsRepository: NewsRepository());
     super.initState();
   }
-
   void getUserPreference() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
 
@@ -52,7 +51,6 @@ class _DetailNewsState extends State<DetailNews> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<NewsBloc>(

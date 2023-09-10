@@ -1,7 +1,9 @@
 import 'package:biodiv/model/scarcity/scarcity.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../model/analysa model/analysa_model.dart';
 import 'colors.dart';
 
 class ShowPieChart extends StatefulWidget {
@@ -207,4 +209,68 @@ class ShowLineChart extends StatelessWidget {
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       );
+}
+
+class ChartAnalytic extends StatefulWidget {
+  final Map<String, List<AnalysisData>> analyticData; // Nama-nama seri
+  const ChartAnalytic({
+    Key? key,
+    required this.analyticData,
+  }) : super(key: key);
+
+  @override
+  State<ChartAnalytic> createState() => _ChartAnalyticState();
+}
+
+class _ChartAnalyticState extends State<ChartAnalytic> {
+  Map<String, List<AnalysisData>>? chartData;
+  TrackballBehavior? _trackballBehavior;
+
+  @override
+  void initState() {
+    _trackballBehavior = TrackballBehavior(
+        enable: true, activationMode: ActivationMode.singleTap);
+    chartData = widget.analyticData;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildStackedLineChart();
+  }
+
+  SfCartesianChart _buildStackedLineChart() {
+    return SfCartesianChart(
+      plotAreaBorderWidth: 0,
+      title:
+          ChartTitle(text: 'Occurrence rate', alignment: ChartAlignment.near),
+      legend: Legend(isVisible: true, position: LegendPosition.bottom),
+      primaryXAxis: CategoryAxis(
+        majorGridLines: const MajorGridLines(width: 0),
+        labelRotation: -30,
+      ),
+      primaryYAxis: NumericAxis(
+          maximum: 30,
+          axisLine: const AxisLine(width: 0),
+          labelFormat: r'{value}',
+          majorTickLines: const MajorTickLines(size: 0)),
+      series: _getStackedLineSeries(),
+      trackballBehavior: _trackballBehavior,
+    );
+  }
+
+  List<StackedLineSeries<AnalysisData, String>> _getStackedLineSeries() {
+    List<StackedLineSeries<AnalysisData, String>> seriesList = [];
+
+    widget.analyticData.forEach((location, data) {
+      seriesList.add(StackedLineSeries<AnalysisData, String>(
+        dataSource: data,
+        xValueMapper: (AnalysisData data, _) => data.bulan,
+        yValueMapper: (AnalysisData data, _) => data.totalPerkemunculan,
+        name: location,
+        markerSettings: const MarkerSettings(isVisible: true),
+      ));
+    });
+    return seriesList;
+  }
 }
